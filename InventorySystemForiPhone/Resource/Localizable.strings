@@ -1,0 +1,17 @@
+/*
+ File.strings
+ IS
+ 
+ Created by yangboshan on 16/5/4.
+ Copyright (c) 2016年 yangboshan. All rights reserved.
+ */
+
+/*-------DataBase-------*/
+DataBaseName ="LinoonInv.sqlite";
+
+
+/*-------Title List-------*/
+
+ISLoginViewController  = "登录";
+
+
