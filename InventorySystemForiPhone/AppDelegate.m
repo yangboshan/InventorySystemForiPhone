@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-
 #import "ISMainPageViewController.h"
 
 @interface AppDelegate ()
@@ -21,7 +20,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [self initialSetup];
- 
+    
     ISMainPageViewController* mainPageController = [ISMainPageViewController new];
     UINavigationController* navController = [[UINavigationController alloc] initWithRootViewController:mainPageController];
     self.window.rootViewController = navController;

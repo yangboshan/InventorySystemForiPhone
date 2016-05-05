@@ -8,6 +8,7 @@
 
 #import "ISNetworkingServiceProviderFactory.h"
 #import "ISNetworkingSOAPServiceProvider.h"
+#import "ISNetworkingHostServiceProvider.h"
 
 @interface ISNetworkingServiceProviderFactory()
 
@@ -40,6 +41,9 @@
     
     if ([identifier isEqualToString:NSStringFromClass([ISNetworkingSOAPServiceProvider class])]) {
         return [ISNetworkingSOAPServiceProvider new];
+    }
+    if ([identifier isEqualToString:NSStringFromClass([ISNetworkingHostServiceProvider class])]) {
+        return [ISNetworkingHostServiceProvider new];
     }
     return nil;
 }

@@ -8,13 +8,23 @@
 
 #import "ISMainPageViewController.h"
 #import "ISLoginViewController.h"
-#import "ISMainPageViewModel.h"
-#import "ISMainPageCollectionViewCell.h"
+#import "ISRemainTimeViewController.h"
 
-@interface ISMainPageViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>
+#import "ISMainPageViewModel.h"
+#import "ISNetworkingRemainTimeAPIHandler.h"
+#import "ISRemainTimeFormatter.h"
+
+#import "ISMainPageCollectionViewCell.h"
+#import "ISMainPageHeaderView.h"
+
+@interface ISMainPageViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,ISNetworkingAPIHandlerCallBackDelegate,ISNetworkingAPIHandlerParamSourceDelegate>
+
 @property (nonatomic,strong) UICollectionView* collectionView;
 @property (nonatomic,strong) NSArray* dataList;
-@property (nonatomic,strong) ISMainPageViewModel* mainPageViewModel;
+@property (nonatomic,strong) ISMainPageViewModel * mainPageViewModel;
+@property (nonatomic,strong) ISMainPageHeaderView * headerView;
+@property (nonatomic,strong) ISNetworkingRemainTimeAPIHandler * remainTimeAPIHandler;
+@property (nonatomic,strong) ISRemainTimeFormatter * remainTimeFormatter;
 @end
 
 @implementation ISMainPageViewController
@@ -36,8 +46,11 @@ static int   cellPerRow = 4;
 
 - (void)initialSetup{
     
-    self.dataList = [self.mainPageViewModel fetchFormatDataSource];
+    if ([ISSettingManager sharedInstance].isLogined) {
+        [self.remainTimeAPIHandler loadData];
+    }
     
+    self.dataList = [self.mainPageViewModel fetchFormatDataSource];
     [self.view setBackgroundColor:RGB(243, 244, 245)];
     [self.view addSubview:self.collectionView];
     
@@ -48,10 +61,37 @@ static int   cellPerRow = 4;
     [super viewDidAppear:animated];
     
     if (![ISSettingManager sharedInstance].isLogined) {
-        ISLoginViewController* loginController = [ISLoginViewController new];
-        UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:loginController];
-        [self presentViewController:nav animated:YES completion:nil];
+        [self showLoginController];
     }
+}
+
+#pragma mark - ISNetworkingAPIHandlerCallBackDelegate
+
+- (void)managerCallAPIDidSuccess:(ISNetworkingBaseAPIHandler *)manager{
+    if ([manager isKindOfClass:[ISNetworkingRemainTimeAPIHandler class]]) {
+        NSDictionary* data = [self.remainTimeFormatter manager:manager reformData:manager.fetchedRawData];
+        
+        if ([data[kISRemainTimeResut] IS_isEmptyObject]) {
+            ISRemainTimeViewController* controller = [ISRemainTimeViewController new];
+            UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:controller];
+            [self.navigationController presentViewController:nav animated:YES completion:nil];
+            [[ISProcessViewHelper sharedInstance] showProcessViewWithText:@"没有使用时间啦，去充值吧" InView:nav.view];
+        }
+    }
+}
+
+- (void)managerCallAPIDidFailed:(ISNetworkingBaseAPIHandler *)manager{
+    [[ISProcessViewHelper sharedInstance] showProcessViewWithText:@"ERROR" InView:self.view];
+}
+
+#pragma mark - ISNetworkingAPIHandlerParamSourceDelegate
+
+- (NSDictionary*)paramsForApi:(ISNetworkingBaseAPIHandler *)manager{
+    if ([manager isKindOfClass:[ISNetworkingRemainTimeAPIHandler class]]) {
+        NSLog(@"HashID---------%@",[[UIDevice currentDevice] IS_macaddressMD5]);
+        return @{@"HashID":[[UIDevice currentDevice] IS_macaddressMD5]};
+    }
+    return nil;
 }
 
 #pragma mark - methods
@@ -61,6 +101,11 @@ static int   cellPerRow = 4;
     [self.collectionView reloadData];
 }
 
+- (void)showLoginController{
+    ISLoginViewController* loginController = [ISLoginViewController new];
+    UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:loginController];
+    [self presentViewController:nav animated:YES completion:nil];
+}
 
 #pragma mark - UICollectionViewDelegate & UICollectionViewDataSource
 
@@ -120,11 +165,34 @@ static int   cellPerRow = 4;
     return _collectionView;
 }
 
+- (ISMainPageHeaderView*)headerView{
+    if (_headerView == nil) {
+        _headerView = [[[NSBundle mainBundle] loadNibNamed:@"ISMainPageHeaderView" owner:nil options:nil] firstObject];
+    }
+    return _headerView;
+}
+
 - (ISMainPageViewModel*)mainPageViewModel{
     if (_mainPageViewModel == nil) {
         _mainPageViewModel = [ISMainPageViewModel new];
     }
     return _mainPageViewModel;
+}
+
+- (ISNetworkingRemainTimeAPIHandler*)remainTimeAPIHandler{
+    if (_remainTimeAPIHandler == nil) {
+        _remainTimeAPIHandler = [ISNetworkingRemainTimeAPIHandler new];
+        _remainTimeAPIHandler.delegate = self;
+        _remainTimeAPIHandler.paramSource = self;
+    }
+    return _remainTimeAPIHandler;
+}
+
+- (ISRemainTimeFormatter*)remainTimeFormatter{
+    if (!_remainTimeFormatter) {
+        _remainTimeFormatter = [ISRemainTimeFormatter new];
+    }
+    return _remainTimeFormatter;
 }
 
 @end

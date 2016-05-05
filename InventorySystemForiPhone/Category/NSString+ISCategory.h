@@ -12,6 +12,8 @@
 
 + (BOOL)stringIsNilOrEmpty:(NSString *)aString;
 
+- (NSString*)md5;
+
 - (NSString *)trim;
 
 - (BOOL)isValidEmail;

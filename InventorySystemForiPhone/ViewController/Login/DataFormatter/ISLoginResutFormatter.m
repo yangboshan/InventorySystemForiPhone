@@ -7,7 +7,6 @@
 //
 
 #import "ISLoginResutFormatter.h"
-#import "ISLoginFormatterKeys.h"
 #import "ISNetworkingLoginAPIHandler.h"
 #import <GDataXML-HTML/GDataXMLNode.h>
 
