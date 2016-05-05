@@ -8,9 +8,7 @@
 
 #import "AppDelegate.h"
 
-#import "ISCommonMacro.h"
-#import "ISSettingManager.h"
-#import "ISLoginViewController.h"
+#import "ISMainPageViewController.h"
 
 @interface AppDelegate ()
 
@@ -21,12 +19,12 @@
 #pragma mark - life Cycle
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
     
     [self initialSetup];
-    ISLoginViewController* loginController = [ISLoginViewController new];
-    UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:loginController];
-    self.window.rootViewController = nav;
+ 
+    ISMainPageViewController* mainPageController = [ISMainPageViewController new];
+    UINavigationController* navController = [[UINavigationController alloc] initWithRootViewController:mainPageController];
+    self.window.rootViewController = navController;
     
     return YES;
 }
@@ -61,6 +59,7 @@
 }
 
 - (void)customizeAppearance{
+    
     [[UINavigationBar appearance] setBarTintColor:TheameColor];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[[UIColor whiteColor] colorWithAlphaComponent:1.0],NSFontAttributeName:Lantinghei(18.0)}];
     [UINavigationBar appearance].tintColor = [UIColor whiteColor];

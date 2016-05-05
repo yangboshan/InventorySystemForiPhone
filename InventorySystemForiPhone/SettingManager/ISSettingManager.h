@@ -23,7 +23,7 @@
 /**
  *  current logined user
  */
-@property(nonatomic,strong) NSDictionary* currentUser;
+@property(nonatomic,strong) NSMutableDictionary* currentUser;
 
 +(instancetype)sharedInstance;
 

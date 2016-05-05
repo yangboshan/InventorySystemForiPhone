@@ -7,13 +7,15 @@
 //
 
 #import "ISLoginBoardView.h"
-#import "ISCommonMacro.h"
 
 @implementation ISLoginBoardView
 
 - (void)awakeFromNib{
     self.containerView.layer.borderColor = BorderColor;
     self.containerView.layer.borderWidth = 0.7;
+    self.loginBtn.layer.cornerRadius = 3;
+    self.loginBtn.clipsToBounds = YES;
+    self.loginBtn.backgroundColor = TheameColor;
 }
 
 @end

@@ -10,4 +10,8 @@
 
 @interface ISLoginViewModel : NSObject
 
++ (instancetype)sharedInstance;
+
+- (BOOL)checkLoginInfoByUserName:(NSString*)userName userPsw:(NSString*)userPsw;
+
 @end

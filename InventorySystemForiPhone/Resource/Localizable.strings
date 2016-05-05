@@ -13,5 +13,7 @@ DataBaseName ="LinoonInv.sqlite";
 /*-------Title List-------*/
 
 ISLoginViewController  = "登录";
-
-
+ISMainPageViewController = "主页";
+ISQueryOrderViewController = "查询单据";
+ISSaleOrderViewController = "销售抄单";
+ISReturnOrderViewController = "退货抄单";

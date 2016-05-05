@@ -48,10 +48,10 @@ static NSString *SETTING_USER = @"SETTING_USER";
 - (void)initialSetup{
     
     NSString* destPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    destPath = [destPath stringByAppendingPathComponent:@"LinoonInv.sqlite"];
+    destPath = [destPath stringByAppendingPathComponent:NSLocalizedString(@"DataBaseName", nil)];
     if (![[NSFileManager defaultManager] fileExistsAtPath:destPath]) {
         NSError *error;
-        NSString *srcPath = [[NSBundle mainBundle] pathForResource:@"LinoonInv.sqlite" ofType:nil];
+        NSString *srcPath = [[NSBundle mainBundle] pathForResource:NSLocalizedString(@"DataBaseName", nil) ofType:nil];
         if(![[NSFileManager defaultManager] copyItemAtPath:srcPath toPath:destPath error:&error]){
             NSLog(@"%@",[error description]);
         }
@@ -76,7 +76,7 @@ static NSString *SETTING_USER = @"SETTING_USER";
     return [self.userDefaults boolForKey:SETTING_ISLOGINED];
 }
 
-- (NSDictionary*)currentUser{
+- (NSMutableDictionary*)currentUser{
     return [self.userDefaults valueForKey:SETTING_USER];
 }
 

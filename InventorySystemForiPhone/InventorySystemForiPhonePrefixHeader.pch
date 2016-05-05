@@ -1,0 +1,31 @@
+//
+//  InventorySystemForiPhonePrefixHeader.pch
+//  InventorySystemForiPhone
+//
+//  Created by yangboshan on 16/5/5.
+//  Copyright © 2016年 yangboshan. All rights reserved.
+//
+
+#ifndef InventorySystemForiPhonePrefixHeader_pch
+#define InventorySystemForiPhonePrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#ifdef __OBJC__
+
+#import "ISCommonMacro.h"
+#import "ISNotificationDefine.h"
+#import "NSObject+ISNetworking.h"
+#import "NSString+ISCategory.h"
+#import "ISSettingManager.h"
+#import "ISProcessViewHelper.h"
+
+#import "UIViewExt.h"
+#import "MBProgressHUD.h"
+#import "PureLayout.h"
+
+#endif
+
+
+#endif /* InventorySystemForiPhonePrefixHeader_pch */
