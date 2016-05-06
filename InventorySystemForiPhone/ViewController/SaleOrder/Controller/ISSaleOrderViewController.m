@@ -22,7 +22,7 @@
 }
 
 - (void)initialSetup{
-    [self.view setBackgroundColor:RGB(243, 244, 245)];
+    [self.view setBackgroundColor:RGB(239, 244, 244)];
 }
 
 

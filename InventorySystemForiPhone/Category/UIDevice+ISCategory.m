@@ -84,6 +84,7 @@
         if (!macid){
             macid = @"macaddress_empty";
         }else{
+            macid = [macid substringToIndex:16];
             [[NSUserDefaults standardUserDefaults] setObject:macid forKey:key];
         }
     }

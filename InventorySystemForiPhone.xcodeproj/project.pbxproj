@@ -61,6 +61,7 @@
 		3E9CA7F41CDB8EFD00110270 /* ISRemainTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9CA7F31CDB8EFD00110270 /* ISRemainTimeViewController.m */; };
 		3E9CA7F71CDB917B00110270 /* ISNetworkingRegisterInfoAPIHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9CA7F61CDB917B00110270 /* ISNetworkingRegisterInfoAPIHandler.m */; };
 		3E9CA7FA1CDB98F400110270 /* ISGDataXMLHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9CA7F91CDB98F400110270 /* ISGDataXMLHelper.m */; };
+		3E9CA7FD1CDC3F0B00110270 /* ISWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9CA7FC1CDC3F0B00110270 /* ISWebViewController.m */; };
 		3EB094AD1CD9C1BB0018BE1E /* ISNetworkingLoginAPIHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB094AC1CD9C1BB0018BE1E /* ISNetworkingLoginAPIHandler.m */; };
 		3EB094B21CD9DEF50018BE1E /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EB094B11CD9DEF50018BE1E /* libxml2.tbd */; };
 		3EB094BF1CD9FCA00018BE1E /* ISNetworkingPrivilegeAPIHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB094BE1CD9FCA00018BE1E /* ISNetworkingPrivilegeAPIHandler.m */; };
@@ -172,6 +173,8 @@
 		3E9CA7F61CDB917B00110270 /* ISNetworkingRegisterInfoAPIHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISNetworkingRegisterInfoAPIHandler.m; sourceTree = "<group>"; };
 		3E9CA7F81CDB98F400110270 /* ISGDataXMLHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISGDataXMLHelper.h; sourceTree = "<group>"; };
 		3E9CA7F91CDB98F400110270 /* ISGDataXMLHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISGDataXMLHelper.m; sourceTree = "<group>"; };
+		3E9CA7FB1CDC3F0B00110270 /* ISWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISWebViewController.h; sourceTree = "<group>"; };
+		3E9CA7FC1CDC3F0B00110270 /* ISWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISWebViewController.m; sourceTree = "<group>"; };
 		3EB094AB1CD9C1BB0018BE1E /* ISNetworkingLoginAPIHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISNetworkingLoginAPIHandler.h; sourceTree = "<group>"; };
 		3EB094AC1CD9C1BB0018BE1E /* ISNetworkingLoginAPIHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISNetworkingLoginAPIHandler.m; sourceTree = "<group>"; };
 		3EB094B11CD9DEF50018BE1E /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
@@ -625,6 +628,8 @@
 				3E5775701CDB2395004FA21C /* ISMainPageViewController.m */,
 				3E9CA7F21CDB8EFD00110270 /* ISRemainTimeViewController.h */,
 				3E9CA7F31CDB8EFD00110270 /* ISRemainTimeViewController.m */,
+				3E9CA7FB1CDC3F0B00110270 /* ISWebViewController.h */,
+				3E9CA7FC1CDC3F0B00110270 /* ISWebViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -828,6 +833,7 @@
 				3E40E2151CD1BC72008B75BB /* ISNetworkingBaseAPIHandler.m in Sources */,
 				3E40E2181CD1BC9E008B75BB /* ISNetworkingBaseServiceProvider.m in Sources */,
 				3E57758E1CDB8699004FA21C /* ISNetworkingRemainTimeAPIHandler.m in Sources */,
+				3E9CA7FD1CDC3F0B00110270 /* ISWebViewController.m in Sources */,
 				3E9CA7FA1CDB98F400110270 /* ISGDataXMLHelper.m in Sources */,
 				3E5775791CDB2AC2004FA21C /* ISMainPageCollectionViewCell.m in Sources */,
 				3E40E2061CD1BB8A008B75BB /* ISNetworkingContext.m in Sources */,

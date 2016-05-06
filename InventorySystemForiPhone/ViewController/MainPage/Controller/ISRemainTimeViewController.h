@@ -10,4 +10,6 @@
 
 @interface ISRemainTimeViewController : UIViewController
 
+@property (nonatomic,assign) BOOL noTimeLeft;
+
 @end

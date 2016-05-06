@@ -17,6 +17,8 @@
 #import "ISMainPageCollectionViewCell.h"
 #import "ISMainPageHeaderView.h"
 
+#define DEBUG_FLAG 0
+
 @interface ISMainPageViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,ISNetworkingAPIHandlerCallBackDelegate,ISNetworkingAPIHandlerParamSourceDelegate>
 
 @property (nonatomic,strong) UICollectionView* collectionView;
@@ -32,6 +34,7 @@
 static NSString* mainPageCell = @"ISMainPageCollectionViewCell";
 static float cellMargin = 10;
 static int   cellPerRow = 4;
+static float timeViewHeight = 50;
 
 #pragma mark - life Cycle
 
@@ -51,15 +54,21 @@ static int   cellPerRow = 4;
     }
     
     self.dataList = [self.mainPageViewModel fetchFormatDataSource];
-    [self.view setBackgroundColor:RGB(243, 244, 245)];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:self.collectionView];
-    
+    [self.view addSubview:self.headerView];
+    self.headerView.deviceIdLabel.text = [[UIDevice currentDevice].IS_macaddressMD5 uppercaseString];
+    [self autolayoutSubView];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginDidSuccess:) name:kISLoginDidSuccessNotification object:nil];
+}
+
+- (void)autolayoutSubView{
+    [self.collectionView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsMake(0, 0, timeViewHeight, 0)];
+    [self.headerView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsMake(ScreenHeight - timeViewHeight, 0, 0, 0)];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    
     if (![ISSettingManager sharedInstance].isLogined) {
         [self showLoginController];
     }
@@ -68,14 +77,15 @@ static int   cellPerRow = 4;
 #pragma mark - ISNetworkingAPIHandlerCallBackDelegate
 
 - (void)managerCallAPIDidSuccess:(ISNetworkingBaseAPIHandler *)manager{
+    
     if ([manager isKindOfClass:[ISNetworkingRemainTimeAPIHandler class]]) {
         NSDictionary* data = [self.remainTimeFormatter manager:manager reformData:manager.fetchedRawData];
-        
+        self.headerView.remainTimeLabel.text = [data[kISRemainTimeResut] IS_defaultValue:@"0"];
         if ([data[kISRemainTimeResut] IS_isEmptyObject]) {
-            ISRemainTimeViewController* controller = [ISRemainTimeViewController new];
-            UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:controller];
-            [self.navigationController presentViewController:nav animated:YES completion:nil];
-            [[ISProcessViewHelper sharedInstance] showProcessViewWithText:@"没有使用时间啦，去充值吧" InView:nav.view];
+            if (!DEBUG_FLAG) {
+                UINavigationController* nav = [self showChargeControllerByFlag:YES];
+                [[ISProcessViewHelper sharedInstance] showProcessViewWithText:@"没有使用时间啦，去充值吧" InView:nav.view];
+            }
         }
     }
 }
@@ -88,7 +98,7 @@ static int   cellPerRow = 4;
 
 - (NSDictionary*)paramsForApi:(ISNetworkingBaseAPIHandler *)manager{
     if ([manager isKindOfClass:[ISNetworkingRemainTimeAPIHandler class]]) {
-        NSLog(@"HashID---------%@",[[UIDevice currentDevice] IS_macaddressMD5]);
+        NSLog(@"%@",[[UIDevice currentDevice] IS_macaddressMD5]);
         return @{@"HashID":[[UIDevice currentDevice] IS_macaddressMD5]};
     }
     return nil;
@@ -105,6 +115,18 @@ static int   cellPerRow = 4;
     ISLoginViewController* loginController = [ISLoginViewController new];
     UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:loginController];
     [self presentViewController:nav animated:YES completion:nil];
+}
+
+- (void)goCharge:(UIButton*)sender{
+    [self showChargeControllerByFlag:NO];
+}
+
+- (UINavigationController*)showChargeControllerByFlag:(BOOL)flag{
+    ISRemainTimeViewController* controller = [ISRemainTimeViewController new];
+    controller.noTimeLeft = flag;
+    UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:controller];
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
+    return nav;
 }
 
 #pragma mark - UICollectionViewDelegate & UICollectionViewDataSource
@@ -155,12 +177,11 @@ static int   cellPerRow = 4;
 
 - (UICollectionView*)collectionView{
     if (_collectionView == nil) {
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight) collectionViewLayout:[UICollectionViewFlowLayout new]];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:[UICollectionViewFlowLayout new]];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
-        _collectionView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+        _collectionView.backgroundColor = RGB(239, 244, 244);
         [_collectionView registerNib:[UINib nibWithNibName:mainPageCell bundle:nil] forCellWithReuseIdentifier:mainPageCell];
-        _collectionView.backgroundColor = RGB(243, 244, 245);
     }
     return _collectionView;
 }
@@ -168,6 +189,7 @@ static int   cellPerRow = 4;
 - (ISMainPageHeaderView*)headerView{
     if (_headerView == nil) {
         _headerView = [[[NSBundle mainBundle] loadNibNamed:@"ISMainPageHeaderView" owner:nil options:nil] firstObject];
+        [_headerView.remainTimeBtn addTarget:self action:@selector(goCharge:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _headerView;
 }

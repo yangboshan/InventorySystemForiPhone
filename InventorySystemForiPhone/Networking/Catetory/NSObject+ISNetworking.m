@@ -12,10 +12,6 @@
 
 - (id)IS_defaultValue:(id)defaultData{
     
-    if (![defaultData isKindOfClass:[self class]]) {
-        return defaultData;
-    }
-    
     if ([self IS_isEmptyObject]) {
         return defaultData;
     }

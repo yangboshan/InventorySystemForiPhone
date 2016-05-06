@@ -9,12 +9,18 @@
 #import "ISRemainTimeViewController.h"
 #import "ISNetworkingRegisterInfoAPIHandler.h"
 #import "ISRemainTimeFormatter.h"
+#import "ISWebViewController.h"
 
-@interface ISRemainTimeViewController ()<ISNetworkingAPIHandlerCallBackDelegate,ISNetworkingAPIHandlerParamSourceDelegate>
+@interface ISRemainTimeViewController ()<ISNetworkingAPIHandlerCallBackDelegate,ISNetworkingAPIHandlerParamSourceDelegate,UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong) ISNetworkingRegisterInfoAPIHandler* registerInfoAPIHandler;
 @property (nonatomic,strong) ISRemainTimeFormatter * remainTimeFormatter;
-
+@property (nonatomic,strong) UITableView* tableView;
+@property (nonatomic,strong) NSArray* dataList;
+@property (nonatomic,strong) UIView* footerView;
 @end
+
+static NSString* cellId = @"cellId";
+static NSString* chargeUrl = @"http://www.linoon.com/MPay/PaySelect.aspx?hashID=";
 
 @implementation ISRemainTimeViewController
 
@@ -26,8 +32,52 @@
 }
 
 - (void)initialSetup{
+    
+    if (!self.noTimeLeft) {
+        UIBarButtonItem* leftItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(backMain:)];
+        self.navigationItem.leftBarButtonItem = leftItem;
+    }
+    
     [self.view setBackgroundColor:RGB(243, 244, 245)];
+    [self.view addSubview:self.tableView];
+    [self autolayoutSubView];
     [self.registerInfoAPIHandler loadData];
+}
+
+- (void)autolayoutSubView{
+    [self.tableView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+}
+
+#pragma mark - events
+
+- (void)backMain:(id)sender{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)chargeAccount:(UIButton*)sender{
+    ISWebViewController* webController = [ISWebViewController new];
+    webController.url = [NSString stringWithFormat:@"%@%@",chargeUrl,[[UIDevice currentDevice] IS_macaddressMD5]];
+    webController.resTitle = @"充值";
+    [self.navigationController pushViewController:webController animated:YES];
+}
+
+#pragma mark - UITableViewDelegate & UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return self.dataList.count;
+}
+
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+    }
+    
+    NSDictionary* d = self.dataList[indexPath.row];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@  %@",[d.allKeys firstObject],[d.allValues firstObject]];
+    cell.textLabel.font = Lantinghei(14);
+    cell.textLabel.textColor = [UIColor darkGrayColor];
+    return cell;
 }
 
 
@@ -36,7 +86,11 @@
 - (void)managerCallAPIDidSuccess:(ISNetworkingBaseAPIHandler *)manager{
     if ([manager isKindOfClass:[ISNetworkingRegisterInfoAPIHandler class]]) {
         NSDictionary* data = [self.remainTimeFormatter manager:manager reformData:manager.fetchedRawData];
-        NSLog(@"%@",data);
+        self.dataList = @[@{@"设备编号:":[data[kISRemainTimeDeviceId] uppercaseString]},
+                          @{@"使用公司:":data[kISRemainTimeUser]},
+                          @{@"过期日期:":data[kISRemainTimeExpirationDay]},
+                          @{@"上次登录:":data[kISRemainTimeLastLoginDate]}];
+        [self.tableView reloadData];
     }
 }
 
@@ -71,5 +125,28 @@
     return _remainTimeFormatter;
 }
 
+- (UITableView*)tableView{
+    if (_tableView == nil) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.tableFooterView = self.footerView;
+    }
+    return _tableView;
+}
+
+- (UIView*)footerView{
+    if (_footerView == nil) {
+        _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 60)];
+        UIButton* chargeBtn = [[UIButton alloc] initWithFrame:CGRectMake(15, 10, ScreenWidth - 15 * 2, 40)];
+        [chargeBtn setTitle:@"去充值" forState:UIControlStateNormal];
+        [chargeBtn setBackgroundColor:TheameColor];
+        [chargeBtn addTarget:self action:@selector(chargeAccount:) forControlEvents:UIControlEventTouchUpInside];
+        chargeBtn.layer.cornerRadius = 4.0;
+        chargeBtn.clipsToBounds = YES;
+        [_footerView addSubview:chargeBtn];
+    }
+    return _footerView;
+}
 
 @end

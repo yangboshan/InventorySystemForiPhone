@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="Lantinghei_0.ttf">
+            <string>FZLTXHK--GBK1-0</string>
+            <string>FZLTXHK--GBK1-0</string>
             <string>FZLTXHK--GBK1-0</string>
             <string>FZLTXHK--GBK1-0</string>
         </mutableArray>
@@ -17,32 +19,69 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="设备编号" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Raj-IL-mn4">
-                    <rect key="frame" x="8" y="14" width="68" height="21"/>
-                    <fontDescription key="fontDescription" name="FZLTXHK--GBK1-0" family="Lantinghei SC" pointSize="17"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tB8-r9-PC3">
+                    <rect key="frame" x="71" y="7" width="33" height="16"/>
+                    <fontDescription key="fontDescription" type="italicSystem" pointSize="13"/>
                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tB8-r9-PC3">
-                    <rect key="frame" x="92" y="12.5" width="45" height="24"/>
-                    <fontDescription key="fontDescription" name="FZLTXHK--GBK1-0" family="Lantinghei SC" pointSize="17"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dZj-yp-YUZ">
+                    <rect key="frame" x="71.5" y="26.5" width="34.5" height="18.5"/>
+                    <fontDescription key="fontDescription" name="FZLTXHK--GBK1-0" family="Lantinghei SC" pointSize="13"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J22-yl-VQq">
+                    <rect key="frame" x="240" y="0.0" width="80" height="50"/>
+                    <color key="backgroundColor" red="0.1450980392" green="0.62352941179999999" blue="0.85882352939999995" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="80" id="AJ7-KN-GCj"/>
+                        <constraint firstAttribute="height" constant="50" id="hCz-AH-bE1"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="FZLTXHK--GBK1-0" family="Lantinghei SC" pointSize="13"/>
+                    <state key="normal" title="查看期限">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="剩余时间:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VSy-0U-SoT">
+                    <rect key="frame" x="8" y="27" width="51.5" height="17"/>
+                    <fontDescription key="fontDescription" name="FZLTXHK--GBK1-0" family="Lantinghei SC" pointSize="12"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="设备编号:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kSc-8c-kjd">
+                    <rect key="frame" x="8" y="7" width="51.5" height="17"/>
+                    <fontDescription key="fontDescription" name="FZLTXHK--GBK1-0" family="Lantinghei SC" pointSize="12"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="Raj-IL-mn4" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="2CR-To-Yhm"/>
-                <constraint firstItem="Raj-IL-mn4" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="14" id="87Z-2x-axn"/>
-                <constraint firstAttribute="bottom" secondItem="Raj-IL-mn4" secondAttribute="bottom" constant="15" id="8ab-c8-6ha"/>
-                <constraint firstItem="tB8-r9-PC3" firstAttribute="leading" secondItem="Raj-IL-mn4" secondAttribute="trailing" constant="16" id="AwH-5S-xdh"/>
-                <constraint firstItem="tB8-r9-PC3" firstAttribute="centerY" secondItem="Raj-IL-mn4" secondAttribute="centerY" id="fRB-fi-n7s"/>
+                <constraint firstItem="tB8-r9-PC3" firstAttribute="leading" secondItem="kSc-8c-kjd" secondAttribute="trailing" constant="12" id="7cj-DY-tiy"/>
+                <constraint firstItem="J22-yl-VQq" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="7ja-S3-qM8"/>
+                <constraint firstItem="J22-yl-VQq" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="dZj-yp-YUZ" secondAttribute="trailing" id="E1f-3a-44S"/>
+                <constraint firstItem="kSc-8c-kjd" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="H9S-WE-jRe"/>
+                <constraint firstItem="VSy-0U-SoT" firstAttribute="leading" secondItem="kSc-8c-kjd" secondAttribute="leading" id="KCf-Ll-6Yb"/>
+                <constraint firstItem="J22-yl-VQq" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="tB8-r9-PC3" secondAttribute="trailing" id="Sru-lW-aUh"/>
+                <constraint firstAttribute="bottom" secondItem="J22-yl-VQq" secondAttribute="bottom" id="XCy-rG-V9N"/>
+                <constraint firstItem="dZj-yp-YUZ" firstAttribute="centerY" secondItem="VSy-0U-SoT" secondAttribute="centerY" id="Yjt-U6-RXH"/>
+                <constraint firstItem="dZj-yp-YUZ" firstAttribute="leading" secondItem="VSy-0U-SoT" secondAttribute="trailing" constant="12" id="iUp-Xb-K3a"/>
+                <constraint firstItem="VSy-0U-SoT" firstAttribute="top" secondItem="kSc-8c-kjd" secondAttribute="bottom" constant="3" id="njO-E5-lWn"/>
+                <constraint firstItem="kSc-8c-kjd" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="7" id="qpQ-Yk-L9v"/>
+                <constraint firstItem="tB8-r9-PC3" firstAttribute="centerY" secondItem="kSc-8c-kjd" secondAttribute="centerY" id="vsV-lU-b78"/>
+                <constraint firstAttribute="trailing" secondItem="J22-yl-VQq" secondAttribute="trailing" id="yud-Gp-pHN"/>
             </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="deviceId" destination="tB8-r9-PC3" id="p95-gx-5L4"/>
+                <outlet property="deviceIdLabel" destination="tB8-r9-PC3" id="A1m-UX-VjT"/>
+                <outlet property="remainTimeBtn" destination="J22-yl-VQq" id="ZWp-xZ-nyi"/>
+                <outlet property="remainTimeLabel" destination="dZj-yp-YUZ" id="iNP-qI-swS"/>
             </connections>
-            <point key="canvasLocation" x="349" y="137"/>
+            <point key="canvasLocation" x="381" y="179"/>
         </view>
     </objects>
 </document>

@@ -11,4 +11,7 @@
 @interface ISMainPageHeaderView : UIView
 
 @property (weak, nonatomic) IBOutlet UILabel *deviceId;
+@property (weak, nonatomic) IBOutlet UILabel *deviceIdLabel;
+@property (weak, nonatomic) IBOutlet UILabel *remainTimeLabel;
+@property (weak, nonatomic) IBOutlet UIButton *remainTimeBtn;
 @end
