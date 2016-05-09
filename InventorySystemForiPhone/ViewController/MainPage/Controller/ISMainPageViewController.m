@@ -109,6 +109,7 @@ static float timeViewHeight = 50;
 - (void)loginDidSuccess:(NSNotification*)notification{
     self.dataList = [self.mainPageViewModel fetchFormatDataSource];
     [self.collectionView reloadData];
+    [self.remainTimeAPIHandler loadData];
 }
 
 - (void)showLoginController{

@@ -25,6 +25,9 @@
     UINavigationController* navController = [[UINavigationController alloc] initWithRootViewController:mainPageController];
     self.window.rootViewController = navController;
     
+    NSString* documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSLog(@"%@",documentPath);
+    
     return YES;
 }
 

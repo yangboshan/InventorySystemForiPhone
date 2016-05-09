@@ -11,6 +11,7 @@
 static NSString *SETTING_FIRST_TIME_RUN = @"SETTING_FIRST_TIME_RUN";
 static NSString *SETTING_ISLOGINED = @"SETTING_ISLOGINED";
 static NSString *SETTING_USER = @"SETTING_USER";
+static NSString *SETTING_LASTSYNCDATE = @"SETTING_LASTSYNCDATE";
 
 
 @interface ISSettingManager()
@@ -80,6 +81,10 @@ static NSString *SETTING_USER = @"SETTING_USER";
     return [self.userDefaults valueForKey:SETTING_USER];
 }
 
+- (NSDate*)lastSyncDate{
+    return [self.userDefaults valueForKey:SETTING_LASTSYNCDATE];
+}
+
 #pragma mark - setter
 - (void)setLogined:(BOOL)logined{
     [self.userDefaults setBool:logined forKey:SETTING_ISLOGINED];
@@ -88,6 +93,11 @@ static NSString *SETTING_USER = @"SETTING_USER";
 
 - (void)setCurrentUser:(NSDictionary *)currentUser{
     [self.userDefaults setValue:currentUser forKey:SETTING_USER];
+    [self.userDefaults synchronize];
+}
+
+- (void)setLastSyncDate:(NSDate *)lastSyncDate{
+    [self.userDefaults setValue:lastSyncDate forKey:SETTING_LASTSYNCDATE];
     [self.userDefaults synchronize];
 }
 

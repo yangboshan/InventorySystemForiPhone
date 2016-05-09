@@ -61,7 +61,7 @@
                    @{@"code":@"Q01_P03",@"desc":NSLocalizedString(@"ISQueryOrderViewController", nil),@"flag":@"1",@"vc":@"ISQueryOrderViewController",@"bg":HEXCOLOR(0xF9A743)},
                    @{@"code":@"Q01_P04",@"desc":NSLocalizedString(@"ISReturnOrderViewController", nil),@"flag":@"1",@"vc":@"ISReturnOrderViewController",@"bg":HEXCOLOR(0x1CCE6F)},
                    @{@"code":@"Q02_P01",@"desc":@"报表",@"flag":@"1",@"vc":@"",@"bg":HEXCOLOR(0x40AB58)},
-                   @{@"code":@"Q03_P01",@"desc":@"同步处理",@"flag":@"1",@"vc":@"",@"bg":HEXCOLOR(0x85AED4)},
+                   @{@"code":@"Q03_P01",@"desc":NSLocalizedString(@"ISDataSyncViewController", nil),@"flag":@"1",@"vc":@"ISDataSyncViewController",@"bg":HEXCOLOR(0x85AED4)},
                    @{@"code":@"Q04_P01",@"desc":@"必须拍照",@"flag":@"0"},
                    @{@"code":@"Q04_P02",@"desc":@"必须定位",@"flag":@"0"}];
     }

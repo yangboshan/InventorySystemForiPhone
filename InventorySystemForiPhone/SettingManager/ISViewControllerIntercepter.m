@@ -64,7 +64,7 @@
     NSString* selfClass = [NSString stringWithFormat:@"%@",[viewController class]];
     viewController.title = NSLocalizedString(selfClass, nil);
 #ifdef DEBUG    
-    NSLog(@"[%@ viewDidLoad]", [[viewController title] IS_isEmptyObject] ? [viewController class] : [viewController title]);
+//    NSLog(@"[%@ viewDidLoad]", [[viewController title] IS_isEmptyObject] ? [viewController class] : [viewController title]);
 #endif
 
 }
@@ -77,7 +77,7 @@
  */
 - (void)viewWillAppear:(BOOL)animated viewController:(UIViewController *)viewController{
 #ifdef DEBUG
-    NSLog(@"[%@ viewWillAppear:%@]", [[viewController title] IS_isEmptyObject] ? [viewController class] : [viewController title], animated ? @"YES" : @"NO");
+//    NSLog(@"[%@ viewWillAppear:%@]", [[viewController title] IS_isEmptyObject] ? [viewController class] : [viewController title], animated ? @"YES" : @"NO");
 #endif
 
 }
@@ -91,7 +91,7 @@
  */
 - (void)viewDidAppear:(BOOL)animated viewController:(UIViewController *)viewController{
 #ifdef DEBUG
-    NSLog(@"[%@ viewDidAppear:%@]", [[viewController title] IS_isEmptyObject] ? [viewController class] : [viewController title], animated ? @"YES" : @"NO");
+//    NSLog(@"[%@ viewDidAppear:%@]", [[viewController title] IS_isEmptyObject] ? [viewController class] : [viewController title], animated ? @"YES" : @"NO");
 #endif
 }
 
@@ -104,7 +104,7 @@
  */
 - (void)viewWillDisappear:(BOOL)animated viewController:(UIViewController *)viewController{
 #ifdef DEBUG
-    NSLog(@"[%@ viewWillDisappear:%@]", [[viewController title] IS_isEmptyObject] ? [viewController class] : [viewController title], animated ? @"YES" : @"NO");
+//    NSLog(@"[%@ viewWillDisappear:%@]", [[viewController title] IS_isEmptyObject] ? [viewController class] : [viewController title], animated ? @"YES" : @"NO");
 #endif
 }
 
@@ -117,7 +117,7 @@
  */
 - (void)viewDidDisappear:(BOOL)animated viewController:(UIViewController *)viewController{
 #ifdef DEBUG
-    NSLog(@"[%@ viewDidDisappear:%@]", [[viewController title] IS_isEmptyObject] ? [viewController class] : [viewController title], animated ? @"YES" : @"NO");
+//    NSLog(@"[%@ viewDidDisappear:%@]", [[viewController title] IS_isEmptyObject] ? [viewController class] : [viewController title], animated ? @"YES" : @"NO");
 #endif
 }
 

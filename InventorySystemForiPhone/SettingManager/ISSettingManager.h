@@ -13,17 +13,19 @@
 /**
  *  first launch flag
  */
-@property(nonatomic,readonly,getter = isFirstRun) BOOL firstRun;
+@property (nonatomic,readonly,getter = isFirstRun) BOOL firstRun;
 
 /**
  *  current login status
  */
-@property(nonatomic,getter = isLogined) BOOL logined;
+@property (nonatomic,getter = isLogined) BOOL logined;
 
 /**
  *  current logined user
  */
-@property(nonatomic,strong) NSMutableDictionary* currentUser;
+@property (nonatomic,strong) NSMutableDictionary * currentUser;
+
+@property (nonatomic,strong) NSDate * lastSyncDate;
 
 +(instancetype)sharedInstance;
 
