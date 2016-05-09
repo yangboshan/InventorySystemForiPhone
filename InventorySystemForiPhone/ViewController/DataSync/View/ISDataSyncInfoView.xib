@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="Lantinghei_0.ttf">
@@ -16,7 +15,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ISDataSyncInfoView">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="349"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="429"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上次更新时间" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="58I-AN-ce8">
@@ -32,14 +31,15 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oBg-Nb-l6s" customClass="RMDownloadIndicator">
-                    <rect key="frame" x="60" y="75" width="200" height="200"/>
+                    <rect key="frame" x="35" y="75" width="250" height="250"/>
                     <color key="backgroundColor" red="0.1450980392" green="0.62352941179999999" blue="0.85882352939999995" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="oBg-Nb-l6s" secondAttribute="height" multiplier="1:1" id="Z9l-IA-2gj"/>
+                        <constraint firstAttribute="height" constant="250" id="HRH-Lw-9E2"/>
+                        <constraint firstAttribute="width" constant="250" id="LQc-jL-f3s"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Lo-3g-Knd">
-                    <rect key="frame" x="130" y="297" width="60" height="33"/>
+                    <rect key="frame" x="130" y="347" width="60" height="33"/>
                     <fontDescription key="fontDescription" name="FZLTXHK--GBK1-0" family="Lantinghei SC" pointSize="15"/>
                     <state key="normal" title="立刻同步"/>
                 </button>
@@ -50,8 +50,7 @@
                 <constraint firstItem="AiZ-vv-ZYG" firstAttribute="leading" secondItem="58I-AN-ce8" secondAttribute="leading" id="5uc-xo-Swk"/>
                 <constraint firstItem="oBg-Nb-l6s" firstAttribute="top" secondItem="AiZ-vv-ZYG" secondAttribute="bottom" constant="20.5" id="FZg-Ia-aYx"/>
                 <constraint firstItem="0Lo-3g-Knd" firstAttribute="top" secondItem="oBg-Nb-l6s" secondAttribute="bottom" constant="22" id="GKU-yk-BR8"/>
-                <constraint firstAttribute="trailing" secondItem="oBg-Nb-l6s" secondAttribute="trailing" constant="60" id="IZK-kE-56N"/>
-                <constraint firstItem="oBg-Nb-l6s" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="60" id="NZ4-G8-zEh"/>
+                <constraint firstItem="oBg-Nb-l6s" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="LZb-Fz-f6z"/>
                 <constraint firstItem="0Lo-3g-Knd" firstAttribute="centerX" secondItem="oBg-Nb-l6s" secondAttribute="centerX" id="Q6e-F5-xlq"/>
                 <constraint firstItem="58I-AN-ce8" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="14" id="ax7-Gu-Eze"/>
                 <constraint firstItem="58I-AN-ce8" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="slo-yp-9pF"/>
@@ -64,7 +63,7 @@
                 <outlet property="statusLabel" destination="AiZ-vv-ZYG" id="owk-Uc-pwd"/>
                 <outlet property="syncBtn" destination="0Lo-3g-Knd" id="f5H-oT-QJ1"/>
             </connections>
-            <point key="canvasLocation" x="211" y="42.5"/>
+            <point key="canvasLocation" x="211" y="82.5"/>
         </view>
     </objects>
 </document>

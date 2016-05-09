@@ -17,6 +17,9 @@
 #import "ISMainPageCollectionViewCell.h"
 #import "ISMainPageHeaderView.h"
 
+#import "ISDataSyncModel.h"
+
+
 #define DEBUG_FLAG 0
 
 @interface ISMainPageViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,ISNetworkingAPIHandlerCallBackDelegate,ISNetworkingAPIHandlerParamSourceDelegate>
@@ -110,6 +113,7 @@ static float timeViewHeight = 50;
     self.dataList = [self.mainPageViewModel fetchFormatDataSource];
     [self.collectionView reloadData];
     [self.remainTimeAPIHandler loadData];
+//    [[ISDataSyncModel sharedInstance] startSync];
 }
 
 - (void)showLoginController{

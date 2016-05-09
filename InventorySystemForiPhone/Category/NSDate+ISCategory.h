@@ -14,4 +14,6 @@
 
 + (NSDate*)dateFromString:(NSString*)string withFormat:(NSString*)format;
 
++ (NSDate*)currentDate;
+
 @end

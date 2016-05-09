@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "ISMainPageViewController.h"
+#import "ISDataSyncModel.h"
 
 @interface AppDelegate ()
 
@@ -25,8 +26,11 @@
     UINavigationController* navController = [[UINavigationController alloc] initWithRootViewController:mainPageController];
     self.window.rootViewController = navController;
     
-    NSString* documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSLog(@"%@",documentPath);
+    if ([ISSettingManager sharedInstance].isLogined) {
+        [[ISDataSyncModel sharedInstance] startSync];
+    }
+    
+    NSLog(@"%@",[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]);
     
     return YES;
 }

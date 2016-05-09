@@ -22,7 +22,7 @@
 }
 
 - (BOOL)isOutdated{
-    NSTimeInterval timeInterval = [[NSDate date] timeIntervalSinceDate:self.lastUpdateTime];
+    NSTimeInterval timeInterval = [[NSDate currentDate] timeIntervalSinceDate:self.lastUpdateTime];
     return timeInterval > kISCacheOutdateTimeSeconds;
 }
 
