@@ -22,16 +22,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SmF-uD-86D">
-                                <rect key="frame" x="20.5" y="45.5" width="39.5" height="21"/>
+                                <rect key="frame" x="20" y="49.5" width="39.5" height="21"/>
                                 <fontDescription key="fontDescription" name="FZLTXHK--GBK1-0" family="Lantinghei SC" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cyn-yk-fKL">
+                                <rect key="frame" x="25.5" y="15.5" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Fge-Uz-Qpa"/>
+                                    <constraint firstAttribute="width" constant="30" id="YsY-bl-K3D"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.99607843139999996" green="0.91372549020000005" blue="0.76078431369999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="SmF-uD-86D" firstAttribute="centerX" secondItem="9Ez-Kl-ri0" secondAttribute="centerX" id="9jl-fk-LRP"/>
-                            <constraint firstItem="SmF-uD-86D" firstAttribute="centerY" secondItem="9Ez-Kl-ri0" secondAttribute="centerY" constant="16" id="BG2-hv-2g0"/>
+                            <constraint firstItem="SmF-uD-86D" firstAttribute="centerY" secondItem="9Ez-Kl-ri0" secondAttribute="centerY" constant="20" id="BG2-hv-2g0"/>
+                            <constraint firstItem="SmF-uD-86D" firstAttribute="top" secondItem="cyn-yk-fKL" secondAttribute="bottom" constant="4" id="NTY-P7-0Ni"/>
+                            <constraint firstItem="cyn-yk-fKL" firstAttribute="centerX" secondItem="SmF-uD-86D" secondAttribute="centerX" id="koT-N6-OUZ"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -46,6 +55,7 @@
             <size key="customSize" width="97" height="103"/>
             <connections>
                 <outlet property="containerView" destination="9Ez-Kl-ri0" id="Z4d-J2-cGq"/>
+                <outlet property="infoImageView" destination="cyn-yk-fKL" id="oBc-aO-MZz"/>
                 <outlet property="infoLabel" destination="SmF-uD-86D" id="1bj-Dk-YmS"/>
             </connections>
             <point key="canvasLocation" x="200" y="304"/>

@@ -45,7 +45,7 @@
 - (id)initWithCoder:(NSCoder *)aDecoder{
     self = [super initWithCoder:aDecoder];
     if (self) {
-        _type = kRMFilledIndicator;
+        _type = kRMMixedIndictor;
         [self initAttributes];
     }
     return self;

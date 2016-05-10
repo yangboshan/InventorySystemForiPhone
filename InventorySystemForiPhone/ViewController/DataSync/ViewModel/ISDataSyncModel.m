@@ -94,12 +94,13 @@ static NSString* IS_SQL_GetLastUpdate = @"select ifnull(max(ifnull(UPD_DATE,CRE_
             }
             
             if (self.dataSyncQueue.count) {
+                sleep(1.0);
                 [self.syncAPIHander loadData];
             }else{
                 dispatch_async(dispatch_get_main_queue(), ^{
                     self.status = ISDataSyncStatusFinished;
+                    [ISSettingManager sharedInstance].lastSyncDate = [NSDate currentDate];
                 });
-                [ISSettingManager sharedInstance].lastSyncDate = [NSDate currentDate];
             }
         }
     });

@@ -27,6 +27,6 @@
 
 @property (nonatomic,strong) NSDate * lastSyncDate;
 
-+(instancetype)sharedInstance;
++ (instancetype)sharedInstance;
 
 @end

@@ -25,7 +25,7 @@
             GDataXMLElement *diffgr= [[resut elementsForName:@"diffgr:diffgram"] firstObject];
             GDataXMLElement *dataset = [[diffgr elementsForName:@"NewDataSet"] firstObject];
             for(GDataXMLElement * child in dataset.children){
-                [retList addObject:[[ISDataBaseHelper sharedInstance] fetchModelFromXMLElement:child withEntity:@"ISProductDataModel"]];
+                [retList addObject:[[ISGDataXMLHelper sharedInstance] fetchModelFromXMLElement:child withEntity:@"ISProductDataModel"]];
             }
             return @{kISDataSyncResut:retList};
         }

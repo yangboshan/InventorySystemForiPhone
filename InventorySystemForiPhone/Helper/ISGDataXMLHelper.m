@@ -23,4 +23,12 @@
     return (data == nil) ? @"" : [data IS_defaultValue:@""];
 }
 
+- (id)fetchModelFromXMLElement:(GDataXMLElement*)element withEntity:(NSString*)entity{
+    id model = [NSClassFromString(entity) new];
+    for(GDataXMLElement* child in element.children){
+        [model setValue:child.stringValue forKey:child.name];
+    }
+    return model;
+}
+
 @end

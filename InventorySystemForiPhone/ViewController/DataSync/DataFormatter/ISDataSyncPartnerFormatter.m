@@ -28,7 +28,7 @@ NSString* const  kISDataSyncResut = @"kISDataSyncResut";
             GDataXMLElement *diffgr= [[resut elementsForName:@"diffgr:diffgram"] firstObject];
             GDataXMLElement *dataset = [[diffgr elementsForName:@"NewDataSet"] firstObject];
             for(GDataXMLElement * child in dataset.children){
-                [retList addObject:[[ISDataBaseHelper sharedInstance] fetchModelFromXMLElement:child withEntity:@"ISParterDataModel"]];
+                [retList addObject:[[ISGDataXMLHelper sharedInstance] fetchModelFromXMLElement:child withEntity:@"ISParterDataModel"]];
             }
             return @{kISDataSyncResut:retList};
         }

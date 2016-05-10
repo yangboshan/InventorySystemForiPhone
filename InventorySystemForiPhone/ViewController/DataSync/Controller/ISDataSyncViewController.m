@@ -94,7 +94,7 @@
 - (NSString*)statusString:(ISDataSyncStatus)status{
     switch (status) {
         case ISDataSyncStatusDefault:
-            return  @"";
+            return  @"当前状态:待同步";
             break;
         case ISDataSyncStatusFinished:
             return  @"当前状态:同步完成";

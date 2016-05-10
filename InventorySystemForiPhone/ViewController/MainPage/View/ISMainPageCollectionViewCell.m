@@ -13,6 +13,7 @@
 - (void)awakeFromNib {
     self.containerView.layer.cornerRadius = 5;
     self.containerView.clipsToBounds = YES;
+    self.infoLabel.font = LantingheiBold(14);
 }
 
 - (void)setData:(NSDictionary *)data{
@@ -23,6 +24,8 @@
     }
     
     self.infoLabel.text = data[@"desc"];
+    self.infoImageView.image = [UIImage imageNamed:data[@"icon"]];
+    self.infoImageView.tintColor = [UIColor whiteColor];
 }
 
 @end

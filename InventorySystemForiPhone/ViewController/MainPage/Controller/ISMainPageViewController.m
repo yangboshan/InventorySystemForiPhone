@@ -20,8 +20,6 @@
 #import "ISDataSyncModel.h"
 
 
-#define DEBUG_FLAG 0
-
 @interface ISMainPageViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,ISNetworkingAPIHandlerCallBackDelegate,ISNetworkingAPIHandlerParamSourceDelegate>
 
 @property (nonatomic,strong) UICollectionView* collectionView;
@@ -83,12 +81,10 @@ static float timeViewHeight = 50;
     
     if ([manager isKindOfClass:[ISNetworkingRemainTimeAPIHandler class]]) {
         NSDictionary* data = [self.remainTimeFormatter manager:manager reformData:manager.fetchedRawData];
-        self.headerView.remainTimeLabel.text = [data[kISRemainTimeResut] IS_defaultValue:@"0"];
+        self.headerView.remainTimeLabel.text = [NSString stringWithFormat:@"%@天",[data[kISRemainTimeResut] IS_defaultValue:@"0"]];
         if ([data[kISRemainTimeResut] IS_isEmptyObject]) {
-            if (!DEBUG_FLAG) {
-                UINavigationController* nav = [self showChargeControllerByFlag:YES];
-                [[ISProcessViewHelper sharedInstance] showProcessViewWithText:@"没有使用时间啦，去充值吧" InView:nav.view];
-            }
+            UINavigationController* nav = [self showChargeControllerByFlag:YES];
+            [[ISProcessViewHelper sharedInstance] showProcessViewWithText:@"没有使用时间啦，去充值吧" InView:nav.view];
         }
     }
 }
@@ -113,7 +109,7 @@ static float timeViewHeight = 50;
     self.dataList = [self.mainPageViewModel fetchFormatDataSource];
     [self.collectionView reloadData];
     [self.remainTimeAPIHandler loadData];
-//    [[ISDataSyncModel sharedInstance] startSync];
+    [[ISDataSyncModel sharedInstance] startSync];
 }
 
 - (void)showLoginController{

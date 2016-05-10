@@ -14,13 +14,16 @@
 @implementation ISDataSyncInfoView
 
 - (void)awakeFromNib{
+    
     [self.filledIndicator setBackgroundColor:[UIColor whiteColor]];
     [self.filledIndicator setFillColor:TheameColor];
     [self.filledIndicator setStrokeColor:TheameColor];
     [self.filledIndicator setRadiusPercent:0.45];
     [self.filledIndicator loadIndicator];
+    [self.syncBtn setTitleColor:TheameColor forState:UIControlStateNormal];
 
-    
+    self.lastUpdateLabel.textColor = [UIColor grayColor];
+    self.statusLabel.textColor = [UIColor grayColor];
 }
 
 - (void)setProgress:(float)progress{

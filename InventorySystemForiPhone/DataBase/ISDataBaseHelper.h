@@ -45,11 +45,6 @@ typedef void(^ISDataSyncProgressBlock)(float progress);
  */
 - (void)updateDataBaseByModelList:(NSArray*)modelList block:(ISDataSyncProgressBlock)block;
 
-/**
- *  从XML获取Model
- *
- *  @param element
- */
-- (id)fetchModelFromXMLElement:(GDataXMLElement*)element withEntity:(NSString*)entity;
+
 
 @end

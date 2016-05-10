@@ -1,0 +1,38 @@
+//
+//  ISSpaceTableViewCell.m
+//  InventorySystemForiPhone
+//
+//  Created by yangboshan on 16/5/10.
+//  Copyright © 2016年 yangboshan. All rights reserved.
+//
+
+#import "ISSpaceTableViewCell.h"
+
+@interface ISSpaceTableViewCell()
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightConstraint;
+@property (weak, nonatomic) IBOutlet UIView *bgView;
+@end
+
+@implementation ISSpaceTableViewCell
+
+- (void)awakeFromNib{
+    [self.contentView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.contentView autoSetDimension:ALDimensionWidth toSize:ScreenWidth];
+    [self.contentView autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:0];
+    [self.contentView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:0];
+}
+
+-(void)configureWithData:(id)data indexPath:(NSIndexPath*)indexPath superView:(UITableView*)superView{
+    if ([data isKindOfClass:[NSDictionary class]]) {
+        NSDictionary * param = data;
+        if ([param.allKeys containsObject:@"height"]) {
+            self.heightConstraint.constant = [param[@"height"] floatValue];
+        }
+        if ([param.allKeys containsObject:@"bgColor"]) {
+            self.bgView.backgroundColor = param[@"bgColor"];
+        }
+    }
+}
+
+
+@end

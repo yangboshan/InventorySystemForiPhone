@@ -10,7 +10,6 @@
 #import "ISDataBase.h"
 #import "ISTypeMapper.h"
 
-#import <GDataXML-HTML/GDataXMLNode.h>
 #import <objc/message.h>
 
 #import "ISParterDataModel.h"
@@ -59,13 +58,7 @@ static NSString* IS_SQL_checkDataExist = @"select  count(*) from %@ where %@ = '
 }
 
 
-- (id)fetchModelFromXMLElement:(GDataXMLElement*)element withEntity:(NSString*)entity{
-    id model = [NSClassFromString(entity) new];
-    for(GDataXMLElement* child in element.children){
-        [model setValue:child.stringValue forKey:child.name];
-    }
-    return model;
-}
+
 
 
 - (void)updateDataBaseByModelList:(NSArray*)modelList block:(ISDataSyncProgressBlock)block{

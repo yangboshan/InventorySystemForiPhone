@@ -27,7 +27,7 @@
     self.window.rootViewController = navController;
     
     if ([ISSettingManager sharedInstance].isLogined) {
-        [[ISDataSyncModel sharedInstance] startSync];
+//        [[ISDataSyncModel sharedInstance] startSync];
     }
     
     NSLog(@"%@",[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]);
@@ -67,7 +67,7 @@
 - (void)customizeAppearance{
     
     [[UINavigationBar appearance] setBarTintColor:TheameColor];
-    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[[UIColor whiteColor] colorWithAlphaComponent:1.0],NSFontAttributeName:Lantinghei(18.0)}];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[[UIColor whiteColor] colorWithAlphaComponent:1.0],NSFontAttributeName:Lantinghei(20.0)}];
     [UINavigationBar appearance].tintColor = [UIColor whiteColor];
     [UIBarButtonItem appearance].tintColor = [UIColor whiteColor];
 }

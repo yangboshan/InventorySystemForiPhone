@@ -20,6 +20,7 @@
 #import "NSString+ISCategory.h"
 #import "UIDevice+ISCategory.h"
 #import "NSDate+ISCategory.h"
+#import "UITableViewCell+ISCategory.h"
 
 #import "ISSettingManager.h"
 #import "ISProcessViewHelper.h"

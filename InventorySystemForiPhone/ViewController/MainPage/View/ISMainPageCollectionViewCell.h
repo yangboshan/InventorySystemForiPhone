@@ -12,6 +12,7 @@
 
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet UILabel *infoLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *infoImageView;
 @property (nonatomic,strong) NSDictionary* data;
 
 @end
