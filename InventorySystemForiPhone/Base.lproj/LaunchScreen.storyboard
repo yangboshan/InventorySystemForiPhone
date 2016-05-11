@@ -22,17 +22,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="玲珑进销存" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ur0-oy-dTM" userLabel="titleLabel">
-                                <rect key="frame" x="230" y="283.5" width="140" height="32.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="玲珑进销存" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ur0-oy-dTM" userLabel="titleLabel">
+                                <rect key="frame" x="230" y="314" width="140" height="32.5"/>
                                 <fontDescription key="fontDescription" name="FZLTHJW--GB1-0" family="FZLanTingHeiS-R-GB" pointSize="28"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_icon" translatesAutoresizingMaskIntoConstraints="NO" id="zUf-TV-UTd">
+                                <rect key="frame" x="225" y="137" width="150" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="WvM-Cv-Kmn"/>
+                                    <constraint firstAttribute="width" constant="150" id="xtD-fK-Uxy"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.14509803921568626" green="0.62352941176470589" blue="0.85882352941176465" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.50196078431372548" green="0.69019607843137254" blue="0.12941176470588234" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="zUf-TV-UTd" firstAttribute="centerX" secondItem="Ur0-oy-dTM" secondAttribute="centerX" id="5V7-iN-gaC"/>
                             <constraint firstItem="Ur0-oy-dTM" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="8NX-jn-cMZ"/>
-                            <constraint firstItem="Ur0-oy-dTM" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="fGf-60-yKS"/>
+                            <constraint firstItem="Ur0-oy-dTM" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="30" id="fGf-60-yKS"/>
+                            <constraint firstItem="Ur0-oy-dTM" firstAttribute="top" secondItem="zUf-TV-UTd" secondAttribute="bottom" constant="27" id="pLV-y2-bMh"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -41,4 +50,7 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="launch_icon" width="100" height="100"/>
+    </resources>
 </document>

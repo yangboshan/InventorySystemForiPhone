@@ -89,6 +89,7 @@
 		3EB094AD1CD9C1BB0018BE1E /* ISNetworkingLoginAPIHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB094AC1CD9C1BB0018BE1E /* ISNetworkingLoginAPIHandler.m */; };
 		3EB094B21CD9DEF50018BE1E /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EB094B11CD9DEF50018BE1E /* libxml2.tbd */; };
 		3EB094BF1CD9FCA00018BE1E /* ISNetworkingPrivilegeAPIHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB094BE1CD9FCA00018BE1E /* ISNetworkingPrivilegeAPIHandler.m */; };
+		3EB817071CE3063D005CC5B9 /* ISAddProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB817061CE3063D005CC5B9 /* ISAddProductViewController.m */; };
 		3EFA6B111CE18CE900EE6647 /* ISOrderHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFA6B101CE18CE900EE6647 /* ISOrderHeaderView.m */; };
 		3EFA6B151CE18D0300EE6647 /* ISOrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFA6B131CE18D0300EE6647 /* ISOrderTableViewCell.m */; };
 		3EFA6B161CE18D0300EE6647 /* ISOrderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EFA6B141CE18D0300EE6647 /* ISOrderTableViewCell.xib */; };
@@ -256,6 +257,8 @@
 		3EB094B11CD9DEF50018BE1E /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		3EB094BD1CD9FCA00018BE1E /* ISNetworkingPrivilegeAPIHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISNetworkingPrivilegeAPIHandler.h; sourceTree = "<group>"; };
 		3EB094BE1CD9FCA00018BE1E /* ISNetworkingPrivilegeAPIHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISNetworkingPrivilegeAPIHandler.m; sourceTree = "<group>"; };
+		3EB817051CE3063D005CC5B9 /* ISAddProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISAddProductViewController.h; sourceTree = "<group>"; };
+		3EB817061CE3063D005CC5B9 /* ISAddProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISAddProductViewController.m; sourceTree = "<group>"; };
 		3EFA6B0F1CE18CE900EE6647 /* ISOrderHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISOrderHeaderView.h; sourceTree = "<group>"; };
 		3EFA6B101CE18CE900EE6647 /* ISOrderHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISOrderHeaderView.m; sourceTree = "<group>"; };
 		3EFA6B121CE18D0300EE6647 /* ISOrderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISOrderTableViewCell.h; sourceTree = "<group>"; };
@@ -641,6 +644,8 @@
 				3E5775621CDB1ADA004FA21C /* ISSaleOrderViewController.m */,
 				3E919A251CE219210044AF02 /* ISSearchFieldViewController.h */,
 				3E919A261CE219210044AF02 /* ISSearchFieldViewController.m */,
+				3EB817051CE3063D005CC5B9 /* ISAddProductViewController.h */,
+				3EB817061CE3063D005CC5B9 /* ISAddProductViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1059,6 +1064,7 @@
 				3E5775891CDB8202004FA21C /* ISMainPageHeaderView.m in Sources */,
 				3E5E19B01CDDE189003F6E70 /* ISTypeMapper.m in Sources */,
 				3E40E20F1CD1BBFE008B75BB /* ISNetworkingCommonParamsGenerator.m in Sources */,
+				3EB817071CE3063D005CC5B9 /* ISAddProductViewController.m in Sources */,
 				3E40E2271CD2062D008B75BB /* NSURLRequest+ISNetworking.m in Sources */,
 				3E5775631CDB1ADA004FA21C /* ISSaleOrderViewController.m in Sources */,
 				3E5774E91CDA1F4D004FA21C /* ISSettingManager.m in Sources */,

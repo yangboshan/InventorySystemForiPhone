@@ -10,6 +10,7 @@
 #import "FMDatabase.h"
 
 @class GDataXMLElement;
+@class ISBaseModel;
 
 
 typedef void(^ISDataSyncProgressBlock)(float progress);
@@ -46,5 +47,6 @@ typedef void(^ISDataSyncProgressBlock)(float progress);
 - (void)updateDataBaseByModelList:(NSArray*)modelList block:(ISDataSyncProgressBlock)block;
 
 
+- (NSString*)getTableFromModel:(ISBaseModel*)model;
 
 @end

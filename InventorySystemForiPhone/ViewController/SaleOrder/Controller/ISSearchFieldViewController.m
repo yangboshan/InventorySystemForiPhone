@@ -7,13 +7,17 @@
 //
 
 #import "ISSearchFieldViewController.h"
+#import "ISParterDataModel.h"
+#import "ISProductDataModel.h"
+
 
 @interface ISSearchFieldViewController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate>
 @property (nonatomic, assign) ISSearchFieldType type;
 @property (nonatomic, copy) ISSearchFieldBlock block;
 @property (nonatomic, strong) UISearchBar * searchBar;
 @property (nonatomic, strong) UITableView * tableView;
-@property (nonatomic, strong) NSMutableArray * dataList;
+@property (nonatomic, strong) NSArray * dataList;
+@property (nonatomic, strong) ISOrderViewModel * orderViewModel;
 @end
 
 static NSString * cellId = @"cellId";
@@ -36,6 +40,7 @@ static NSString * cellId = @"cellId";
 }
 
 - (void)initialSetup{
+    self.dataList = [self.orderViewModel fetchCustomerListByWord:@"" type:ISSearchFieldTypeCustomer];
     [self.view addSubview:self.tableView];
     [self autolayoutSubView];
     self.navigationItem.titleView = self.searchBar;
@@ -52,6 +57,10 @@ static NSString * cellId = @"cellId";
 
 #pragma mark - UITableViewDelegate & UITableViewDataSource
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 0.01;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.dataList.count;
 }
@@ -62,11 +71,30 @@ static NSString * cellId = @"cellId";
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
-    
-    cell.textLabel.text = self.dataList[indexPath.row];
+    switch (self.type) {
+        case ISSearchFieldTypeCustomer:{
+            ISParterDataModel * parter = self.dataList[indexPath.row];
+            cell.textLabel.text = parter.PartnerName;
+        }
+            break;
+        case ISSearchFieldTypeProduct:{
+            ISProductDataModel * product = self.dataList[indexPath.row];
+            cell.textLabel.text = product.ProName;
+        }
+            break;
+        default:
+            break;
+    }
     cell.textLabel.font = Lantinghei(14);
     cell.textLabel.textColor = [UIColor darkGrayColor];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.block) {
+        self.block(self.dataList[indexPath.row]);
+    }
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - UISearchBarDelgate
@@ -76,16 +104,12 @@ static NSString * cellId = @"cellId";
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
-    
+    self.dataList = [self.orderViewModel fetchCustomerListByWord:searchText type:self.type];
+    [self.tableView reloadData];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
-    if (![NSString stringIsNilOrEmpty:searchBar.text]) {
-        if (self.block) {
-            self.block(searchBar.text);
-        }
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }
+
 }
 
 
@@ -105,8 +129,16 @@ static NSString * cellId = @"cellId";
         _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(50, 0, ScreenWidth - 100, 30)];
         _searchBar.showsCancelButton = YES;
         _searchBar.delegate = self;
+        _searchBar.placeholder = @"输入中文名称或快速代码来查询";
     }
     return _searchBar;
+}
+
+- (ISOrderViewModel*)orderViewModel{
+    if (_orderViewModel == nil) {
+        _orderViewModel = [[ISOrderViewModel alloc] init];
+    }
+    return _orderViewModel;
 }
 
 

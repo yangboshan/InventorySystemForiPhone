@@ -8,12 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM(NSInteger,ISSearchFieldType){
+    ISSearchFieldTypeCustomer = 0,
+    ISSearchFieldTypeProduct = 1,
+};
+
 @interface ISOrderViewModel : NSObject
 
-- (instancetype)sharedInstance;
+- (NSString*)generateSaleOrderNo;
 
-- (NSString*)generateOrderNo;
+- (NSString*)generateReOrderNo;
 
-- (NSArray*)fetchCustomerListByWord:(NSString*)text;
+- (NSArray*)fetchCustomerListByWord:(NSString*)text type:(ISSearchFieldType)type;
 
 @end

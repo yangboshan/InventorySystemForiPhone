@@ -7,12 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ISOrderViewModel.h"
 
-typedef NS_ENUM(NSInteger,ISSearchFieldType){
-    ISSearchFieldTypeCustomer = 0,
-};
 
-typedef void(^ISSearchFieldBlock)(NSString* result);
+
+typedef void(^ISSearchFieldBlock)(id object);
 
 @interface ISSearchFieldViewController : UIViewController
 

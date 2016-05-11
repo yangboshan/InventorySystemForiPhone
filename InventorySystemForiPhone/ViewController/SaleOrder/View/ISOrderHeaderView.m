@@ -12,6 +12,8 @@
 
 - (void)awakeFromNib{
     self.orderNOLabel.textColor = TheameColor;
+    self.customerBtn.selected = YES;
+    [self.customerBtn setTitleColor:TheameColor forState:UIControlStateNormal];
 }
 
 @end

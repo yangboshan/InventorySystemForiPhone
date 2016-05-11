@@ -9,11 +9,13 @@
 #import "ISSaleOrderViewController.h"
 #import "ISOrderHeaderView.h"
 #import "ISSearchFieldViewController.h"
+#import "ISParterDataModel.h"
 
 @interface ISSaleOrderViewController ()<UITableViewDataSource,UITableViewDelegate>
-@property (nonatomic,strong) ISOrderHeaderView * orderHeaderView;
-@property (nonatomic,strong) UITableView * saleOrderTableView;
-@property (nonatomic,strong) NSMutableArray * dataList;
+@property (nonatomic, strong) ISOrderHeaderView * orderHeaderView;
+@property (nonatomic, strong) UITableView * saleOrderTableView;
+@property (nonatomic, strong) NSMutableArray * dataList;
+@property (nonatomic, strong) ISOrderViewModel * orderViewModel;
 @end
 
 
@@ -47,8 +49,8 @@ static NSString* spaceCell = @"ISSpaceTableViewCell";
     [self.dataList addObject:@{@"type":orderCell,@"data":@""}];
     [self.dataList addObject:@{@"type":spaceCell,@"data":@{@"height":@(5),@"bgColor":RGB(239, 244, 244)}}];
     [self.dataList addObject:@{@"type":orderCell,@"data":@""}];
-
-
+    self.orderHeaderView.orderNOLabel.text = [self.orderViewModel generateSaleOrderNo];
+    
     [self.saleOrderTableView reloadData];
 }
 
@@ -63,7 +65,10 @@ static NSString* spaceCell = @"ISSpaceTableViewCell";
 
 - (void)showSearch:(id)sender{
     
-    ISSearchFieldViewController * searchController = [[ISSearchFieldViewController alloc] initWithType:ISSearchFieldTypeCustomer finish:^(NSString *result) {
+    __weak typeof(self) weakSelf = self;
+    ISSearchFieldViewController * searchController = [[ISSearchFieldViewController alloc] initWithType:ISSearchFieldTypeCustomer finish:^(ISParterDataModel * model) {
+        [weakSelf.orderHeaderView.customerBtn setTitle:model.PartnerName forState:UIControlStateNormal];
+        weakSelf.orderHeaderView.customerBtn.selected = NO;
     }];
     UINavigationController * navController = [[UINavigationController alloc] initWithRootViewController:searchController];
     [self.navigationController presentViewController:navController animated:YES completion:nil];
@@ -118,5 +123,11 @@ static NSString* spaceCell = @"ISSpaceTableViewCell";
     return _orderHeaderView;
 }
 
+- (ISOrderViewModel*)orderViewModel{
+    if (_orderViewModel == nil) {
+        _orderViewModel = [[ISOrderViewModel alloc] init];
+    }
+    return _orderViewModel;
+}
 
 @end
