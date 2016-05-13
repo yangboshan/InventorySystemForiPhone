@@ -21,11 +21,15 @@
 #define HEXCOLOR(c) [UIColor colorWithRed:((c>>16)&0xFF)/255.0 green:((c>>8)&0xFF)/255.0 blue:(c&0xFF)/255.0 alpha:1.0]
 
 #define TheameColor RGB(128,176,33)
+#define TheameColorAlpha(a) RGBA(128,176,33,a)
+
 #define BorderColor RGB(223, 223, 223).CGColor
 #define MaskColor RGBA(0, 0, 0, 0.5)
 
 #define Lantinghei(s) [UIFont fontWithName:@"Lantinghei SC" size:s]
 #define LantingheiBold(s) [UIFont fontWithName:@"FZLTHJW--GB1-0" size:s]
-#define LantingheiSuperBold(s) [UIFont fontWithName:@"FZLanTingHeiS-B-GB" size:s]
+#define LantingheiBoldS(s) [UIFont fontWithName:@"FZLanTingHeiS-B-GB" size:s]
+
+#define ImageSize 1000000
 
 #endif /* ISCommonMacro_h */

@@ -8,11 +8,58 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ISOrderBottomView">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sgm-ya-TGT">
+                    <rect key="frame" x="0.0" y="0.0" width="80" height="49"/>
+                    <color key="backgroundColor" red="0.50196078430000002" green="0.69019607839999997" blue="0.12941176469999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" title="添加商品"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AOi-0u-Hrd">
+                    <rect key="frame" x="80" y="0.0" width="80" height="49"/>
+                    <color key="backgroundColor" red="0.1450980392" green="0.62352941179999999" blue="0.85882352939999995" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" title="进店拍照"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x1O-oe-nx6">
+                    <rect key="frame" x="240" y="0.0" width="80" height="49"/>
+                    <color key="backgroundColor" red="0.99607843139999996" green="0.91372549020000005" blue="0.76078431369999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" title="扫码"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8tb-VH-FJm">
+                    <rect key="frame" x="160" y="0.0" width="80" height="49"/>
+                    <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" title="出店拍照"/>
+                </button>
+            </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="x1O-oe-nx6" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="0Dm-8l-d2q"/>
+                <constraint firstItem="AOi-0u-Hrd" firstAttribute="leading" secondItem="Sgm-ya-TGT" secondAttribute="trailing" id="2IT-wy-dmw"/>
+                <constraint firstItem="Sgm-ya-TGT" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="5JZ-5h-yTK"/>
+                <constraint firstItem="Sgm-ya-TGT" firstAttribute="width" secondItem="x1O-oe-nx6" secondAttribute="width" id="5K5-yd-UbI"/>
+                <constraint firstAttribute="bottom" secondItem="x1O-oe-nx6" secondAttribute="bottom" id="5TL-zo-JYd"/>
+                <constraint firstItem="8tb-VH-FJm" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="7Bu-pN-2gQ"/>
+                <constraint firstItem="Sgm-ya-TGT" firstAttribute="width" secondItem="8tb-VH-FJm" secondAttribute="width" id="9xp-dc-rAB"/>
+                <constraint firstItem="AOi-0u-Hrd" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="AHo-Wc-GLD"/>
+                <constraint firstAttribute="bottom" secondItem="8tb-VH-FJm" secondAttribute="bottom" id="LWb-KW-V06"/>
+                <constraint firstItem="Sgm-ya-TGT" firstAttribute="width" secondItem="AOi-0u-Hrd" secondAttribute="width" id="SqF-sF-twG"/>
+                <constraint firstItem="8tb-VH-FJm" firstAttribute="leading" secondItem="AOi-0u-Hrd" secondAttribute="trailing" id="doq-YO-tCO"/>
+                <constraint firstItem="Sgm-ya-TGT" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="hxd-2H-557"/>
+                <constraint firstAttribute="bottom" secondItem="AOi-0u-Hrd" secondAttribute="bottom" id="sE0-0b-HZz"/>
+                <constraint firstAttribute="trailing" secondItem="x1O-oe-nx6" secondAttribute="trailing" id="sri-ai-vvx"/>
+                <constraint firstItem="x1O-oe-nx6" firstAttribute="leading" secondItem="8tb-VH-FJm" secondAttribute="trailing" id="vmx-5h-bc4"/>
+                <constraint firstAttribute="bottom" secondItem="Sgm-ya-TGT" secondAttribute="bottom" id="weh-L9-Ky3"/>
+            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="addProductBtn" destination="Sgm-ya-TGT" id="J1x-fL-eVJ"/>
+                <outlet property="scanBtn" destination="x1O-oe-nx6" id="CCn-47-cIf"/>
+                <outlet property="takeInDoorPhotoBtn" destination="AOi-0u-Hrd" id="KU3-cD-gfh"/>
+                <outlet property="takeOutDoorPhotoBtn" destination="8tb-VH-FJm" id="Cqw-7M-MhP"/>
+            </connections>
+            <point key="canvasLocation" x="276" y="331.5"/>
         </view>
     </objects>
 </document>

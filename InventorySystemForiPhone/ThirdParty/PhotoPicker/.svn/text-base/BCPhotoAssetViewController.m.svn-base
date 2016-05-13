@@ -1,0 +1,418 @@
+//
+//  BCPhotoAssetViewController.m
+//  TripAway
+//
+//  Created by yangboshan on 16/3/8.
+//  Copyright © 2016年 yangbs. All rights reserved.
+//
+
+#import "BCPhotoAssetViewController.h"
+#import "BCPhotoPickerViewController.h"
+#import "BCPhotoPreviewController.h"
+#import "BCPhotoAssetViewCell.h"
+#import "BCPhotoAssetGroupView.h"
+#import "BCPhotoAssetBottomBar.h"
+
+@interface BCPhotoAssetViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+
+@property (nonatomic,strong) UICollectionView* collectionView;
+@property (nonatomic,strong) BCPhotoAssetGroupView* assetGroupView;
+@property (nonatomic,strong) UIButton* titleView;
+@property (nonatomic,strong) BCPhotoAssetBottomBar* bottomBar;
+
+@property (nonatomic, strong) ALAssetsLibrary *assetsLibrary;
+
+@property (nonatomic, strong) NSMutableArray *dataList;
+@property (nonatomic, strong) NSMutableArray *selectedIndexPath;
+@property (nonatomic, strong) ALAssetsGroup* currentGroup;
+
+@end
+
+static NSString* const assetCell  = @"BCPhotoAssetViewCell";
+static NSString* const cameraCell = @"BCPhotoAssetCameraCell";
+
+
+static float const photoMargin = 3.0;
+static float const photosPerRow = 3.0;
+static float const bottomHeight = 45;
+
+
+@implementation BCPhotoAssetViewController
+
+#pragma mark -  lifeCycle
+
++ (ALAssetsLibrary *)defaultAssetsLibrary{
+    static dispatch_once_t pred = 0;
+    static ALAssetsLibrary *library = nil;
+    dispatch_once(&pred, ^{
+        library = [[ALAssetsLibrary alloc] init];
+    });
+    return library;
+}
+
+
+- (instancetype)init{
+    if (self = [super init]) {
+        self.preferredContentSize = CGSizeMake(ScreenWidth, ScreenHeight);
+    }
+    return self;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self initialSetup];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.titleView.transform = CGAffineTransformMakeScale(-1.0, 1.0);
+    self.titleView.titleLabel.transform = CGAffineTransformMakeScale(-1.0, 1.0);
+    self.titleView.imageView.transform = CGAffineTransformMakeScale(-1.0, 1.0);
+}
+
+- (void)initialSetup{
+    
+    UIBarButtonItem* barButtonItem =  [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss:)];
+    self.navigationItem.rightBarButtonItem = barButtonItem;
+    self.navigationItem.titleView  = self.titleView;
+    
+    [self setupGroups];
+    [self.view addSubview:self.bottomBar];
+    [self.view addSubview:self.collectionView];
+}
+
+
+
+#pragma mark - UICollectionViewDelegate & UICollectionViewDataSource
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    NSDictionary* d = [self currentGroupData];
+    if (![[d valueForKey:@"data"] isEqual:[NSNull null]]) {
+        return [[d valueForKey:@"data"] count];
+    }
+    return 0;
+}
+
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    return 1;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    NSArray* list = [[self currentGroupData] valueForKey:@"data"];
+    id obj = list[indexPath.row];
+    if ([obj isKindOfClass:[ALAsset class]]) {
+        
+        ALAsset* asset = list[indexPath.row];
+        BCPhotoAssetViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:assetCell forIndexPath:indexPath];
+        if (IOSVersion >= 9.0) {
+            cell.assetImageView.image = [UIImage imageWithCGImage:[asset aspectRatioThumbnail]];
+        }else{
+            cell.assetImageView.image = [UIImage imageWithCGImage:[asset thumbnail]];
+        }
+        return cell;
+    }else{
+        UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cameraCell forIndexPath:indexPath];
+        return cell;
+    }
+}
+
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    return CGSizeMake(([UIScreen mainScreen].bounds.size.width - photoMargin * (photosPerRow + 1))/photosPerRow, ([UIScreen mainScreen].bounds.size.width - photoMargin * (photosPerRow + 1))/photosPerRow);
+}
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
+    return UIEdgeInsetsMake(photoMargin, photoMargin, photoMargin, photoMargin);
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+    return 0;
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    return photoMargin;
+}
+
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    NSArray* list = [[self currentGroupData] valueForKey:@"data"];
+    id obj = list[indexPath.row];
+    if ([obj isKindOfClass:[ALAsset class]]) {
+        BCPhotoPickerViewController* navController = (BCPhotoPickerViewController*)self.navigationController;
+        if (collectionView.indexPathsForSelectedItems.count > navController.maxOfSelection) {
+            [collectionView deselectItemAtIndexPath:indexPath animated:NO];
+            [[[UIAlertView alloc] initWithTitle:@"不能选择更多啦"
+                                        message:nil
+                                       delegate:nil
+                              cancelButtonTitle:@"确定"
+                              otherButtonTitles:nil, nil]
+             show];
+        }else{
+            [self.bottomBar updateStatus:[collectionView indexPathsForSelectedItems]];
+        }
+    }else{
+        [collectionView deselectItemAtIndexPath:indexPath animated:NO];
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+            UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+            imagePickerController.delegate = self;
+            imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+            [self presentViewController:imagePickerController animated:NO completion:^{}];
+        }
+    }
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
+    [self.bottomBar updateStatus:[collectionView indexPathsForSelectedItems]];
+}
+
+
+#pragma mark - imagePickerController delegate
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
+    
+    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+    if(!image) image = [[info objectForKey:UIImagePickerControllerOriginalImage] fixOrientation];
+    BCPhotoPickerViewController* navController = (BCPhotoPickerViewController*)self.navigationController;
+    if (navController.block) {
+        navController.block(@[[self getCompressedImage:image]]);
+    }
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    [self dismissViewControllerAnimated:YES completion:^{}];
+}
+
+
+#pragma mark - event
+
+- (void)previewAction:(UIButton*)sender{
+    
+    __weak typeof(self) weakSelf = self;
+    NSMutableArray* a = [NSMutableArray array];
+    [[self.collectionView indexPathsForSelectedItems] enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull indexPath, NSUInteger idx, BOOL * _Nonnull stop) {
+        id asset = [[weakSelf currentGroupData] valueForKey:@"data"][indexPath.row];
+        if ([asset isKindOfClass:[ALAsset class]]) {
+            [a addObject:[@{@"indexPath":indexPath,@"status":@(YES),@"image":[UIImage imageWithCGImage:[(ALAsset*)asset defaultRepresentation].fullScreenImage]} mutableCopy]];
+        }
+    }];
+    
+    BCPhotoPreviewController* previewController = [[BCPhotoPreviewController alloc] initWithData:a block:^(BOOL status,NSIndexPath* indexPath,BOOL finish) {
+        if (!finish) {
+            if (status) {
+                [weakSelf.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+            }else{
+                [weakSelf.collectionView deselectItemAtIndexPath:indexPath animated:NO];
+            }
+            [weakSelf.bottomBar updateStatus:[weakSelf.collectionView indexPathsForSelectedItems]];
+        }else{
+            [weakSelf finishAction:nil];
+        }
+    }];
+    [self.navigationController pushViewController:previewController animated:YES];
+}
+
+- (void)finishAction:(UIButton*)sender{
+    NSMutableArray* retData = [NSMutableArray array];
+    [[[self.collectionView.indexPathsForSelectedItems reverseObjectEnumerator] allObjects] enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull indexPath, NSUInteger idx, BOOL * _Nonnull stop) {
+        ALAsset *asset = [[self currentGroupData] valueForKey:@"data"][indexPath.row];
+        UIImage *image = [UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage];
+        [retData addObject:[self getCompressedImage:image]];
+    }];
+    
+    BCPhotoPickerViewController* navController = (BCPhotoPickerViewController*)self.navigationController;
+    if (navController.block) {
+        navController.block(retData);
+    }
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (UIImage*)getCompressedImage:(UIImage*)image{
+    
+    NSData *data = [[NSData alloc] init];
+    for (float compression = 1.0; compression >= 0.0; compression -= .1) {
+        data = UIImageJPEGRepresentation(image, compression);
+        NSInteger imageLength = data.length;
+        if (imageLength < ImageSize) {
+            break;
+        }
+    }
+    return [UIImage imageWithData:data];
+}
+
+- (void)dismiss:(id)sender{
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)toggleBoard:(id)sender{
+    
+    if (!self.assetGroupView.isActive) {
+        [self.view addSubview:self.assetGroupView];
+        self.titleView.selected = YES;
+    }else{
+        self.titleView.selected = NO;
+    }
+    
+    [self.assetGroupView toggleBoard];
+}
+
+- (void)setupGroups{
+    BCPhotoPickerViewController* navController = (BCPhotoPickerViewController*)self.navigationController;
+    ALAssetsFilter *assetsFilter = navController.assetsFilter;
+    ALAssetsLibraryGroupsEnumerationResultsBlock resultsBlock = ^(ALAssetsGroup *group, BOOL *stop) {
+        if (group){
+            if ([[group valueForProperty:ALAssetsGroupPropertyType] integerValue] == ALAssetsGroupSavedPhotos)
+                self.currentGroup = group;
+            [group setAssetsFilter:assetsFilter];
+            if (group.numberOfAssets > 0){
+                [self.dataList addObject:[@{@"type":group,@"data":[NSNull null]} mutableCopy]];
+                if (self.currentGroup) {
+                    [self setupAssetsByGroup:self.currentGroup];
+                }
+            }
+        }
+    };
+    ALAssetsLibraryAccessFailureBlock failureBlock = ^(NSError *error) {
+        [self showNotAllowed];
+    };
+    
+    [self.assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos
+                                      usingBlock:resultsBlock
+                                    failureBlock:failureBlock];
+    [self.assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupLibrary | ALAssetsGroupAlbum | ALAssetsGroupEvent | ALAssetsGroupFaces | ALAssetsGroupPhotoStream
+                                      usingBlock:resultsBlock
+                                    failureBlock:failureBlock];
+}
+
+- (void)setupAssetsByGroup:(ALAssetsGroup*)group{
+    
+    NSMutableArray* assets = [NSMutableArray array];
+    ALAssetsGroupEnumerationResultsBlock resultsBlock = ^(ALAsset *asset, NSUInteger index, BOOL *stop) {
+        if (asset){
+            [assets addObject:asset];
+        }else if (assets.count > 0){
+            NSMutableDictionary* d = [self currentGroupData];
+            NSMutableArray* assetsReverse = [[[assets reverseObjectEnumerator] allObjects] mutableCopy];
+            if ([[d valueForKey:@"data"] isEqual:[NSNull null]]) {
+                [d setValue:assetsReverse forKey:@"data"];
+            }
+            BCPhotoPickerViewController* navController = (BCPhotoPickerViewController*)self.navigationController;
+            if (navController.enableCamara) {
+                [assetsReverse insertObject:@"" atIndex:0];
+            }
+            [self.titleView setTitle:[NSString stringWithFormat:@"%@ ",[group valueForProperty:ALAssetsGroupPropertyName]]
+                            forState:UIControlStateNormal];
+            [self.collectionView reloadData];
+            
+            if (navController.scrollToBottom) {
+                if (assets.count) {
+                    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:assets.count - 1 inSection:0]
+                                                atScrollPosition:UICollectionViewScrollPositionBottom animated:NO];
+                }
+            }
+            [self.bottomBar updateStatus:[self.collectionView indexPathsForSelectedItems]];
+        }
+    };
+    
+    [group enumerateAssetsUsingBlock:resultsBlock];
+    
+}
+
+
+- (NSMutableDictionary*)currentGroupData{
+    __block NSMutableDictionary* d = nil;
+    [self.dataList enumerateObjectsUsingBlock:^(NSMutableDictionary *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj valueForKey:@"type"] == self.currentGroup) {
+            d = obj;
+        }
+    }];
+    return d;
+}
+
+- (void)showNotAllowed{
+    UILabel* label = [[UILabel alloc] initWithFrame:self.collectionView.frame];
+    label.text = @"请到设置->隐私里面进行设置";
+    label.textAlignment = NSTextAlignmentCenter;
+    label.textColor = [UIColor grayColor];
+    label.font = LantingheiBoldD(15);
+    label.numberOfLines = 0;
+    self.collectionView.backgroundView = label;
+}
+
+#pragma mark - property
+
+- (UICollectionView*)collectionView{
+    
+    if (!_collectionView) {
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, NavBarHeight, ScreenWidth, ScreenHeight - bottomHeight - NavBarHeight) collectionViewLayout:[UICollectionViewFlowLayout new]];
+        _collectionView.delegate = self;
+        _collectionView.dataSource = self;
+        [_collectionView registerNib:[UINib nibWithNibName:assetCell bundle:nil] forCellWithReuseIdentifier:assetCell];
+        [_collectionView registerNib:[UINib nibWithNibName:cameraCell bundle:nil] forCellWithReuseIdentifier:cameraCell];
+        _collectionView.backgroundColor = [UIColor whiteColor];
+        _collectionView.allowsMultipleSelection = YES;
+    }
+    return _collectionView;
+}
+
+- (BCPhotoAssetGroupView*)assetGroupView{
+    if (!_assetGroupView) {
+        __weak typeof(self) weakSelf = self;
+        _assetGroupView = [[BCPhotoAssetGroupView alloc] initWithFrame:CGRectMake(0, NavBarHeight, ScreenWidth, ScreenHeight - NavBarHeight) data:self.dataList titleView:self.titleView block:^(ALAssetsGroup *group) {
+            weakSelf.currentGroup = group;
+            weakSelf.titleView.selected = NO;
+            [weakSelf setupAssetsByGroup:group];
+        }];
+    }
+    return _assetGroupView;
+}
+
+- (UIButton*)titleView{
+    if (!_titleView) {
+        _titleView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 200, 30)];
+        _titleView.titleLabel.font = LantingheiBold(18);
+        [_titleView addTarget:self action:@selector(toggleBoard:) forControlEvents:UIControlEventTouchDown];
+        [_titleView setImage:[[UIImage imageNamed:@"square_arrow_down"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
+        [_titleView setImage:[[UIImage imageNamed:@"square_arrow_up"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateSelected];
+        _titleView.transform = CGAffineTransformMakeScale(-1.0, 1.0);
+        _titleView.titleLabel.transform = CGAffineTransformMakeScale(-1.0, 1.0);
+        _titleView.imageView.transform = CGAffineTransformMakeScale(-1.0, 1.0);
+        [_titleView setTitle:@"相机胶卷 " forState:UIControlStateNormal];
+    }
+    return _titleView;
+}
+
+- (BCPhotoAssetBottomBar*)bottomBar{
+    if (!_bottomBar) {
+        _bottomBar = [[[NSBundle mainBundle] loadNibNamed:@"BCPhotoAssetBottomBar" owner:nil options:nil] lastObject];
+        _bottomBar.frame = CGRectMake(0, ScreenHeight - bottomHeight, ScreenWidth, bottomHeight);
+        [_bottomBar.previewBtn addTarget:self action:@selector(previewAction:) forControlEvents:UIControlEventTouchUpInside];
+        [_bottomBar.finishBtn addTarget:self action:@selector(finishAction:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _bottomBar;
+}
+
+- (ALAssetsLibrary*)assetsLibrary{
+    if (!_assetsLibrary) {
+        _assetsLibrary = [self.class defaultAssetsLibrary];
+    }
+    return _assetsLibrary;
+}
+
+- (NSMutableArray*)dataList{
+    if (!_dataList) {
+        _dataList = [NSMutableArray array];
+    }
+    return _dataList;
+}
+
+- (NSMutableArray*)selectedIndexPath{
+    if (!_selectedIndexPath) {
+        _selectedIndexPath = [NSMutableArray array];
+    }
+    return _selectedIndexPath;
+}
+
+@end

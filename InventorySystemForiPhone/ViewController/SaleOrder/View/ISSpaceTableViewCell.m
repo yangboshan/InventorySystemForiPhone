@@ -26,10 +26,18 @@
     if ([data isKindOfClass:[NSDictionary class]]) {
         NSDictionary * param = data;
         if ([param.allKeys containsObject:@"height"]) {
-            self.heightConstraint.constant = [param[@"height"] floatValue];
+            if ([param[@"height"] isKindOfClass:[NSNumber class]]) {
+                self.heightConstraint.constant = [param[@"height"] floatValue];
+            }else{
+                NSParameterAssert(NO);
+            }
         }
         if ([param.allKeys containsObject:@"bgColor"]) {
-            self.bgView.backgroundColor = param[@"bgColor"];
+            if ([param[@"bgColor"] isKindOfClass:[UIColor class]]) {
+                self.bgView.backgroundColor = param[@"bgColor"];
+            }else{
+                NSParameterAssert(NO);
+            }
         }
     }
 }

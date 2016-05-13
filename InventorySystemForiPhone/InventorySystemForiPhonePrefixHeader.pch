@@ -21,6 +21,7 @@
 #import "UIDevice+ISCategory.h"
 #import "NSDate+ISCategory.h"
 #import "UITableViewCell+ISCategory.h"
+#import "UIImage+ISCategory.h"
 
 #import "ISSettingManager.h"
 #import "ISProcessViewHelper.h"

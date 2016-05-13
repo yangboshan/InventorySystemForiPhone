@@ -146,8 +146,9 @@
 }
 
 - (ISLoginBoardView*)loginBoardView{
+    
     if (_loginBoardView == nil) {
-        _loginBoardView = [[[NSBundle mainBundle] loadNibNamed:@"ISLoginBoardView" owner:nil options:nil] firstObject];
+        _loginBoardView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([ISLoginBoardView class]) owner:nil options:nil] firstObject];
         [_loginBoardView.loginBtn addTarget:self action:@selector(login:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _loginBoardView;

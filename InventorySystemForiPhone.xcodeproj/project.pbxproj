@@ -90,6 +90,21 @@
 		3EB094B21CD9DEF50018BE1E /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EB094B11CD9DEF50018BE1E /* libxml2.tbd */; };
 		3EB094BF1CD9FCA00018BE1E /* ISNetworkingPrivilegeAPIHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB094BE1CD9FCA00018BE1E /* ISNetworkingPrivilegeAPIHandler.m */; };
 		3EB817071CE3063D005CC5B9 /* ISAddProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB817061CE3063D005CC5B9 /* ISAddProductViewController.m */; };
+		3EB8177B1CE5B930005CC5B9 /* BCPhotoAssetBottomBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB817681CE5B930005CC5B9 /* BCPhotoAssetBottomBar.m */; };
+		3EB8177C1CE5B930005CC5B9 /* BCPhotoAssetBottomBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EB817691CE5B930005CC5B9 /* BCPhotoAssetBottomBar.xib */; };
+		3EB8177D1CE5B930005CC5B9 /* BCPhotoAssetCameraCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB8176B1CE5B930005CC5B9 /* BCPhotoAssetCameraCell.m */; };
+		3EB8177E1CE5B930005CC5B9 /* BCPhotoAssetCameraCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EB8176C1CE5B930005CC5B9 /* BCPhotoAssetCameraCell.xib */; };
+		3EB8177F1CE5B930005CC5B9 /* BCPhotoAssetGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB8176E1CE5B930005CC5B9 /* BCPhotoAssetGroupCell.m */; };
+		3EB817801CE5B930005CC5B9 /* BCPhotoAssetGroupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EB8176F1CE5B930005CC5B9 /* BCPhotoAssetGroupCell.xib */; };
+		3EB817811CE5B930005CC5B9 /* BCPhotoAssetGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB817711CE5B930005CC5B9 /* BCPhotoAssetGroupView.m */; };
+		3EB817821CE5B930005CC5B9 /* BCPhotoAssetViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB817731CE5B930005CC5B9 /* BCPhotoAssetViewCell.m */; };
+		3EB817831CE5B930005CC5B9 /* BCPhotoAssetViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EB817741CE5B930005CC5B9 /* BCPhotoAssetViewCell.xib */; };
+		3EB817841CE5B930005CC5B9 /* BCPhotoAssetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB817761CE5B930005CC5B9 /* BCPhotoAssetViewController.m */; };
+		3EB817851CE5B930005CC5B9 /* BCPhotoPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB817781CE5B930005CC5B9 /* BCPhotoPickerViewController.m */; };
+		3EB817861CE5B930005CC5B9 /* BCPhotoPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB8177A1CE5B930005CC5B9 /* BCPhotoPreviewController.m */; };
+		3EB817891CE5B9B3005CC5B9 /* UIImage+ISCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB817881CE5B9B3005CC5B9 /* UIImage+ISCategory.m */; };
+		3EB8178D1CE5BEB5005CC5B9 /* ISOrderPhotoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB8178B1CE5BEB5005CC5B9 /* ISOrderPhotoTableViewCell.m */; };
+		3EB8178E1CE5BEB5005CC5B9 /* ISOrderPhotoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EB8178C1CE5BEB5005CC5B9 /* ISOrderPhotoTableViewCell.xib */; };
 		3EFA6B111CE18CE900EE6647 /* ISOrderHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFA6B101CE18CE900EE6647 /* ISOrderHeaderView.m */; };
 		3EFA6B151CE18D0300EE6647 /* ISOrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFA6B131CE18D0300EE6647 /* ISOrderTableViewCell.m */; };
 		3EFA6B161CE18D0300EE6647 /* ISOrderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EFA6B141CE18D0300EE6647 /* ISOrderTableViewCell.xib */; };
@@ -259,6 +274,31 @@
 		3EB094BE1CD9FCA00018BE1E /* ISNetworkingPrivilegeAPIHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISNetworkingPrivilegeAPIHandler.m; sourceTree = "<group>"; };
 		3EB817051CE3063D005CC5B9 /* ISAddProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISAddProductViewController.h; sourceTree = "<group>"; };
 		3EB817061CE3063D005CC5B9 /* ISAddProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISAddProductViewController.m; sourceTree = "<group>"; };
+		3EB817671CE5B930005CC5B9 /* BCPhotoAssetBottomBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCPhotoAssetBottomBar.h; sourceTree = "<group>"; };
+		3EB817681CE5B930005CC5B9 /* BCPhotoAssetBottomBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCPhotoAssetBottomBar.m; sourceTree = "<group>"; };
+		3EB817691CE5B930005CC5B9 /* BCPhotoAssetBottomBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BCPhotoAssetBottomBar.xib; sourceTree = "<group>"; };
+		3EB8176A1CE5B930005CC5B9 /* BCPhotoAssetCameraCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCPhotoAssetCameraCell.h; sourceTree = "<group>"; };
+		3EB8176B1CE5B930005CC5B9 /* BCPhotoAssetCameraCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCPhotoAssetCameraCell.m; sourceTree = "<group>"; };
+		3EB8176C1CE5B930005CC5B9 /* BCPhotoAssetCameraCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BCPhotoAssetCameraCell.xib; sourceTree = "<group>"; };
+		3EB8176D1CE5B930005CC5B9 /* BCPhotoAssetGroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCPhotoAssetGroupCell.h; sourceTree = "<group>"; };
+		3EB8176E1CE5B930005CC5B9 /* BCPhotoAssetGroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCPhotoAssetGroupCell.m; sourceTree = "<group>"; };
+		3EB8176F1CE5B930005CC5B9 /* BCPhotoAssetGroupCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BCPhotoAssetGroupCell.xib; sourceTree = "<group>"; };
+		3EB817701CE5B930005CC5B9 /* BCPhotoAssetGroupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCPhotoAssetGroupView.h; sourceTree = "<group>"; };
+		3EB817711CE5B930005CC5B9 /* BCPhotoAssetGroupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCPhotoAssetGroupView.m; sourceTree = "<group>"; };
+		3EB817721CE5B930005CC5B9 /* BCPhotoAssetViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCPhotoAssetViewCell.h; sourceTree = "<group>"; };
+		3EB817731CE5B930005CC5B9 /* BCPhotoAssetViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCPhotoAssetViewCell.m; sourceTree = "<group>"; };
+		3EB817741CE5B930005CC5B9 /* BCPhotoAssetViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BCPhotoAssetViewCell.xib; sourceTree = "<group>"; };
+		3EB817751CE5B930005CC5B9 /* BCPhotoAssetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCPhotoAssetViewController.h; sourceTree = "<group>"; };
+		3EB817761CE5B930005CC5B9 /* BCPhotoAssetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCPhotoAssetViewController.m; sourceTree = "<group>"; };
+		3EB817771CE5B930005CC5B9 /* BCPhotoPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCPhotoPickerViewController.h; sourceTree = "<group>"; };
+		3EB817781CE5B930005CC5B9 /* BCPhotoPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCPhotoPickerViewController.m; sourceTree = "<group>"; };
+		3EB817791CE5B930005CC5B9 /* BCPhotoPreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCPhotoPreviewController.h; sourceTree = "<group>"; };
+		3EB8177A1CE5B930005CC5B9 /* BCPhotoPreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCPhotoPreviewController.m; sourceTree = "<group>"; };
+		3EB817871CE5B9B3005CC5B9 /* UIImage+ISCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ISCategory.h"; sourceTree = "<group>"; };
+		3EB817881CE5B9B3005CC5B9 /* UIImage+ISCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ISCategory.m"; sourceTree = "<group>"; };
+		3EB8178A1CE5BEB5005CC5B9 /* ISOrderPhotoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISOrderPhotoTableViewCell.h; sourceTree = "<group>"; };
+		3EB8178B1CE5BEB5005CC5B9 /* ISOrderPhotoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISOrderPhotoTableViewCell.m; sourceTree = "<group>"; };
+		3EB8178C1CE5BEB5005CC5B9 /* ISOrderPhotoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ISOrderPhotoTableViewCell.xib; sourceTree = "<group>"; };
 		3EFA6B0F1CE18CE900EE6647 /* ISOrderHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISOrderHeaderView.h; sourceTree = "<group>"; };
 		3EFA6B101CE18CE900EE6647 /* ISOrderHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISOrderHeaderView.m; sourceTree = "<group>"; };
 		3EFA6B121CE18D0300EE6647 /* ISOrderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISOrderTableViewCell.h; sourceTree = "<group>"; };
@@ -357,6 +397,8 @@
 				3E5E19A91CDDD2A9003F6E70 /* NSDate+ISCategory.m */,
 				3E919A1B1CE1C70E0044AF02 /* UITableViewCell+ISCategory.h */,
 				3E919A1C1CE1C70E0044AF02 /* UITableViewCell+ISCategory.m */,
+				3EB817871CE5B9B3005CC5B9 /* UIImage+ISCategory.h */,
+				3EB817881CE5B9B3005CC5B9 /* UIImage+ISCategory.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -456,6 +498,7 @@
 		3E5775021CDAE076004FA21C /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				3EB817661CE5B930005CC5B9 /* PhotoPicker */,
 				3E5E19BF1CE08DD6003F6E70 /* ProgressIndicator */,
 				3E5775031CDAE07F004FA21C /* UIViewExt.h */,
 				3E5775041CDAE07F004FA21C /* UIViewExt.m */,
@@ -660,18 +703,21 @@
 		3E57754C1CDB1A00004FA21C /* View */ = {
 			isa = PBXGroup;
 			children = (
-				3EFA6B0F1CE18CE900EE6647 /* ISOrderHeaderView.h */,
-				3EFA6B101CE18CE900EE6647 /* ISOrderHeaderView.m */,
-				3EFA6B1A1CE18D2400EE6647 /* ISOrderHeaderView.xib */,
+				3EB8178A1CE5BEB5005CC5B9 /* ISOrderPhotoTableViewCell.h */,
+				3EB8178B1CE5BEB5005CC5B9 /* ISOrderPhotoTableViewCell.m */,
+				3EB8178C1CE5BEB5005CC5B9 /* ISOrderPhotoTableViewCell.xib */,
 				3EFA6B121CE18D0300EE6647 /* ISOrderTableViewCell.h */,
 				3EFA6B131CE18D0300EE6647 /* ISOrderTableViewCell.m */,
 				3EFA6B141CE18D0300EE6647 /* ISOrderTableViewCell.xib */,
-				3EFA6B171CE18D1500EE6647 /* ISOrderBottomView.h */,
-				3EFA6B181CE18D1500EE6647 /* ISOrderBottomView.m */,
-				3EFA6B1C1CE18D3100EE6647 /* ISOrderBottomView.xib */,
 				3E919A1E1CE1C80C0044AF02 /* ISSpaceTableViewCell.h */,
 				3E919A1F1CE1C80C0044AF02 /* ISSpaceTableViewCell.m */,
 				3E919A201CE1C80C0044AF02 /* ISSpaceTableViewCell.xib */,
+				3EFA6B0F1CE18CE900EE6647 /* ISOrderHeaderView.h */,
+				3EFA6B101CE18CE900EE6647 /* ISOrderHeaderView.m */,
+				3EFA6B1A1CE18D2400EE6647 /* ISOrderHeaderView.xib */,
+				3EFA6B171CE18D1500EE6647 /* ISOrderBottomView.h */,
+				3EFA6B181CE18D1500EE6647 /* ISOrderBottomView.m */,
+				3EFA6B1C1CE18D3100EE6647 /* ISOrderBottomView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -882,6 +928,33 @@
 			path = APIS;
 			sourceTree = "<group>";
 		};
+		3EB817661CE5B930005CC5B9 /* PhotoPicker */ = {
+			isa = PBXGroup;
+			children = (
+				3EB817671CE5B930005CC5B9 /* BCPhotoAssetBottomBar.h */,
+				3EB817681CE5B930005CC5B9 /* BCPhotoAssetBottomBar.m */,
+				3EB817691CE5B930005CC5B9 /* BCPhotoAssetBottomBar.xib */,
+				3EB8176A1CE5B930005CC5B9 /* BCPhotoAssetCameraCell.h */,
+				3EB8176B1CE5B930005CC5B9 /* BCPhotoAssetCameraCell.m */,
+				3EB8176C1CE5B930005CC5B9 /* BCPhotoAssetCameraCell.xib */,
+				3EB8176D1CE5B930005CC5B9 /* BCPhotoAssetGroupCell.h */,
+				3EB8176E1CE5B930005CC5B9 /* BCPhotoAssetGroupCell.m */,
+				3EB8176F1CE5B930005CC5B9 /* BCPhotoAssetGroupCell.xib */,
+				3EB817701CE5B930005CC5B9 /* BCPhotoAssetGroupView.h */,
+				3EB817711CE5B930005CC5B9 /* BCPhotoAssetGroupView.m */,
+				3EB817721CE5B930005CC5B9 /* BCPhotoAssetViewCell.h */,
+				3EB817731CE5B930005CC5B9 /* BCPhotoAssetViewCell.m */,
+				3EB817741CE5B930005CC5B9 /* BCPhotoAssetViewCell.xib */,
+				3EB817751CE5B930005CC5B9 /* BCPhotoAssetViewController.h */,
+				3EB817761CE5B930005CC5B9 /* BCPhotoAssetViewController.m */,
+				3EB817771CE5B930005CC5B9 /* BCPhotoPickerViewController.h */,
+				3EB817781CE5B930005CC5B9 /* BCPhotoPickerViewController.m */,
+				3EB817791CE5B930005CC5B9 /* BCPhotoPreviewController.h */,
+				3EB8177A1CE5B930005CC5B9 /* BCPhotoPreviewController.m */,
+			);
+			path = PhotoPicker;
+			sourceTree = "<group>";
+		};
 		912E3E157C8822EFDF751E25 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -962,7 +1035,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E919A241CE1D3230044AF02 /* Lantinghei_2.ttf in Resources */,
+				3EB8177E1CE5B930005CC5B9 /* BCPhotoAssetCameraCell.xib in Resources */,
 				3E57757A1CDB2AC2004FA21C /* ISMainPageCollectionViewCell.xib in Resources */,
+				3EB817801CE5B930005CC5B9 /* BCPhotoAssetGroupCell.xib in Resources */,
 				3E919A221CE1C80C0044AF02 /* ISSpaceTableViewCell.xib in Resources */,
 				3E5774EB1CDA222F004FA21C /* LinoonInv.sqlite in Resources */,
 				3E21D8CA1CCF45E0000A830E /* LaunchScreen.storyboard in Resources */,
@@ -973,10 +1048,13 @@
 				3E21D8C71CCF45E0000A830E /* Assets.xcassets in Resources */,
 				3E5775001CDA32EA004FA21C /* Localizable.strings in Resources */,
 				3EFA6B161CE18D0300EE6647 /* ISOrderTableViewCell.xib in Resources */,
+				3EB8178E1CE5BEB5005CC5B9 /* ISOrderPhotoTableViewCell.xib in Resources */,
 				3EFA6B1B1CE18D2400EE6647 /* ISOrderHeaderView.xib in Resources */,
+				3EB8177C1CE5B930005CC5B9 /* BCPhotoAssetBottomBar.xib in Resources */,
 				3E5775571CDB1A00004FA21C /* ISLoginBoardView.xib in Resources */,
 				3E5774F81CDA286B004FA21C /* Lantinghei_0.ttf in Resources */,
 				3E21D8C51CCF45E0000A830E /* Main.storyboard in Resources */,
+				3EB817831CE5B930005CC5B9 /* BCPhotoAssetViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1038,16 +1116,19 @@
 				3E9CA7F71CDB917B00110270 /* ISNetworkingRegisterInfoAPIHandler.m in Sources */,
 				3E40E21E1CD1F21E008B75BB /* ISNetworkingServiceProviderFactory.m in Sources */,
 				3E5E19A01CDD769A003F6E70 /* ISUnitDataModel.m in Sources */,
+				3EB8177B1CE5B930005CC5B9 /* BCPhotoAssetBottomBar.m in Sources */,
 				3E40E2151CD1BC72008B75BB /* ISNetworkingBaseAPIHandler.m in Sources */,
 				3E40E2181CD1BC9E008B75BB /* ISNetworkingBaseServiceProvider.m in Sources */,
 				3E57758E1CDB8699004FA21C /* ISNetworkingRemainTimeAPIHandler.m in Sources */,
 				3E9CA7FD1CDC3F0B00110270 /* ISWebViewController.m in Sources */,
 				3E9CA7FA1CDB98F400110270 /* ISGDataXMLHelper.m in Sources */,
 				3E5E19B91CE03CA8003F6E70 /* ISBaseModel.m in Sources */,
+				3EB8177D1CE5B930005CC5B9 /* BCPhotoAssetCameraCell.m in Sources */,
 				3E919A1D1CE1C70E0044AF02 /* UITableViewCell+ISCategory.m in Sources */,
 				3E5775791CDB2AC2004FA21C /* ISMainPageCollectionViewCell.m in Sources */,
 				3E5E19B31CDDE357003F6E70 /* ISDataSyncProductFormatter.m in Sources */,
 				3E9CA8051CDC6A4F00110270 /* ISDataSyncViewController.m in Sources */,
+				3EB817821CE5B930005CC5B9 /* BCPhotoAssetViewCell.m in Sources */,
 				3E40E2061CD1BB8A008B75BB /* ISNetworkingContext.m in Sources */,
 				3E919A271CE219210044AF02 /* ISSearchFieldViewController.m in Sources */,
 				3E21D8C21CCF45E0000A830E /* ViewController.m in Sources */,
@@ -1061,12 +1142,14 @@
 				3E5E19AA1CDDD2A9003F6E70 /* NSDate+ISCategory.m in Sources */,
 				3E9CA7F41CDB8EFD00110270 /* ISRemainTimeViewController.m in Sources */,
 				3E5E199A1CDD7663003F6E70 /* ISParterDataModel.m in Sources */,
+				3EB817811CE5B930005CC5B9 /* BCPhotoAssetGroupView.m in Sources */,
 				3E5775891CDB8202004FA21C /* ISMainPageHeaderView.m in Sources */,
 				3E5E19B01CDDE189003F6E70 /* ISTypeMapper.m in Sources */,
 				3E40E20F1CD1BBFE008B75BB /* ISNetworkingCommonParamsGenerator.m in Sources */,
 				3EB817071CE3063D005CC5B9 /* ISAddProductViewController.m in Sources */,
 				3E40E2271CD2062D008B75BB /* NSURLRequest+ISNetworking.m in Sources */,
 				3E5775631CDB1ADA004FA21C /* ISSaleOrderViewController.m in Sources */,
+				3EB817851CE5B930005CC5B9 /* BCPhotoPickerViewController.m in Sources */,
 				3E5774E91CDA1F4D004FA21C /* ISSettingManager.m in Sources */,
 				3E5775831CDB7D5A004FA21C /* UIDevice+ISCategory.m in Sources */,
 				3E919A211CE1C80C0044AF02 /* ISSpaceTableViewCell.m in Sources */,
@@ -1089,15 +1172,20 @@
 				3E9CA8081CDC89F900110270 /* ISDataSyncModel.m in Sources */,
 				3E5775531CDB1A00004FA21C /* ISLoginViewController.m in Sources */,
 				3EB094AD1CD9C1BB0018BE1E /* ISNetworkingLoginAPIHandler.m in Sources */,
+				3EB8177F1CE5B930005CC5B9 /* BCPhotoAssetGroupCell.m in Sources */,
 				3E40E21B1CD1BCEA008B75BB /* ISNetworkingSOAPServiceProvider.m in Sources */,
 				3E5E19B61CDDE394003F6E70 /* ISDataSyncUnitFormatter.m in Sources */,
+				3EB817861CE5B930005CC5B9 /* BCPhotoPreviewController.m in Sources */,
+				3EB8178D1CE5BEB5005CC5B9 /* ISOrderPhotoTableViewCell.m in Sources */,
 				3E5E199D1CDD767A003F6E70 /* ISProductDataModel.m in Sources */,
 				3E57757D1CDB2D16004FA21C /* ISMainPageViewModel.m in Sources */,
 				3E5775861CDB8028004FA21C /* ISNetworkingHostServiceProvider.m in Sources */,
 				3EFA6B151CE18D0300EE6647 /* ISOrderTableViewCell.m in Sources */,
 				3E40E2241CD203C2008B75BB /* ISNetworkingResponse.m in Sources */,
 				3E5E19C41CE08DD6003F6E70 /* RMDisplayLabel.m in Sources */,
+				3EB817891CE5B9B3005CC5B9 /* UIImage+ISCategory.m in Sources */,
 				3E40E2001CD1BB56008B75BB /* ISNetworkingLogger.m in Sources */,
+				3EB817841CE5B930005CC5B9 /* BCPhotoAssetViewController.m in Sources */,
 				3E40E2211CD1FD68008B75BB /* NSObject+ISNetworking.m in Sources */,
 				3E57755A1CDB1A7E004FA21C /* ISLoginViewModel.m in Sources */,
 				3E57750E1CDAEE04004FA21C /* ISProcessViewHelper.m in Sources */,

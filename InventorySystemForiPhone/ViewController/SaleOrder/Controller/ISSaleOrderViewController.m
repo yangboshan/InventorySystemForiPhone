@@ -7,12 +7,18 @@
 //
 
 #import "ISSaleOrderViewController.h"
-#import "ISOrderHeaderView.h"
 #import "ISSearchFieldViewController.h"
+#import "BCPhotoPickerViewController.h"
+#import "ISAddProductViewController.h"
+
 #import "ISParterDataModel.h"
+
+#import "ISOrderHeaderView.h"
+#import "ISOrderBottomView.h"
 
 @interface ISSaleOrderViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) ISOrderHeaderView * orderHeaderView;
+@property (nonatomic, strong) ISOrderBottomView * orderBottomView;
 @property (nonatomic, strong) UITableView * saleOrderTableView;
 @property (nonatomic, strong) NSMutableArray * dataList;
 @property (nonatomic, strong) ISOrderViewModel * orderViewModel;
@@ -21,6 +27,9 @@
 
 static NSString* orderCell = @"ISOrderTableViewCell";
 static NSString* spaceCell = @"ISSpaceTableViewCell";
+static NSString* imageCell = @"ISOrderPhotoTableViewCell";
+
+static float bottomHeight = 49;
 
 @implementation ISSaleOrderViewController
 
@@ -39,6 +48,7 @@ static NSString* spaceCell = @"ISSpaceTableViewCell";
     self.navigationItem.rightBarButtonItem = saveBarItem;
     
     [self.view addSubview:self.saleOrderTableView];
+    [self.view addSubview:self.orderBottomView];
     [self autolayoutSubView];
     [self setupData];
 }
@@ -47,18 +57,21 @@ static NSString* spaceCell = @"ISSpaceTableViewCell";
     self.dataList = [NSMutableArray array];
     [self.dataList addObject:@{@"type":spaceCell,@"data":@{@"height":@(10),@"bgColor":RGB(239, 244, 244)}}];
     [self.dataList addObject:@{@"type":orderCell,@"data":@""}];
-    [self.dataList addObject:@{@"type":spaceCell,@"data":@{@"height":@(5),@"bgColor":RGB(239, 244, 244)}}];
-    [self.dataList addObject:@{@"type":orderCell,@"data":@""}];
     self.orderHeaderView.orderNOLabel.text = [self.orderViewModel generateSaleOrderNo];
     
     [self.saleOrderTableView reloadData];
 }
 
 - (void)autolayoutSubView{
+    
     self.orderHeaderView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.orderHeaderView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self.saleOrderTableView];
-    [self.saleOrderTableView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
     [self.orderHeaderView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    [self.saleOrderTableView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsMake(0, 0, bottomHeight, 0)];
+    
+    [self.orderBottomView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsMake(0, 0, 0, 0) excludingEdge:ALEdgeTop];
+    [self.orderBottomView autoSetDimension:ALDimensionHeight toSize:bottomHeight];
+
 }
 
 #pragma mark - event
@@ -77,6 +90,45 @@ static NSString* spaceCell = @"ISSpaceTableViewCell";
 
 - (void)postOrder:(id)sender{
     
+}
+
+- (void)takePhoto:(UIButton*)sender{
+    
+    BCPhotoPickerViewController * photoPickerController = [[BCPhotoPickerViewController alloc] init];
+    photoPickerController.maxOfSelection = 1;
+    __weak typeof(self) weakSelf = self;
+    photoPickerController.block = ^(NSArray * data){
+        if ( sender == weakSelf.orderBottomView.takeInDoorPhotoBtn) {
+            NSDictionary * imageDic = [weakSelf getImageCell];
+            [imageDic setValue:[data firstObject] forKeyPath:@"data.in"];
+        }else{
+            NSDictionary * imageDic = [weakSelf getImageCell];
+            [imageDic setValue:[data firstObject] forKeyPath:@"data.out"];
+        }
+        [weakSelf.saleOrderTableView reloadData];
+    };
+    [self presentViewController:photoPickerController animated:YES completion:nil];
+}
+
+- (void)addProduct:(UIButton*)sender{
+    ISAddProductViewController * addProductController = [[ISAddProductViewController alloc] initWithType:ISAddProductTypeNew block:^(id object) {
+        
+    }];
+    [self.navigationController pushViewController:addProductController animated:YES];
+}
+
+- (NSDictionary*)getImageCell{
+    
+    for(int i = 0; i < self.dataList.count; i++){
+        NSDictionary * d = self.dataList[i];
+        if ([d[@"type"] isEqualToString:imageCell]) {
+            return d;
+        }
+    }
+    NSDictionary * imageDic = @{@"type":imageCell,@"data":[@{@"in":[NSNull null],@"out":[NSNull null]} mutableCopy]};
+    [self.dataList insertObject:imageDic atIndex:0];
+    
+    return imageDic;
 }
 
 #pragma mark - UITableViewDelegate & UITableViewDataSource
@@ -103,7 +155,8 @@ static NSString* spaceCell = @"ISSpaceTableViewCell";
         _saleOrderTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
         [_saleOrderTableView registerNib:[UINib nibWithNibName:orderCell bundle:nil] forCellReuseIdentifier:orderCell];
         [_saleOrderTableView registerNib:[UINib nibWithNibName:spaceCell bundle:nil] forCellReuseIdentifier:spaceCell];
-        
+        [_saleOrderTableView registerNib:[UINib nibWithNibName:imageCell bundle:nil] forCellReuseIdentifier:imageCell];
+
         _saleOrderTableView.delegate = self;
         _saleOrderTableView.dataSource = self;
         _saleOrderTableView.tableHeaderView = self.orderHeaderView;
@@ -117,10 +170,20 @@ static NSString* spaceCell = @"ISSpaceTableViewCell";
 
 - (ISOrderHeaderView*)orderHeaderView{
     if (_orderHeaderView == nil) {
-        _orderHeaderView = [[[NSBundle mainBundle] loadNibNamed:@"ISOrderHeaderView" owner:nil options:nil] lastObject];
+        _orderHeaderView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([ISOrderHeaderView class]) owner:nil options:nil] lastObject];
         [_orderHeaderView.customerBtn addTarget:self action:@selector(showSearch:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _orderHeaderView;
+}
+
+- (ISOrderBottomView*)orderBottomView{
+    if (_orderBottomView == nil) {
+        _orderBottomView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([ISOrderBottomView class]) owner:nil options:nil] lastObject];
+        [_orderBottomView.takeInDoorPhotoBtn addTarget:self action:@selector(takePhoto:) forControlEvents:UIControlEventTouchUpInside];
+        [_orderBottomView.takeOutDoorPhotoBtn addTarget:self action:@selector(takePhoto:) forControlEvents:UIControlEventTouchUpInside];
+        [_orderBottomView.addProductBtn addTarget:self action:@selector(addProduct:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _orderBottomView;
 }
 
 - (ISOrderViewModel*)orderViewModel{

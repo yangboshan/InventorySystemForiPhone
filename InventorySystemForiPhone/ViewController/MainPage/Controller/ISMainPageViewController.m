@@ -189,7 +189,8 @@ static float timeViewHeight = 50;
 
 - (ISMainPageHeaderView*)headerView{
     if (_headerView == nil) {
-        _headerView = [[[NSBundle mainBundle] loadNibNamed:@"ISMainPageHeaderView" owner:nil options:nil] firstObject];
+        
+        _headerView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([ISMainPageHeaderView class]) owner:nil options:nil] firstObject];
         [_headerView.remainTimeBtn addTarget:self action:@selector(goCharge:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _headerView;
