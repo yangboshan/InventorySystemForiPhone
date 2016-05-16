@@ -21,6 +21,7 @@
     self.inDoorImageView.clipsToBounds = YES;
     self.outDoorImageView.contentMode = UIViewContentModeScaleAspectFill;
     self.outDoorImageView.clipsToBounds = YES;
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 - (void)configureWithData:(id)data indexPath:(NSIndexPath *)indexPath superView:(UITableView *)superView{

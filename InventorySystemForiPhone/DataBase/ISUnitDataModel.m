@@ -10,8 +10,8 @@
 
 @implementation ISUnitDataModel
 
-- (NSString*)primaryKey{
-    return @"proid";
+- (NSArray*)primaryKey{
+    return @[@"proid",@"Uniterate"];
 }
 
 @end

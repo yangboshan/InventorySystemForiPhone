@@ -23,6 +23,11 @@ typedef NS_ENUM(NSInteger,ISDataSyncStatus){
 @property (nonatomic,assign,readonly) ISDataSyncStatus status;
 
 /**
+ *  当前同步状态描述
+ */
+@property (nonatomic,strong,readonly) NSString * statusDescription;
+
+/**
  *  进度
  */
 @property (nonatomic,assign,readonly) float progress;

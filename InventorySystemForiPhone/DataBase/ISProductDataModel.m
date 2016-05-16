@@ -10,8 +10,8 @@
 
 @implementation ISProductDataModel
 
-- (NSString*)primaryKey{
-    return @"ProId";
+- (NSArray*)primaryKey{
+    return @[@"ProId"];
 }
 
 @end

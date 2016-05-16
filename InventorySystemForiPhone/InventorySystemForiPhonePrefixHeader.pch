@@ -14,6 +14,7 @@
 
 #ifdef __OBJC__
 
+#import "ISUtilities.h"
 #import "ISCommonMacro.h"
 #import "ISNotificationDefine.h"
 #import "NSObject+ISNetworking.h"
@@ -22,6 +23,7 @@
 #import "NSDate+ISCategory.h"
 #import "UITableViewCell+ISCategory.h"
 #import "UIImage+ISCategory.h"
+#import "UIView+ISCategory.h"
 
 #import "ISSettingManager.h"
 #import "ISProcessViewHelper.h"
@@ -35,12 +37,12 @@
 
 #endif
 
-#ifdef DEBUG
-//#define NSLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
-#define NSLog(...)
-#else
-#define NSLog(...)
-#endif
+//#ifdef DEBUG
+////#define NSLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+//#define NSLog(...)
+//#else
+//#define NSLog(...)
+//#endif
 
 
 #endif /* InventorySystemForiPhonePrefixHeader_pch */

@@ -19,3 +19,4 @@ ISSaleOrderViewController = "销售抄单";
 ISReturnOrderViewController = "退货抄单";
 ISRemainTimeViewController = "使用期限";
 ISDataSyncViewController = "数据同步";
+ISAddProductViewController = "添加商品";

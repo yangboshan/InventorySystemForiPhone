@@ -20,6 +20,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    sleep(1);
+    
     [self initialSetup];
     
     ISMainPageViewController* mainPageController = [ISMainPageViewController new];

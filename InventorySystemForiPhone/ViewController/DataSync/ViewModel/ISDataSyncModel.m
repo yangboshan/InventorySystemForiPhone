@@ -130,4 +130,24 @@ static NSString* IS_SQL_GetLastUpdate = @"select ifnull(max(ifnull(UPD_DATE,CRE_
     }
     return _syncAPIHander;
 }
+
+- (NSString*)statusDescription{
+    switch (self.status) {
+        case ISDataSyncStatusDefault:
+            return  @"待同步";
+            break;
+        case ISDataSyncStatusFinished:
+            return  @"同步完成";
+            break;
+        case ISDataSyncStatusSyncing:
+            return  @"正在同步";
+            break;
+        case ISDataSyncStatusError:
+            return  @"同步出错";
+            break;
+        default:
+            break;
+    }
+}
+
 @end

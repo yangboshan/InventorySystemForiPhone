@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "RMDownloadIndicator.h"
 
+@class ISDataSyncModel;
+
 @interface ISDataSyncInfoView : UIView
 @property (weak, nonatomic) IBOutlet UILabel *lastUpdateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;

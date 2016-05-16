@@ -46,7 +46,23 @@ typedef void(^ISDataSyncProgressBlock)(float progress);
  */
 - (void)updateDataBaseByModelList:(NSArray*)modelList block:(ISDataSyncProgressBlock)block;
 
-
+/**
+ *  表 Model 对应
+ *
+ *  @param model
+ *
+ *  @return
+ */
 - (NSString*)getTableFromModel:(ISBaseModel*)model;
+
+
+/**
+ *  属性列表
+ *
+ *  @param model
+ *
+ *  @return 
+ */
+- (NSArray*)propertyListFromModel:(ISBaseModel*)model;
 
 @end

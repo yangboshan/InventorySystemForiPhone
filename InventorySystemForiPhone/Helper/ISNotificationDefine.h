@@ -18,3 +18,8 @@ extern NSString * const kISLoginDidSuccessNotification;
  *  Logout
  */
 extern NSString * const kISLogOutNotification;
+
+/**
+ *  Order Refresh
+ */
+extern NSString * const kISOrderRefreshNotification;

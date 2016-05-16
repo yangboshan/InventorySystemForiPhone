@@ -45,9 +45,6 @@ static float const bottomHeight = 45;
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.navigationItem.titleView = self.titleView;
     
-    UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav_back"] style:UIBarButtonItemStylePlain target:self action:@selector(pop:)];
-    self.navigationItem.leftBarButtonItem = leftBarButtonItem;
-    
     [self.view addSubview:self.scrollView];
     [self.view addSubview:self.bottomBar];
     [self.view addSubview:self.rightBtn];

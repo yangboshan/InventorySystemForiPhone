@@ -10,3 +10,4 @@ NSString * const kISLoginDidSuccessNotification = @"kISLoginDidSuccessNotificati
 
 NSString * const kISLogOutNotification = @"kISLogOutNotification";
 
+NSString * const kISOrderRefreshNotification = @"kISOrderRefreshNotification";

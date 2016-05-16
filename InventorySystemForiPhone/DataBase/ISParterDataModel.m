@@ -10,8 +10,8 @@
 
 @implementation ISParterDataModel
 
-- (NSString*)primaryKey{
-    return @"PartnerId";
+- (NSArray*)primaryKey{
+    return @[@"PartnerId"];
 }
 
 @end

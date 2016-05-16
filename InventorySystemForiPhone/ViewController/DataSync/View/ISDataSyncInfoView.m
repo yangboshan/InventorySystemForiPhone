@@ -7,6 +7,7 @@
 //
 
 #import "ISDataSyncInfoView.h"
+#import "ISDataSyncModel.h"
 
 @interface ISDataSyncInfoView()
 @end
@@ -23,12 +24,14 @@
     [self.syncBtn setTitleColor:TheameColor forState:UIControlStateNormal];
 
     self.lastUpdateLabel.textColor = [UIColor grayColor];
-    self.statusLabel.textColor = [UIColor grayColor];
+    self.statusLabel.textColor = TheameColor;
 }
 
 - (void)setProgress:(float)progress{
     _progress = progress;
     [self.filledIndicator updateWithTotalBytes:100 downloadedBytes:progress*100];
 }
+
+
 
 @end

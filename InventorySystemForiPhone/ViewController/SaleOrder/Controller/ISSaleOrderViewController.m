@@ -22,6 +22,7 @@
 @property (nonatomic, strong) UITableView * saleOrderTableView;
 @property (nonatomic, strong) NSMutableArray * dataList;
 @property (nonatomic, strong) ISOrderViewModel * orderViewModel;
+@property (nonatomic, strong) ISParterDataModel * partnerModel;
 @end
 
 
@@ -82,6 +83,7 @@ static float bottomHeight = 49;
     ISSearchFieldViewController * searchController = [[ISSearchFieldViewController alloc] initWithType:ISSearchFieldTypeCustomer finish:^(ISParterDataModel * model) {
         [weakSelf.orderHeaderView.customerBtn setTitle:model.PartnerName forState:UIControlStateNormal];
         weakSelf.orderHeaderView.customerBtn.selected = NO;
+        weakSelf.partnerModel = model;
     }];
     UINavigationController * navController = [[UINavigationController alloc] initWithRootViewController:searchController];
     [self.navigationController presentViewController:navController animated:YES completion:nil];
@@ -111,9 +113,16 @@ static float bottomHeight = 49;
 }
 
 - (void)addProduct:(UIButton*)sender{
+    
+    if (!self.partnerModel) {
+        [[ISProcessViewHelper sharedInstance] showProcessViewWithText:@"请先选择客户" InView:self.view];
+        return;
+    }
+    
     ISAddProductViewController * addProductController = [[ISAddProductViewController alloc] initWithType:ISAddProductTypeNew block:^(id object) {
         
     }];
+    addProductController.partnerModel = self.partnerModel;
     [self.navigationController pushViewController:addProductController animated:YES];
 }
 

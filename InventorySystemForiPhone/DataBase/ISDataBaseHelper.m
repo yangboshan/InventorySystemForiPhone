@@ -16,7 +16,7 @@
 #import "ISProductDataModel.h"
 #import "ISUnitDataModel.h"
 
-static NSString* IS_SQL_checkDataExist = @"select  count(*) from %@ where %@ = '%@'";
+static NSString* IS_SQL_checkDataExist = @"select  count(*) from %@ where ";
 
 @implementation ISDataBaseHelper
 
@@ -57,10 +57,6 @@ static NSString* IS_SQL_checkDataExist = @"select  count(*) from %@ where %@ = '
     return retList;
 }
 
-
-
-
-
 - (void)updateDataBaseByModelList:(NSArray*)modelList block:(ISDataSyncProgressBlock)block{
     if (modelList.count) {
         for(int i = 0; i < modelList.count; i++){
@@ -71,7 +67,6 @@ static NSString* IS_SQL_checkDataExist = @"select  count(*) from %@ where %@ = '
         }
     }    
 }
-
 
 - (void)updateDataBaseByModel:(ISBaseModel*)model{
     if (![self checkDataExistsByModel:model]) {
@@ -89,16 +84,23 @@ static NSString* IS_SQL_checkDataExist = @"select  count(*) from %@ where %@ = '
  *  @return
  */
 - (BOOL)checkDataExistsByModel:(ISBaseModel*)model{
-    NSArray* retList = [self fetchDataFromSQL:[NSString stringWithFormat:IS_SQL_checkDataExist,
-                                               [self getTableFromModel:model],
-                                               model.primaryKey,
-                                               [model valueForKey:model.primaryKey]]];
+    
+    NSMutableString * strSQL = [[NSString stringWithFormat:IS_SQL_checkDataExist,
+                                [self getTableFromModel:model]] mutableCopy];
+    
+    for(int i = 0; i < model.primaryKey.count; i++){
+        NSString * field = model.primaryKey[i];
+        [strSQL appendString:[NSString stringWithFormat:@" %@ = '%@' ",field,[model valueForKey:field]]];
+        if (i != model.primaryKey.count - 1) {
+            [strSQL appendString:@" AND "];
+        }
+    }
+    NSArray* retList = [self fetchDataFromSQL:strSQL];
     if (retList.count) {
         if (![[retList firstObject] isEqualToString:@"0"]) {
             return YES;
         }
     }
-    
     return NO;
 }
 
@@ -131,11 +133,11 @@ static NSString* IS_SQL_checkDataExist = @"select  count(*) from %@ where %@ = '
     }
     
     FMDatabase* db = [[ISDataBase sharedInstance] dataBase];
-    [strSQL appendString:[NSString stringWithFormat:@"INSERT INTO %@ (",[self getTableFromModel:model]]];
+    [strSQL appendString:[NSString stringWithFormat:@" INSERT INTO %@ ( ",[self getTableFromModel:model]]];
     [strSQL appendString:[properties componentsJoinedByString:@","]];
-    [strSQL appendString:@") VALUES ("];
+    [strSQL appendString:@" ) VALUES ( "];
     [strSQL appendString:[values componentsJoinedByString:@","]];
-    [strSQL appendString:@")"];
+    [strSQL appendString:@" ) "];
     [db executeStatements:strSQL];
 }
 
@@ -145,10 +147,10 @@ static NSString* IS_SQL_checkDataExist = @"select  count(*) from %@ where %@ = '
     NSArray * properties = [self propertyListFromModel:model];
 
     FMDatabase* db = [[ISDataBase sharedInstance] dataBase];
-    [strSQL appendString:[NSString stringWithFormat:@"UPDATE %@ SET",[self getTableFromModel:model]]];
+    [strSQL appendString:[NSString stringWithFormat:@" UPDATE %@ SET ",[self getTableFromModel:model]]];
     
     for (int i = 0; i < properties.count; i++){
-        if (![properties[i] isEqualToString:model.primaryKey]) {
+        if (![model.primaryKey containsObject:properties[i]]) {
             [strSQL appendString:[NSString stringWithFormat:@" %@ = '%@' ",
                                   properties[i],
                                   [[ISGDataXMLHelper sharedInstance] safeStringFromData:[model valueForKey:properties[i]]]]];
@@ -158,9 +160,16 @@ static NSString* IS_SQL_checkDataExist = @"select  count(*) from %@ where %@ = '
          }
     }
     
-    [strSQL appendString:[NSString stringWithFormat:@" WHERE %@ = '%@'",
-                          model.primaryKey,
-                          [model valueForKey:model.primaryKey]]];
+    [strSQL appendString:@" WHERE "];
+    
+    for(int i = 0; i < model.primaryKey.count; i++){
+        NSString * field = model.primaryKey[i];
+        [strSQL appendString:[NSString stringWithFormat:@" %@ = '%@' ",field,[model valueForKey:field]]];
+        if (i != model.primaryKey.count - 1) {
+            [strSQL appendString:@" AND "];
+        }
+    }
+    
     [db executeStatements:strSQL];
 }
 

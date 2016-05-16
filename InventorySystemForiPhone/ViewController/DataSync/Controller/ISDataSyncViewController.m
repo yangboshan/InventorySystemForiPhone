@@ -70,7 +70,7 @@
 
 - (void)updateStatusByStatus:(ISDataSyncStatus)status{
     
-    self.syncView.statusLabel.text = [self statusString:status];
+    self.syncView.statusLabel.text = [ISDataSyncModel sharedInstance].statusDescription;
     self.syncView.progress = [ISDataSyncModel sharedInstance].progress;
 
     switch (status) {
@@ -85,25 +85,6 @@
             break;
         case ISDataSyncStatusError:
             self.syncView.syncBtn.enabled = YES;
-            break;
-        default:
-            break;
-    }
-}
-
-- (NSString*)statusString:(ISDataSyncStatus)status{
-    switch (status) {
-        case ISDataSyncStatusDefault:
-            return  @"当前状态:待同步";
-            break;
-        case ISDataSyncStatusFinished:
-            return  @"当前状态:同步完成";
-            break;
-        case ISDataSyncStatusSyncing:
-            return  @"当前状态:正在同步";
-            break;
-        case ISDataSyncStatusError:
-            return  @"当前状态:同步出错";
             break;
         default:
             break;

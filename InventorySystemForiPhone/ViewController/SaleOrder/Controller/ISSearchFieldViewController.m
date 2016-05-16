@@ -40,7 +40,7 @@ static NSString * cellId = @"cellId";
 }
 
 - (void)initialSetup{
-    self.dataList = [self.orderViewModel fetchCustomerListByWord:@"" type:ISSearchFieldTypeCustomer];
+    self.dataList = [self.orderViewModel fetchCustomerListByWord:@"" type:self.type];
     [self.view addSubview:self.tableView];
     [self autolayoutSubView];
     self.navigationItem.titleView = self.searchBar;

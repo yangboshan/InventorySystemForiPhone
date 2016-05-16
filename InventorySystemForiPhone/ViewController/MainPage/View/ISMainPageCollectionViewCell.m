@@ -13,7 +13,7 @@
 - (void)awakeFromNib {
     self.containerView.layer.cornerRadius = 5;
     self.containerView.clipsToBounds = YES;
-    self.infoLabel.font = LantingheiBold(14);
+    self.infoLabel.font = LantingheiBoldD(13);
 }
 
 - (void)setData:(NSDictionary *)data{

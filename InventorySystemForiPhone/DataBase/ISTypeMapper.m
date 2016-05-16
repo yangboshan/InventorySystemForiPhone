@@ -16,7 +16,9 @@
 + (NSDictionary*)modelMapDictionary{
     return @{@"t_PartnerData":@"ISParterDataModel",
              @"t_ProductData":@"ISProductDataModel",
-             @"t_Unite":@"ISUnitDataModel"};
+             @"t_Unite":@"ISUnitDataModel",
+             @"t_SwapBillList":@"ISOrderDataModel",
+             @"t_SwapBillDtl":@"ISOrderDetailModel"};
 }
 
 + (NSDictionary*)formatterMapDictionary{

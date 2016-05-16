@@ -10,6 +10,6 @@
 
 @interface ISBaseModel : NSObject
 
-@property (nonatomic,strong) NSString* primaryKey;
+@property (nonatomic,strong) NSArray * primaryKey;
 
 @end

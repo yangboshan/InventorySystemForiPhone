@@ -136,7 +136,7 @@
     return _loginAPIHandler;
 }
 
-- (ISNetworkingPrivilegeAPIHandler*)privilegeAPIHandler{
+- (ISNetworkingBaseAPIHandler*)privilegeAPIHandler{
     if (_privilegeAPIHandler == nil) {
         _privilegeAPIHandler = [ISNetworkingPrivilegeAPIHandler new];
         _privilegeAPIHandler.delegate = self;

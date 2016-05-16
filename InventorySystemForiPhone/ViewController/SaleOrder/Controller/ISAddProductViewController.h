@@ -9,12 +9,23 @@
 #import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSInteger,ISAddProductType){
+    //new
     ISAddProductTypeNew = 0,
+    //scan
     ISAddProductTypeScan
 };
 
 typedef void(^ISAddProductBlock)(id object);
+
+@class ISParterDataModel;
+
 @interface ISAddProductViewController : UIViewController
+
+/**
+ *  for scan
+ */
+@property (nonatomic, copy) NSString * productId;
+@property (nonatomic, strong) ISParterDataModel * partnerModel;
 
 - (instancetype)initWithType:(ISAddProductType)type block:(ISAddProductBlock)block;
 
