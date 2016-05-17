@@ -11,6 +11,7 @@
 #import "ISOrderViewModel.h"
 #import "ISParterDataModel.h"
 #import "ISOrderInfoFormatter.h"
+#import "ISProductDataModel.h"
 
 #import "ISNetworkingPriceAPIHandler.h"
 #import "ISNetworkingStockAPIHandler.h"
@@ -60,9 +61,17 @@ static NSString* infoCell = @"ISAddProductNameTableViewCell";
 }
 
 - (void)initialSetup{
+    
+    UIBarButtonItem * rightButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStyleDone target:self action:@selector(save:)];
+    self.navigationItem.rightBarButtonItem = rightButtonItem;
+    
     [self.view setBackgroundColor:RGB(239, 244, 244)];
     [self.view addSubview:self.tableView];
     [self autolayoutSubView];
+    
+    if (self.type == ISAddProductTypeScan) {
+        [self initialShowForScan];
+    }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orderRefresh:) name:kISOrderRefreshNotification object:nil];
 }
@@ -71,10 +80,38 @@ static NSString* infoCell = @"ISAddProductNameTableViewCell";
     [self.tableView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
 }
 
+#pragma mark - methods
+
+- (void)initialShowForScan{
+    NSParameterAssert(self.productId);
+    ISProductDataModel * model = [self.orderViewModel fetchProductModelById:self.productId];
+    [self.sourceFields setValue:model.ProName forKey:@"N_MingCheng"];
+    [self.sourceFields setValue:model.ProId forKey:@"ProId"];
+    [self.sourceFields setValue:[[self.orderViewModel fetchUnitByProductId:model.ProId smallUnit:YES] firstObject] forKey:@"ProUnite"];
+    [self.sourceFields setValue:model.Type forKey:@"N_GuiGe"];
+    [self orderRefresh:nil];
+}
+
+- (void)save:(id)sender{
+    NSArray * propertyList = [[ISDataBaseHelper sharedInstance] propertyListFromModel:self.orderDetailModel];
+    for(int i = 0; i < [propertyList count]; i++ ){
+        NSString * property = propertyList[i];
+        [self.orderDetailModel setValue:self.sourceFields[property] forKey:property];
+    }
+    if ([self.orderDetailModel.ProId IS_isEmptyObject] || [self.orderDetailModel.ProQuantity IS_isEmptyObject]) {
+        [[ISProcessViewHelper sharedInstance] showProcessViewWithText:@"单据不完整" InView:self.view];
+    }else{
+        if (self.block) {
+            self.block(self.orderDetailModel);
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }
+}
+
 #pragma mark - NSNotification
 
 - (void)orderRefresh:(NSNotification*)notify{
-    [[ISProcessViewHelper sharedInstance] showProcessViewInView:self.view];
+    [self.priceAPIHandler cancelAllRequests];
     [self.priceAPIHandler loadData];
 }
 
@@ -92,6 +129,7 @@ static NSString* infoCell = @"ISAddProductNameTableViewCell";
                 [self.tableView reloadData];
             }
         }
+        [self.stockAPIHandler cancelAllRequests];
         [self.stockAPIHandler loadData];
     }
     
@@ -101,6 +139,7 @@ static NSString* infoCell = @"ISAddProductNameTableViewCell";
             self.sourceFields[@"N_KuCun"] = data[kISOderInfoResut];
             [self.tableView reloadData];
         }
+        [self.lastInfoAPIHandler cancelAllRequests];
         [self.lastInfoAPIHandler loadData];
     }
     
@@ -110,7 +149,6 @@ static NSString* infoCell = @"ISAddProductNameTableViewCell";
             self.sourceFields[@"N_TiShi"] = data[kISOderInfoResut];
             [self.tableView reloadData];
         }
-        [[ISProcessViewHelper sharedInstance] hideProcessViewInView:self.view];
     }
 }
 
@@ -225,17 +263,28 @@ static NSString* infoCell = @"ISAddProductNameTableViewCell";
             case ISAddProductTypeNew:
                 _orderDetailModel = [ISOrderDetailModel new];
                 _orderDetailModel.ProQuantity = @"1";
+                _orderDetailModel.tejia = @"0";
+                _orderDetailModel.SwapCode = self.orderId;
                 break;
             case ISAddProductTypeScan:
                 _orderDetailModel = [ISOrderDetailModel new];
                 _orderDetailModel.ProQuantity = @"1";
+                _orderDetailModel.tejia = @"0";
                 _orderDetailModel.ProId = self.productId;
+                _orderDetailModel.SwapCode = self.orderId;
                 break;
             default:
                 break;
         }
     }
     return _orderDetailModel;
+}
+
+- (ISOrderViewModel*)orderViewModel{
+    if (_orderViewModel == nil) {
+        _orderViewModel = [[ISOrderViewModel alloc] init];
+    }
+    return _orderViewModel;
 }
 
 - (NSArray*)dataList{

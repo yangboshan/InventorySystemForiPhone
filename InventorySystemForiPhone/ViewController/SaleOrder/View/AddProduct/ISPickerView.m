@@ -17,7 +17,7 @@
 @end
 
 static float toolBarHeight = 44;
-static float pickerHeight = 150;
+static float pickerHeight  = 150;
 
 
 @implementation ISPickerView

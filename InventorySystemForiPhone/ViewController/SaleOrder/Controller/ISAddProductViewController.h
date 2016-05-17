@@ -21,9 +21,7 @@ typedef void(^ISAddProductBlock)(id object);
 
 @interface ISAddProductViewController : UIViewController
 
-/**
- *  for scan
- */
+@property (nonatomic, copy) NSString * orderId;
 @property (nonatomic, copy) NSString * productId;
 @property (nonatomic, strong) ISParterDataModel * partnerModel;
 

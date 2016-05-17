@@ -12,6 +12,8 @@
 #import "ISAddProductViewController.h"
 
 #import "ISParterDataModel.h"
+#import "ISOrderDataModel.h"
+#import "ISOrderDetailModel.h"
 
 #import "ISOrderHeaderView.h"
 #import "ISOrderBottomView.h"
@@ -21,8 +23,10 @@
 @property (nonatomic, strong) ISOrderBottomView * orderBottomView;
 @property (nonatomic, strong) UITableView * saleOrderTableView;
 @property (nonatomic, strong) NSMutableArray * dataList;
-@property (nonatomic, strong) ISOrderViewModel * orderViewModel;
+
+@property (nonatomic, strong) ISOrderDataModel * orderDataModel;
 @property (nonatomic, strong) ISParterDataModel * partnerModel;
+@property (nonatomic, strong) ISOrderViewModel * orderViewModel;
 @end
 
 
@@ -56,15 +60,14 @@ static float bottomHeight = 49;
 
 - (void)setupData{
     self.dataList = [NSMutableArray array];
-    [self.dataList addObject:@{@"type":spaceCell,@"data":@{@"height":@(10),@"bgColor":RGB(239, 244, 244)}}];
-    [self.dataList addObject:@{@"type":orderCell,@"data":@""}];
-    self.orderHeaderView.orderNOLabel.text = [self.orderViewModel generateSaleOrderNo];
+
+    self.orderDataModel.SwapCode = [self.orderViewModel generateSaleOrderNo];
+    self.orderHeaderView.orderNOLabel.text = self.orderDataModel.SwapCode;
     
     [self.saleOrderTableView reloadData];
 }
 
 - (void)autolayoutSubView{
-    
     self.orderHeaderView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.orderHeaderView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self.saleOrderTableView];
     [self.orderHeaderView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
@@ -72,13 +75,11 @@ static float bottomHeight = 49;
     
     [self.orderBottomView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsMake(0, 0, 0, 0) excludingEdge:ALEdgeTop];
     [self.orderBottomView autoSetDimension:ALDimensionHeight toSize:bottomHeight];
-
 }
 
 #pragma mark - event
 
 - (void)showSearch:(id)sender{
-    
     __weak typeof(self) weakSelf = self;
     ISSearchFieldViewController * searchController = [[ISSearchFieldViewController alloc] initWithType:ISSearchFieldTypeCustomer finish:^(ISParterDataModel * model) {
         [weakSelf.orderHeaderView.customerBtn setTitle:model.PartnerName forState:UIControlStateNormal];
@@ -118,11 +119,15 @@ static float bottomHeight = 49;
         [[ISProcessViewHelper sharedInstance] showProcessViewWithText:@"请先选择客户" InView:self.view];
         return;
     }
-    
-    ISAddProductViewController * addProductController = [[ISAddProductViewController alloc] initWithType:ISAddProductTypeNew block:^(id object) {
-        
+    __weak typeof(self) weakSelf = self;
+    ISAddProductViewController * addProductController = [[ISAddProductViewController alloc] initWithType:ISAddProductTypeScan block:^(ISOrderDetailModel * detailModel) {
+        [weakSelf.dataList addObject:@{@"type":spaceCell,@"data":@{@"height":@(8),@"bgColor":RGB(239, 244, 244)}}];
+        [weakSelf.dataList addObject:@{@"type":orderCell,@"data":detailModel}];
+        [weakSelf.saleOrderTableView reloadData];
     }];
     addProductController.partnerModel = self.partnerModel;
+    addProductController.orderId = self.orderDataModel.SwapCode;
+    addProductController.productId = @"0008";
     [self.navigationController pushViewController:addProductController animated:YES];
 }
 
@@ -149,11 +154,14 @@ static float bottomHeight = 49;
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     NSDictionary* data = self.dataList[indexPath.row];
-    NSString* cellType = data[@"type"];
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:cellType];
-    [cell configureWithData:data[@"data"] indexPath:indexPath superView:tableView];
+    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:data[@"type"]];
     return cell;
     
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSDictionary* data = self.dataList[indexPath.row];
+    [cell configureWithData:data[@"data"] indexPath:indexPath superView:tableView];
 }
 
 #pragma mark - property
@@ -169,7 +177,7 @@ static float bottomHeight = 49;
         _saleOrderTableView.delegate = self;
         _saleOrderTableView.dataSource = self;
         _saleOrderTableView.tableHeaderView = self.orderHeaderView;
-        _saleOrderTableView.estimatedRowHeight = 50.0;
+        _saleOrderTableView.estimatedRowHeight = 81;
         _saleOrderTableView.rowHeight = UITableViewAutomaticDimension;
         _saleOrderTableView.separatorColor = [UIColor clearColor];
     }
@@ -200,6 +208,13 @@ static float bottomHeight = 49;
         _orderViewModel = [[ISOrderViewModel alloc] init];
     }
     return _orderViewModel;
+}
+
+- (ISOrderDataModel*)orderDataModel{
+    if (_orderDataModel == nil) {
+        _orderDataModel = [ISOrderDataModel new];
+    }
+    return _orderDataModel;
 }
 
 @end

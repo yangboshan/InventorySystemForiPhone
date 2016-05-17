@@ -53,6 +53,8 @@ typedef NS_ENUM(NSInteger,ISSearchFieldType){
 - (ISProductDataModel*)fetchProductModelById:(NSString*)productId;
 
 
+
 - (NSArray*)fetchUnitByProductId:(NSString*)productId smallUnit:(BOOL)smallUnit;
+
 
 @end

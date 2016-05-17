@@ -24,22 +24,13 @@
 @implementation ISAddProductNameTableViewCell
 
 #pragma mark - lifeCycle
-//
-//- (void)dealloc {
-//    [[NSNotificationCenter defaultCenter] removeObserver:self];
-//}
 
 - (void)awakeFromNib {
     
     self.infoLabel.font = LantingheiBoldD(13);
-    self.infoLabel.textColor = [UIColor darkGrayColor];
+    self.infoLabel.textColor = [UIColor grayColor];
     self.valueTextField.font = self.infoLabel.font;
-    [self.valueTextField addTarget:self action:@selector(textFieldValueChanged:) forControlEvents:UIControlEventValueChanged];
-    
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(didReceiveTextDidChangeNotification:)
-//                                                 name:UITextFieldTextDidChangeNotification
-//                                               object:nil];
+    [self.valueTextField addTarget:self action:@selector(textFieldValueChanged:) forControlEvents:UIControlEventEditingChanged];
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(userTapped:)];
@@ -59,13 +50,29 @@
     self.valueTextField.text = self.sourceFields[self.field];
     self.valueTextField.textColor = [UIColor darkGrayColor];
     self.valueTextField.keyboardType = UIKeyboardTypeDefault;
-
-    [self setUpTextField];
-  }
+    self.valueTextField.hidden = NO;
+    
+    [self setupTextField];
+    [self setupCheckBox];
+}
 
 #pragma mark - methods
 
-- (void)setUpTextField{
+- (void)setupCheckBox{
+    [[self.contentView viewWithTag:-99] removeFromSuperview];
+    if ([self.field isEqualToString:@"tejia"]) {
+        UIImageView * checkView  = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.valueTextField.frame),
+                                                                                 CGRectGetCenter(self.valueTextField.frame).y - 17/2.0,
+                                                                                 17,
+                                                                                 17)];
+        checkView.image = [UIImage imageNamed:[self.sourceFields[@"tejia"] isEqualToString:@"1"] ? @"checkbox_checked" : @"checkbox_unchecked"];
+        checkView.tag = -99;
+        checkView.tintColor = TheameColor;
+        [self.contentView addSubview:checkView];
+    }
+}
+
+- (void)setupTextField{
     if ([self.field isEqualToString:@"N_MingCheng"]) {
         self.valueTextField.placeholder = @"商品的名称";
         self.valueTextField.enabled = NO;
@@ -111,6 +118,7 @@
     if ([self.field isEqualToString:@"tejia"]) {
         self.valueTextField.placeholder = @"";
         self.valueTextField.enabled = NO;
+        self.valueTextField.hidden = YES;
     }
     if ([self.field isEqualToString:@"LargessQty"]) {
         self.valueTextField.placeholder = @"赠送数量";
@@ -172,6 +180,15 @@
         }];
         [[self viewController].view addSubview:pickerView];
     }
+    
+    if ([self.field isEqualToString:@"tejia"]) {
+        if ([self.sourceFields[self.field] isEqualToString:@"1"]) {
+            [self.sourceFields setValue:@"0" forKey:self.field];
+        }else{
+            [self.sourceFields setValue:@"1" forKey:self.field];
+        }
+        [self.tableView reloadData];
+    }
 }
 
 - (void)textFieldValueChanged:(id)sender{
@@ -181,25 +198,10 @@
             if (![self.sourceFields[@"Amt"] IS_isEmptyObject]) {
                 self.sourceFields[@"N_JinE"] = [NSString stringWithFormat:@"%.2f", [self.sourceFields[@"Amt"] floatValue] * [self.sourceFields[@"ProQuantity"] floatValue]];
             }
-            [self.tableView reloadData];
         }
     }
     [self.tableView reloadData];
 }
-
-//- (void)didReceiveTextDidChangeNotification:(NSNotification *)notify{
-//    
-//    [self.sourceFields setValue:[self.valueTextField.text trim] forKey:self.field];
-//    if ([self.field isEqualToString:@"ProQuantity"]){
-//        if (self.valueTextField.text.length) {
-//            if (![self.sourceFields[@"Amt"] IS_isEmptyObject]) {
-//                self.sourceFields[@"N_JinE"] = [NSString stringWithFormat:@"%.2f", [self.sourceFields[@"Amt"] floatValue] * [self.sourceFields[@"ProQuantity"] floatValue]];
-//            }
-//            [self.tableView reloadData];
-//        }
-//    }
-//    [self.tableView reloadData];
-//}
 
 #pragma mark - property
 

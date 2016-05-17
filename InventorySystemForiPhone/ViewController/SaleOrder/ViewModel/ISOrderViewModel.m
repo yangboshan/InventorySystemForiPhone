@@ -60,7 +60,7 @@ static NSString* IS_SQL_getUnitByProductId = @"select UniteName from t_unite whe
         case ISSearchFieldTypeCustomer:
             return  [[ISDataBaseHelper sharedInstance] fetchModelListFromSQL:[NSString stringWithFormat:IS_SQL_getCustomerList,text,text,text] withEntity:[ISTypeMapper modelMapDictionary][@"t_PartnerData"]];
         case ISSearchFieldTypeProduct:
-            return  [[ISDataBaseHelper sharedInstance] fetchModelListFromSQL:[NSString stringWithFormat:IS_SQL_getProductList,text,text] withEntity:[ISTypeMapper modelMapDictionary][@"t_ProductData"]];
+            return  [[ISDataBaseHelper sharedInstance] fetchModelListFromSQL:[NSString stringWithFormat:IS_SQL_getProductList,text,text,text] withEntity:[ISTypeMapper modelMapDictionary][@"t_ProductData"]];
             break;
         default:
             return nil;
@@ -68,7 +68,7 @@ static NSString* IS_SQL_getUnitByProductId = @"select UniteName from t_unite whe
 }
 
 - (ISProductDataModel*)fetchProductModelById:(NSString*)productId{
-    return [[[ISDataBaseHelper sharedInstance] fetchModelListFromSQL:IS_SQL_getProductById withEntity:NSStringFromClass([ISProductDataModel class])] firstObject];
+    return [[[ISDataBaseHelper sharedInstance] fetchModelListFromSQL:[NSString stringWithFormat:IS_SQL_getProductById,productId] withEntity:NSStringFromClass([ISProductDataModel class])] firstObject];
 }
 
 - (NSArray*)fetchUnitByProductId:(NSString*)productId smallUnit:(BOOL)smallUnit{
