@@ -36,6 +36,7 @@
     self.presentLabel.text = @"";
     self.presentLabel.backgroundColor = TheameColor;
     self.subTotalLabel.textColor = TheameColor;
+    self.selectionStyle = UITableViewCellSelectionStyleBlue;
 }
 
 - (void)configureWithData:(id)data indexPath:(NSIndexPath *)indexPath superView:(UITableView *)superView{
@@ -66,8 +67,6 @@
         self.presentLabel.text = [NSString stringWithFormat:@"赠送%@%@",self.orderDetailModel.LargessQty,self.orderDetailModel.LargessUnite];
         self.presentWidth.constant = [self.presentLabel.text sizeWithAttributes:@{NSFontAttributeName:Lantinghei(9)}].width + 5;
     }
-    
-    
 }
 
 #pragma mark - property

@@ -32,7 +32,7 @@
 
 
 /**
- *  setup datasource for mainpage
+ *  主页数据源
  *
  *  @return datasource
  */

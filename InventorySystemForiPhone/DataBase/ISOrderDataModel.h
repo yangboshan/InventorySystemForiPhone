@@ -30,6 +30,8 @@
 
 @property (nonatomic, copy) NSString * UPD_USER;
 
+@property (nonatomic, copy) NSString * UPD_DATE;
+
 @property (nonatomic, copy) NSString * recAmt;
 
 @property (nonatomic, copy) NSString * giveAmt;

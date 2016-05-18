@@ -142,7 +142,7 @@
         ISSearchFieldViewController * searchController = [[ISSearchFieldViewController alloc] initWithType:ISSearchFieldTypeProduct finish:^(ISProductDataModel * model) {
             [weakSelf.sourceFields setValue:model.ProName forKey:self.field];
             [weakSelf.sourceFields setValue:model.ProId forKey:@"ProId"];
-            [weakSelf.sourceFields setValue:[[weakSelf.orderViewModel fetchUnitByProductId:model.ProId smallUnit:YES] firstObject] forKey:@"ProUnite"];
+            [weakSelf.sourceFields setValue:[[weakSelf.orderViewModel fetchUnitByProductId:model.ProId smallUnit:[[[weakSelf viewController] valueForKey:@"smallUnit"] boolValue]] firstObject] forKey:@"ProUnite"];
             [weakSelf.sourceFields setValue:model.Type forKey:@"N_GuiGe"];
             [weakSelf.sourceFields setValue:@"" forKey:@"Amt"];
             [weakSelf.sourceFields setValue:@"" forKey:@"N_KuCun"];
@@ -169,14 +169,11 @@
                 [weakSelf.sourceFields setValue:@"" forKey:@"N_KuCun"];
                 [weakSelf.sourceFields setValue:@"" forKey:@"N_TiShi"];
                 [weakSelf.sourceFields setValue:@"" forKey:@"N_JinE"];
-            }
-            [weakSelf.tableView reloadData];
-            
-            if ([self.field isEqualToString:@"ProUnite"]) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [[NSNotificationCenter defaultCenter] postNotificationName:kISOrderRefreshNotification object:nil];
                 });
             }
+            [weakSelf.tableView reloadData];
         }];
         [[self viewController].view addSubview:pickerView];
     }

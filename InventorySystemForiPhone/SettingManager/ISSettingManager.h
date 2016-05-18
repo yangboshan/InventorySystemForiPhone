@@ -25,6 +25,11 @@
  */
 @property (nonatomic,strong) NSMutableDictionary * currentUser;
 
+/**
+ *  dataBase version
+ */
+@property (nonatomic,assign) NSInteger dBVersion;
+
 @property (nonatomic,strong) NSDate * lastSyncDate;
 
 + (instancetype)sharedInstance;

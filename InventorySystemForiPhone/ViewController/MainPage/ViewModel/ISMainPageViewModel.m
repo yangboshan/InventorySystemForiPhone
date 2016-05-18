@@ -40,19 +40,19 @@
 #pragma mark - getter
 
 - (BOOL)hasPrivilegeForSyncData{
-    return YES;
+    return [[ISSettingManager sharedInstance].currentUser[@"privilege"] containsObject:@"Q03_P01"];
 }
 
 - (BOOL)hasPrivilegeForReport{
-    return YES;
+    return [[ISSettingManager sharedInstance].currentUser[@"privilege"] containsObject:@"Q02_P01"];
 }
 
 - (BOOL)shouldLocation{
-    return YES;
+    return [[ISSettingManager sharedInstance].currentUser[@"privilege"] containsObject:@"Q04_P02"];
 }
 
 - (BOOL)shouldShootPhoto{
-    return YES;
+    return [[ISSettingManager sharedInstance].currentUser[@"privilege"] containsObject:@"Q04_P01"];
 }
 
 - (NSArray*)pList{

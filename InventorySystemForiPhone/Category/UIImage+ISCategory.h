@@ -10,7 +10,8 @@
 
 @interface UIImage (ISCategory)
 
-- (UIImage *)fixOrientation;
+- (UIImage*)fixOrientation;
 
+- (UIImage*)waterMarkImageWithLocation:(NSString*)location;
 
 @end

@@ -10,4 +10,16 @@
 
 @implementation ISOrderDetailModel
 
+- (NSArray*)primaryKey{
+    return @[@"ProId",@"SwapCode"];
+}
+
+- (instancetype)init{
+    if (self = [super init]) {
+        _ProQuantity = @"1";
+        _tejia = @"0";
+    }
+    return self;
+}
+
 @end

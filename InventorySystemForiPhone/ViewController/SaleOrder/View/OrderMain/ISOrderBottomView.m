@@ -11,16 +11,17 @@
 @implementation ISOrderBottomView
 
 - (void)awakeFromNib{
+    
+    self.layer.borderColor = BorderColor;
+    self.layer.borderWidth = 1.0;
+    
     [self.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj isKindOfClass:[UIButton class]]) {
             UIButton * btn = (UIButton*)obj;
-            btn.layer.borderColor = BorderColor;
-            btn.layer.borderWidth = 0.7;
-            btn.titleLabel.font = LantingheiBold(13);
-            
-            [btn setBackgroundColor:[UIColor whiteColor]];
-            [btn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-            
+            btn.titleLabel.font = LantingheiBoldD(13);
+            btn.tintColor = [UIColor grayColor];
+            [btn setBackgroundColor:RGBA(240, 240, 240, 1)];
+            [btn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
         }
     }];
 }

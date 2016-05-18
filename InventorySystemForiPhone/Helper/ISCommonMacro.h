@@ -35,6 +35,6 @@
 #define LantingheiBoldD(s) [UIFont fontWithName:@"FZLTHJW--GB1-0" size:Font(s)]
 #define LantingheiBoldSD(s) [UIFont fontWithName:@"FZLanTingHeiS-B-GB" size:Font(s)]
 
-#define ImageSize 1000000
+#define ImageSize 500000
 
 #endif /* ISCommonMacro_h */

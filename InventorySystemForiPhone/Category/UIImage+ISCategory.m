@@ -10,6 +10,23 @@
 
 @implementation UIImage (ISCategory)
 
+- (UIImage*)waterMarkImageWithLocation:(NSString*)location{
+    
+    UIGraphicsBeginImageContext(self.size);
+    [self drawInRect:CGRectMake(0, 0, self.size.width, self.size.height)];
+    CGRect rect = CGRectMake(20, self.size.height/5 * 4, self.size.width, self.size.height/5);
+
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
+    style.alignment = NSTextAlignmentLeft;
+    NSDictionary *dic = @{NSFontAttributeName:[UIFont systemFontOfSize:50],
+                          NSParagraphStyleAttributeName:style,
+                          NSForegroundColorAttributeName:[UIColor whiteColor]};
+    [[NSString stringWithFormat:@"%@\n%@",[[NSDate currentDate] dateStringWithFormat:@"yyyy-MM-dd HH:mm:ss"],location] drawInRect:rect withAttributes:dic];
+    UIImage *watermarkImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return watermarkImage;
+}
+
 - (UIImage *)fixOrientation{
     
     // No-op if the orientation is already correct

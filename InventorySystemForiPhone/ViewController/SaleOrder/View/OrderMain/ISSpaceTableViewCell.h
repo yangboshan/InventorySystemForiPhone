@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ISBaseTableViewCell.h"
 
-@interface ISSpaceTableViewCell : UITableViewCell
+@interface ISSpaceTableViewCell : ISBaseTableViewCell
 
 
 

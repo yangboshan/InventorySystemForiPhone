@@ -12,6 +12,7 @@ static NSString *SETTING_FIRST_TIME_RUN = @"SETTING_FIRST_TIME_RUN";
 static NSString *SETTING_ISLOGINED = @"SETTING_ISLOGINED";
 static NSString *SETTING_USER = @"SETTING_USER";
 static NSString *SETTING_LASTSYNCDATE = @"SETTING_LASTSYNCDATE";
+static NSString *SETTING_DBVERSION = @"SETTING_DBVERSION";
 
 
 @interface ISSettingManager()
@@ -85,6 +86,10 @@ static NSString *SETTING_LASTSYNCDATE = @"SETTING_LASTSYNCDATE";
     return [self.userDefaults valueForKey:SETTING_LASTSYNCDATE];
 }
 
+- (NSInteger)dBVersion{
+    return [self.userDefaults integerForKey:SETTING_DBVERSION];
+}
+
 #pragma mark - setter
 - (void)setLogined:(BOOL)logined{
     [self.userDefaults setBool:logined forKey:SETTING_ISLOGINED];
@@ -98,6 +103,11 @@ static NSString *SETTING_LASTSYNCDATE = @"SETTING_LASTSYNCDATE";
 
 - (void)setLastSyncDate:(NSDate *)lastSyncDate{
     [self.userDefaults setValue:lastSyncDate forKey:SETTING_LASTSYNCDATE];
+    [self.userDefaults synchronize];
+}
+
+- (void)setDBVersion:(NSInteger)dBVersion{
+    [self.userDefaults setValue:@(dBVersion) forKey:SETTING_DBVERSION];
     [self.userDefaults synchronize];
 }
 

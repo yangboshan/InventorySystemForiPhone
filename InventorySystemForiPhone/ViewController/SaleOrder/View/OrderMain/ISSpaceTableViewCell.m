@@ -16,10 +16,7 @@
 @implementation ISSpaceTableViewCell
 
 - (void)awakeFromNib{
-    [self.contentView setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [self.contentView autoSetDimension:ALDimensionWidth toSize:ScreenWidth];
-    [self.contentView autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:0];
-    [self.contentView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:0];
+    [super awakeFromNib];
 }
 
 -(void)configureWithData:(id)data indexPath:(NSIndexPath*)indexPath superView:(UITableView*)superView{

@@ -11,7 +11,5 @@
 @interface ISOrderBottomView : UIView
 
 @property (weak, nonatomic) IBOutlet UIButton *addProductBtn;
-@property (weak, nonatomic) IBOutlet UIButton *takeInDoorPhotoBtn;
-@property (weak, nonatomic) IBOutlet UIButton *takeOutDoorPhotoBtn;
 @property (weak, nonatomic) IBOutlet UIButton *scanBtn;
 @end

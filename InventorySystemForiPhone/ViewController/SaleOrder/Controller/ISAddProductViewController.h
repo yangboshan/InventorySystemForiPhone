@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSInteger,ISAddProductType){
-    //new
+    //新建
     ISAddProductTypeNew = 0,
-    //scan
+    //扫码
     ISAddProductTypeScan
 };
 
@@ -21,8 +21,14 @@ typedef void(^ISAddProductBlock)(id object);
 
 @interface ISAddProductViewController : UIViewController
 
-@property (nonatomic, copy) NSString * orderId;
+
+//商品ID 扫码用
 @property (nonatomic, copy) NSString * productId;
+
+//是否小单位
+@property (nonatomic, assign) BOOL smallUnit;
+
+//客户资料
 @property (nonatomic, strong) ISParterDataModel * partnerModel;
 
 - (instancetype)initWithType:(ISAddProductType)type block:(ISAddProductBlock)block;

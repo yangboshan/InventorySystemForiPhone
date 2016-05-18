@@ -49,10 +49,10 @@
         [UIViewController aspect_hookSelector:@selector(viewDidDisappear:) withOptions:AspectPositionAfter usingBlock:^(id<AspectInfo> aspectInfo, BOOL animated){
             [self viewDidDisappear:animated viewController:[aspectInfo instance]];
         } error:NULL];
-        
     }
     return self;
 }
+
 
 /**
  *  hook viewDidLoad

@@ -65,4 +65,5 @@ typedef void(^ISDataSyncProgressBlock)(float progress);
  */
 - (NSArray*)propertyListFromModel:(ISBaseModel*)model;
 
+
 @end

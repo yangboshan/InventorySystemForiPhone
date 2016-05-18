@@ -29,6 +29,9 @@ static NSString* IS_SQL_getProductById = @"select * from t_ProductData where pro
 //根据产品获取单位
 static NSString* IS_SQL_getUnitByProductId = @"select UniteName from t_unite where proid = '%@' order by Uniterate";
 
+//根据产品和单位获取本地价格
+static NSString* IS_SQL_getLocalPrice = @"select ifnull((select price from t_productdata where proid = '%@'),'0')/cast(ifnull(uniterate,'1') as double) from t_unite  where proid = '%@' and unitename = '%@'";
+
 @implementation ISOrderViewModel
 
 - (NSString*)generateSaleOrderNo{
@@ -78,6 +81,18 @@ static NSString* IS_SQL_getUnitByProductId = @"select UniteName from t_unite whe
     }
     return list;
 }
+
+- (BOOL)checkIfSmallUnit:(NSString*)proId unit:(NSString*)uni{
+    return NO;
+}
+
+- (NSString*)fetchLocalPriceByProId:(NSString*)proId unit:(NSString*)unit{
+    
+    NSString * localPrice = [[[ISDataBaseHelper sharedInstance] fetchDataFromSQL:[NSString stringWithFormat:IS_SQL_getLocalPrice,proId,proId,unit]] firstObject];    
+    return [NSString stringWithFormat:@"%.2f",[localPrice floatValue]];
+}
+
+
 
 
 
