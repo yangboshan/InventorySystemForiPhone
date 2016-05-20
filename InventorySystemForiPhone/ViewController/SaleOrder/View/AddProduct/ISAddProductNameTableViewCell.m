@@ -31,7 +31,8 @@
     self.infoLabel.textColor = [UIColor grayColor];
     self.valueTextField.font = self.infoLabel.font;
     [self.valueTextField addTarget:self action:@selector(textFieldValueChanged:) forControlEvents:UIControlEventEditingChanged];
-    
+    [self.valueTextField addTarget:self action:@selector(textFieldDidEndEditing:) forControlEvents:UIControlEventEditingDidEnd];
+
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(userTapped:)];
     [self addGestureRecognizer:tap];
@@ -188,6 +189,10 @@
     }
 }
 
+- (void)textFieldDidEndEditing:(id)sender{
+    [self.tableView reloadData];
+}
+
 - (void)textFieldValueChanged:(id)sender{
     [self.sourceFields setValue:[self.valueTextField.text trim] forKey:self.field];
     if ([self.field isEqualToString:@"ProQuantity"]){
@@ -197,7 +202,6 @@
             }
         }
     }
-    [self.tableView reloadData];
 }
 
 #pragma mark - property

@@ -16,6 +16,8 @@
 
 @property (nonatomic, copy) NSString * PartnerId;
 
+@property (nonatomic, copy) NSString * PartnerName;
+
 @property (nonatomic, copy) NSString * PartnerBillCode;
 
 @property (nonatomic, copy) NSString * sumAmt;

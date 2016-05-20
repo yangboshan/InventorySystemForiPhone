@@ -12,7 +12,11 @@ NSString * const kISLogOutNotification = @"kISLogOutNotification";
 
 NSString * const kISOrderRefreshNotification = @"kISOrderRefreshNotification";
 
+NSString * const kISOrderDataRefreshNotification = @"kISOrderDataRefreshNotification";
+
 NSString * const kISOrderDeleteNotification = @"kISOrderDeleteNotification";
+
+NSString * const kISOrderDataDeleteNotification = @"kISOrderDataDeleteNotification";
 
 NSString * const kISLocationDidUpdateNotification = @"kISLocationDidUpdateNotification";
 

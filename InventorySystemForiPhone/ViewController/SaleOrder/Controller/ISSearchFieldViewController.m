@@ -129,7 +129,7 @@ static NSString * cellId = @"cellId";
         _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(50, 0, ScreenWidth - 100, 30)];
         _searchBar.showsCancelButton = YES;
         _searchBar.delegate = self;
-        _searchBar.placeholder = @"输入中文名称或快速代码来查询";
+        _searchBar.placeholder = @"输入中文名称或快速代码";
     }
     return _searchBar;
 }

@@ -52,6 +52,8 @@
     
     if (![self.orderDetailModel.Remark IS_isEmptyObject]) {
         self.remarkLabel.text = [NSString stringWithFormat:@"(备注: %@)",self.orderDetailModel.Remark];
+    }else{
+        self.remarkLabel.text = @"";
     }
     
     if ([self.orderDetailModel.tejia isEqualToString:@"1"]) {

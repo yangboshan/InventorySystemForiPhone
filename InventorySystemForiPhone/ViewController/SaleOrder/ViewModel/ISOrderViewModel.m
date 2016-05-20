@@ -38,13 +38,14 @@ static NSString* IS_SQL_getUnitByProductId = @"select UniteName from t_unite whe
 static NSString* IS_SQL_getLocalPrice = @"select ifnull((select price from t_productdata where proid = '%@'),'0')/cast(ifnull(uniterate,'1') as double) from t_unite  where proid = '%@' and unitename = '%@'";
 
 //更新单据列表订单号
-static NSString* IS_SQL_updateBillList = @"update t_SwapBillList set SwapCode = '%@' and Status = '1' where SwapCode = '%@'";
+static NSString* IS_SQL_updateBillList1 = @"update t_SwapBillList set Status = '1' where SwapCode = '%@'";
+static NSString* IS_SQL_updateBillList2 = @"update t_SwapBillList set SwapCode = '%@' where SwapCode = '%@'";
 
 //更新单据详情订单号
 static NSString* IS_SQL_updateBillDetail = @"update t_SwapBillDtl set SwapCode = '%@' where SwapCode = '%@'";
 
 //获取详情订单ID
-static NSString* IS_SQL_getBillDetailId = @"select ifnull(max(DtlId),'0') from t_SwapBillDtl where SwapCode = '%@'";
+static NSString* IS_SQL_getBillDetailId = @"select ifnull(max(DtlId),'0') from t_SwapBillDtl";
 
 //根据条码获取产品
 static NSString* IS_SQL_getProductByBarCode = @"select * from t_productdata where Weight = '%@'";
@@ -53,6 +54,11 @@ static NSString* IS_SQL_getProductByBarCode = @"select * from t_productdata wher
 //根据Partner 日期获取订单
 static NSString* IS_SQL_getOrderList = @"select * from t_SwapBillList where ";
 
+//获取详单列表
+static NSString* IS_SQL_getOrderDetailList = @"select * from t_SwapBillDtl where  SwapCode = '%@'";
+
+//根据ID获取客户资料
+static NSString* IS_SQL_getPartnerById = @"select * from t_PartnerData where  PartnerId = '%@'";
 
 @implementation ISOrderViewModel
 
@@ -157,7 +163,9 @@ static NSString* IS_SQL_getOrderList = @"select * from t_SwapBillList where ";
 }
 
 - (void)updateOrderWithNewNo:(NSString*)newNo oldNo:(NSString*)oldNo{
-    [[ISDataBaseHelper sharedInstance] updateDataBaseBySQL:[NSString stringWithFormat:IS_SQL_updateBillList,newNo,oldNo]];
+    
+    [[ISDataBaseHelper sharedInstance] updateDataBaseBySQL:[NSString stringWithFormat:IS_SQL_updateBillList1,oldNo]];
+    [[ISDataBaseHelper sharedInstance] updateDataBaseBySQL:[NSString stringWithFormat:IS_SQL_updateBillList2,newNo,oldNo]];
     [[ISDataBaseHelper sharedInstance] updateDataBaseBySQL:[NSString stringWithFormat:IS_SQL_updateBillDetail,newNo,oldNo]];
 }
 
@@ -180,7 +188,7 @@ static NSString* IS_SQL_getOrderList = @"select * from t_SwapBillList where ";
 
 
 - (NSString*)generateDetailIdWithOrderNo:(NSString*)orderNo{
-    NSArray * list =  [[ISDataBaseHelper sharedInstance] fetchDataFromSQL:[NSString stringWithFormat:IS_SQL_getBillDetailId,orderNo]];
+    NSArray * list =  [[ISDataBaseHelper sharedInstance] fetchDataFromSQL:IS_SQL_getBillDetailId];
     int index = [[list firstObject] intValue];
     return [NSString stringWithFormat:@"%d",++index];
 }
@@ -201,6 +209,14 @@ static NSString* IS_SQL_getOrderList = @"select * from t_SwapBillList where ";
     }
     [strSQL appendString:[params componentsJoinedByString:@" AND "]];
     return [[ISDataBaseHelper sharedInstance] fetchModelListFromSQL:strSQL withEntity:NSStringFromClass([ISOrderDataModel class])];
+}
+
+- (NSArray*)fetchOrderDetailListByOrderNo:(NSString*)orderNo{
+    return [[ISDataBaseHelper sharedInstance] fetchModelListFromSQL:[NSString stringWithFormat:IS_SQL_getOrderDetailList,orderNo] withEntity:NSStringFromClass([ISOrderDetailModel class])];
+}
+
+- (ISParterDataModel*)fetchPartnerById:(NSString*)partnerId{
+    return [[[ISDataBaseHelper sharedInstance] fetchModelListFromSQL:[NSString stringWithFormat:IS_SQL_getPartnerById,partnerId] withEntity:NSStringFromClass([ISParterDataModel class])] firstObject];
 }
 
 @end

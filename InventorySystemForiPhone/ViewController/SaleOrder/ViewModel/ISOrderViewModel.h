@@ -147,4 +147,24 @@ typedef NS_ENUM(NSInteger,ISOrderType){
 - (NSArray*)fetchOrderListByPartner:(ISParterDataModel*)partner date:(NSString*)date;
 
 
+/**
+ *  获取详单列表
+ *
+ *  @param orderNo 订单号
+ *
+ *  @return 列表
+ */
+- (NSArray*)fetchOrderDetailListByOrderNo:(NSString*)orderNo;
+
+
+/**
+ *  获取客户模型
+ *
+ *  @param partnerId ID
+ *
+ *  @return 模型
+ */
+- (ISParterDataModel*)fetchPartnerById:(NSString*)partnerId;
+
+
 @end

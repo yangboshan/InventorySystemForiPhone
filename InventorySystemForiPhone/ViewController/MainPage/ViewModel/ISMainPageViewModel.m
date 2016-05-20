@@ -65,13 +65,6 @@
                      @"bg":HEXCOLOR(0x4192F1),
                      @"icon":@"main_list_icon1"},
                    
-                   @{@"code":@"Q01_P03",
-                     @"desc":NSLocalizedString(@"ISQueryOrderViewController", nil),
-                     @"flag":@"1",
-                     @"vc":@"ISQueryOrderViewController",
-                     @"bg":HEXCOLOR(0xF9A743),
-                     @"icon":@"main_list_icon2"},
-                   
                    @{@"code":@"Q01_P04",
                      @"desc":NSLocalizedString(@"ISReturnOrderViewController", nil),
                      @"flag":@"1",
@@ -79,6 +72,13 @@
                      @"vc":@"ISSaleOrderViewController",
                      @"bg":HEXCOLOR(0x1CCE6F),
                      @"icon":@"main_list_icon3"},
+                   
+                   @{@"code":@"Q01_P03",
+                     @"desc":NSLocalizedString(@"ISQueryOrderViewController", nil),
+                     @"flag":@"1",
+                     @"vc":@"ISQueryOrderViewController",
+                     @"bg":HEXCOLOR(0xF9A743),
+                     @"icon":@"main_list_icon2"},
                    
                    @{@"code":@"Q02_P01",
                      @"desc":@"报表",

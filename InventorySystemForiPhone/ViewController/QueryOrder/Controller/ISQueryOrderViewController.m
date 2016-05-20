@@ -7,11 +7,13 @@
 //
 
 #import "ISQueryOrderViewController.h"
+#import "ISSaleOrderViewController.h"
 #import "ISQueryOrderHeaderView.h"
 #import "ISSearchFieldViewController.h"
 
 #import "ISParterDataModel.h"
 #import "ISOrderViewModel.h"
+#import "ISOrderDataModel.h"
 
 
 @interface ISQueryOrderViewController ()<UITableViewDataSource,UITableViewDelegate>
@@ -25,10 +27,15 @@
 
 
 static NSString* spaceCell = @"ISSpaceTableViewCell";
+static NSString* orderCell = @"ISQueryOrderCell";
 
 @implementation ISQueryOrderViewController
 
 #pragma mark - lifeCycle
+
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kISOrderDataDeleteNotification object:nil];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -36,6 +43,9 @@ static NSString* spaceCell = @"ISSpaceTableViewCell";
 }
 
 - (void)initialSetup{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteOrder:) name:kISOrderDataDeleteNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshList) name:kISOrderDataRefreshNotification object:nil];
+
     [self.view setBackgroundColor:RGB(243, 244, 245)];
     [self.view addSubview:self.saleOrderTableView];
     [self autolayoutSubView];
@@ -49,13 +59,43 @@ static NSString* spaceCell = @"ISSpaceTableViewCell";
     [self.saleOrderTableView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
 }
 
+#pragma mark - Notification
+
+/**
+ *  删除条目 更新本地数据酷 刷新列表
+ *
+ *  @param notify
+ */
+- (void)deleteOrder:(NSNotification*)notify{
+    ISOrderDataModel * model = notify.userInfo[@"model"];
+    int index = 0;
+    for(int i = 0;i < self.dataList.count; i++){
+        NSDictionary * d = self.dataList[i];
+        if ([d[@"type"] isEqualToString:orderCell]) {
+            ISOrderDataModel * orderModel = d[@"data"];
+            if ([orderModel.SwapCode isEqualToString:model.SwapCode]) {
+                index = i;
+                break;
+            }
+        }
+    }
+    [self.dataList removeObjectAtIndex:index];
+    [self.dataList removeObjectAtIndex:--index];
+    [[ISDataBaseHelper sharedInstance] deleteDataBaseByModelList:@[model] block:nil];
+    [self.saleOrderTableView reloadData];
+}
+
 #pragma mark - event
 
 - (void)refreshList{
+    
+    [self.dataList removeAllObjects];
     NSArray * orderList =  [self.orderViewModel fetchOrderListByPartner:self.partnerModel date:self.orderHeaderView.dateLabel.text];
-    
-    NSLog(@"");
-    
+    for(int i = 0; i < orderList.count; i++){
+        [self.dataList addObject:[@{@"type":spaceCell,@"data":@{@"height":@(5),@"bgColor":RGB(240, 240, 240)}} mutableCopy]];
+        [self.dataList addObject:@{@"type":orderCell,@"data":orderList[i]}];
+    }
+    [self.saleOrderTableView reloadData];
 }
 
 
@@ -113,13 +153,27 @@ static NSString* spaceCell = @"ISSpaceTableViewCell";
     return cell;
 }
 
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSString* cellId = self.dataList[indexPath.row][@"type"];
+    if ([cellId isEqualToString:orderCell]) {
+        ISOrderDataModel * model = self.dataList[indexPath.row][@"data"];
+        ISSaleOrderViewController * controller = [ISSaleOrderViewController new];
+        controller.isFromQuery = YES;
+        controller.orderDataModel = model;
+        [self.navigationController pushViewController:controller animated:YES];
+    }
+}
+
 #pragma mark - property
 
 - (UITableView*)saleOrderTableView{
     
     if (_saleOrderTableView == nil) {
         _saleOrderTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-        [_saleOrderTableView registerNib:[UINib nibWithNibName:spaceCell bundle:nil] forCellReuseIdentifier:spaceCell];        
+        [_saleOrderTableView registerNib:[UINib nibWithNibName:spaceCell bundle:nil] forCellReuseIdentifier:spaceCell];
+        [_saleOrderTableView registerNib:[UINib nibWithNibName:orderCell bundle:nil] forCellReuseIdentifier:orderCell];
+
         _saleOrderTableView.delegate = self;
         _saleOrderTableView.dataSource = self;
         _saleOrderTableView.tableHeaderView = self.orderHeaderView;

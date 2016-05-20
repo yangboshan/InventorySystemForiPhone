@@ -11,9 +11,9 @@
             <string>FZLTXHK--GBK1-0</string>
             <string>FZLTXHK--GBK1-0</string>
             <string>FZLTXHK--GBK1-0</string>
+            <string>FZLTXHK--GBK1-0</string>
         </mutableArray>
         <mutableArray key="Lantinghei_1.ttf">
-            <string>FZLTHJW--GB1-0</string>
             <string>FZLTHJW--GB1-0</string>
             <string>FZLTHJW--GB1-0</string>
         </mutableArray>
@@ -21,11 +21,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="ISOrderTableViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="81"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="102" id="KGk-i7-Jjw" customClass="ISOrderTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="102"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="80.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="101.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="川藏12日全程自驾" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5KE-Ua-JgV">
@@ -35,7 +35,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="单位: 箱" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FI5-rd-kLl">
-                        <rect key="frame" x="219" y="28" width="39.5" height="15.5"/>
+                        <rect key="frame" x="10" y="28" width="39.5" height="15.5"/>
                         <fontDescription key="fontDescription" name="FZLTXHK--GBK1-0" family="Lantinghei SC" pointSize="11"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -51,14 +51,8 @@
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="单价:100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vz3-a2-i2B">
-                        <rect key="frame" x="192" y="58" width="54" height="15"/>
-                        <fontDescription key="fontDescription" name="FZLTHJW--GB1-0" family="FZLanTingHeiS-R-GB" pointSize="13"/>
-                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="数量: 10" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vgy-UF-v7y">
-                        <rect key="frame" x="267" y="28" width="40.5" height="15.5"/>
+                        <rect key="frame" x="58" y="28" width="40.5" height="15.5"/>
                         <fontDescription key="fontDescription" name="FZLTXHK--GBK1-0" family="Lantinghei SC" pointSize="11"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -69,8 +63,8 @@
                             <constraint firstAttribute="height" constant="4" id="DSL-Wo-whr"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="备注：进货时间" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Skw-0Y-hVq">
-                        <rect key="frame" x="10" y="28" width="77" height="15.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="备注：进货时间" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Skw-0Y-hVq">
+                        <rect key="frame" x="10" y="78" width="300" height="15.5"/>
                         <fontDescription key="fontDescription" name="FZLTXHK--GBK1-0" family="Lantinghei SC" pointSize="11"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -103,6 +97,12 @@
                         <color key="textColor" red="0.50196078430000002" green="0.69019607839999997" blue="0.12941176469999999" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="单价:100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vz3-a2-i2B">
+                        <rect key="frame" x="106" y="28" width="44" height="15.5"/>
+                        <fontDescription key="fontDescription" name="FZLTXHK--GBK1-0" family="Lantinghei SC" pointSize="11"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Krv-L7-bc5" firstAttribute="top" secondItem="vgy-UF-v7y" secondAttribute="bottom" constant="3.5" id="1jS-Ys-tQi"/>
@@ -111,22 +111,22 @@
                     <constraint firstAttribute="trailing" secondItem="USc-mP-FzX" secondAttribute="trailing" id="7Yf-in-kf5"/>
                     <constraint firstAttribute="trailing" secondItem="Krv-L7-bc5" secondAttribute="trailing" id="A09-wd-34f"/>
                     <constraint firstItem="vgy-UF-v7y" firstAttribute="top" secondItem="USc-mP-FzX" secondAttribute="bottom" constant="1" id="BOH-P9-9y4"/>
-                    <constraint firstAttribute="trailing" secondItem="x57-wM-bBE" secondAttribute="trailing" constant="12" id="ETa-ke-ybh"/>
-                    <constraint firstItem="5KE-Ua-JgV" firstAttribute="leading" secondItem="Skw-0Y-hVq" secondAttribute="trailing" constant="-77" id="JRv-QD-7UA"/>
-                    <constraint firstItem="Skw-0Y-hVq" firstAttribute="leading" secondItem="5KE-Ua-JgV" secondAttribute="leading" id="P20-v3-4MM"/>
-                    <constraint firstItem="Skw-0Y-hVq" firstAttribute="top" secondItem="5KE-Ua-JgV" secondAttribute="bottom" constant="3.5" id="TxC-fr-1V8"/>
+                    <constraint firstAttribute="trailing" secondItem="x57-wM-bBE" secondAttribute="trailing" constant="12" id="JIc-oT-3fo"/>
+                    <constraint firstAttribute="trailing" secondItem="Skw-0Y-hVq" secondAttribute="trailing" constant="10" id="PL2-iV-20E"/>
+                    <constraint firstAttribute="bottom" secondItem="Skw-0Y-hVq" secondAttribute="bottom" constant="8" id="RQ2-X8-yRf"/>
+                    <constraint firstItem="FI5-rd-kLl" firstAttribute="leading" secondItem="5KE-Ua-JgV" secondAttribute="leading" id="XhK-aC-5Sk"/>
                     <constraint firstItem="rZd-jl-g8V" firstAttribute="centerY" secondItem="5KE-Ua-JgV" secondAttribute="centerY" id="ag8-ZY-UKF"/>
                     <constraint firstItem="FI5-rd-kLl" firstAttribute="centerY" secondItem="vgy-UF-v7y" secondAttribute="centerY" id="bFe-nm-oxi"/>
-                    <constraint firstAttribute="trailing" secondItem="vgy-UF-v7y" secondAttribute="trailing" constant="12.5" id="bSE-Qo-GPL"/>
                     <constraint firstItem="Hfq-kM-rbo" firstAttribute="leading" secondItem="5KE-Ua-JgV" secondAttribute="trailing" constant="7.5" id="cah-Wf-z6M"/>
-                    <constraint firstAttribute="bottom" secondItem="x57-wM-bBE" secondAttribute="bottom" constant="7.5" id="cwS-yf-ClU"/>
-                    <constraint firstItem="x57-wM-bBE" firstAttribute="leading" secondItem="vz3-a2-i2B" secondAttribute="trailing" constant="8" id="h1U-u4-td0"/>
+                    <constraint firstItem="Skw-0Y-hVq" firstAttribute="top" secondItem="x57-wM-bBE" secondAttribute="bottom" constant="5" id="eOQ-O7-ocL"/>
+                    <constraint firstItem="Skw-0Y-hVq" firstAttribute="leading" secondItem="5KE-Ua-JgV" secondAttribute="leading" id="ehL-lt-mpH"/>
                     <constraint firstItem="5KE-Ua-JgV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="kbL-fw-Sti"/>
                     <constraint firstItem="5KE-Ua-JgV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="7" id="p1y-Le-Gn7"/>
+                    <constraint firstItem="vz3-a2-i2B" firstAttribute="leading" secondItem="vgy-UF-v7y" secondAttribute="trailing" constant="7.5" id="sUv-kM-1Ia"/>
                     <constraint firstItem="vgy-UF-v7y" firstAttribute="leading" secondItem="FI5-rd-kLl" secondAttribute="trailing" constant="8.5" id="tdR-Yh-cXx"/>
                     <constraint firstItem="Hfq-kM-rbo" firstAttribute="centerY" secondItem="5KE-Ua-JgV" secondAttribute="centerY" id="tuN-P0-oQP"/>
-                    <constraint firstItem="vz3-a2-i2B" firstAttribute="centerY" secondItem="x57-wM-bBE" secondAttribute="centerY" id="uXc-KX-W6e"/>
                     <constraint firstItem="USc-mP-FzX" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="uYT-Ca-K6W"/>
+                    <constraint firstItem="vz3-a2-i2B" firstAttribute="centerY" secondItem="vgy-UF-v7y" secondAttribute="centerY" id="v4Q-F7-WRG"/>
                     <constraint firstItem="Krv-L7-bc5" firstAttribute="leading" secondItem="5KE-Ua-JgV" secondAttribute="leading" id="vge-Bg-oFR"/>
                 </constraints>
             </tableViewCellContentView>
@@ -142,7 +142,7 @@
                 <outlet property="tejiaWidth" destination="0fT-Hi-JAJ" id="JDF-jc-Fts"/>
                 <outlet property="unitLabel" destination="FI5-rd-kLl" id="F0W-ky-yoV"/>
             </connections>
-            <point key="canvasLocation" x="257" y="160.5"/>
+            <point key="canvasLocation" x="257" y="171"/>
         </tableViewCell>
     </objects>
     <resources>

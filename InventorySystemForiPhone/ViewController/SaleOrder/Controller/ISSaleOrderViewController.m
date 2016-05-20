@@ -38,7 +38,6 @@
 @property (nonatomic, strong) NSMutableArray * imageList;
 @property (nonatomic, assign) ISOrderType type;
 
-@property (nonatomic, strong) ISOrderDataModel * orderDataModel;
 @property (nonatomic, strong) ISParterDataModel * partnerModel;
 @property (nonatomic, strong) ISOrderViewModel * orderViewModel;
 @property (nonatomic, strong) ISMainPageViewModel * mainPageViewModel;
@@ -74,8 +73,16 @@ static float summaryHeight = 35;
 - (void)initialSetup{
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteOrder:) name:kISOrderDeleteNotification object:nil];
+    
     UIBarButtonItem * saveBarItem = [[UIBarButtonItem alloc] initWithTitle:@"上传单据" style:UIBarButtonItemStyleDone target:self action:@selector(postOrder:)];
     self.navigationItem.rightBarButtonItem = saveBarItem;
+    
+    if (self.isFromQuery) {
+        if ([self.orderDataModel.Status isEqualToString:@"1"]) {
+            self.navigationItem.rightBarButtonItem = nil;
+        }
+    }
+
     
     switch (self.type) {
         case ISOrderTypeNormal:
@@ -103,10 +110,27 @@ static float summaryHeight = 35;
     
     [self.dataList addObject:[@{@"type":spaceCell,@"data":@{@"height":@(5),@"bgColor":RGB(240, 240, 240)}} mutableCopy]];
     [self.dataList addObject:[@{@"type":addImageCell,@"data":self.imageList} mutableCopy]];
-
-    self.orderDataModel.SwapCode = [self.orderViewModel generateSaleOrderNoByType:self.type];
-    self.orderHeaderView.orderNOLabel.text = self.orderDataModel.SwapCode;
     
+
+    if (!self.isFromQuery) {
+        self.orderDataModel.SwapCode = [self.orderViewModel generateSaleOrderNoByType:self.type];
+    }else{
+        
+        ISParterDataModel * partnerModel = [self.orderViewModel fetchPartnerById:self.orderDataModel.PartnerId];
+        [self.orderHeaderView.customerBtn setTitle:partnerModel.PartnerName forState:UIControlStateNormal];
+        self.orderHeaderView.customerBtn.selected = NO;
+        self.partnerModel = partnerModel;
+        
+        NSArray * detailList = [self.orderViewModel fetchOrderDetailListByOrderNo:self.orderDataModel.SwapCode];
+        for(int i = 0; i < detailList.count; i++){
+            ISOrderDetailModel * detailModel = detailList[i];
+            [self.dataList addObject:@{@"type":spaceCell,@"data":@{@"height":@(5),@"bgColor":RGB(240, 240, 240)}}];
+            [self.dataList addObject:@{@"type":orderCell,@"data":detailModel}];
+        }
+        [self.saleOrderTableView reloadData];
+    }
+    self.orderHeaderView.orderNOLabel.text = self.orderDataModel.SwapCode;
+    [self.saleOrderTableView reloadData];
     [self updateBottomBar];
     
     if ([self.mainPageViewModel shouldLocation]) {
@@ -135,6 +159,13 @@ static float summaryHeight = 35;
  *  @param notify
  */
 - (void)deleteOrder:(NSNotification*)notify{
+    
+    if (self.isFromQuery) {
+        if ([self.orderDataModel.Status isEqualToString:@"1"]) {
+            return;
+        }
+    }
+    
     ISOrderDetailModel * model = notify.userInfo[@"model"];
     int index = 0;
     for(int i = 0;i < self.dataList.count; i++){
@@ -165,6 +196,9 @@ static float summaryHeight = 35;
             [[ISProcessViewHelper sharedInstance] showProcessViewWithText:@"操作成功" InView:self.view];
             [self.navigationController popViewControllerAnimated:YES];
         }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:kISOrderDataRefreshNotification object:nil];
+         });
     }
 }
 
@@ -252,6 +286,7 @@ static float summaryHeight = 35;
         weakSelf.orderHeaderView.customerBtn.selected = NO;
         weakSelf.partnerModel = model;
         weakSelf.orderDataModel.PartnerId = model.PartnerId;
+        weakSelf.orderDataModel.PartnerName = model.PartnerName;
     }];
     UINavigationController * navController = [[UINavigationController alloc] initWithRootViewController:searchController];
     [self.navigationController presentViewController:navController animated:YES completion:nil];
@@ -299,6 +334,12 @@ static float summaryHeight = 35;
  */
 - (void)addProduct:(UIButton*)sender{
     
+    if (self.isFromQuery) {
+        if ([self.orderDataModel.Status isEqualToString:@"1"]) {
+            return;
+        }
+    }
+    
     if (!self.partnerModel) {
         [[ISProcessViewHelper sharedInstance] showProcessViewWithText:@"请先选择客户" InView:self.view];
         return;
@@ -319,6 +360,12 @@ static float summaryHeight = 35;
  *  @param sender
  */
 - (void)scan:(id)sender{
+    
+    if (self.isFromQuery) {
+        if ([self.orderDataModel.Status isEqualToString:@"1"]) {
+            return;
+        }
+    }
     
     if (!self.partnerModel) {
         [[ISProcessViewHelper sharedInstance] showProcessViewWithText:@"请先选择客户" InView:self.view];
@@ -353,16 +400,18 @@ static float summaryHeight = 35;
  *  @param detailModel
  */
 - (void)addDetailModel:(ISOrderDetailModel*)detailModel{
-    
+
     detailModel.SwapCode = self.orderDataModel.SwapCode;
     detailModel.DtlId = [self.orderViewModel generateDetailIdWithOrderNo:detailModel.SwapCode];
 
-    [[ISDataBaseHelper sharedInstance] updateDataBaseByModelList:@[self.orderDataModel] block:nil];
-    [[ISDataBaseHelper sharedInstance] updateDataBaseByModelList:@[detailModel] block:nil];
+
     [self.dataList addObject:@{@"type":spaceCell,@"data":@{@"height":@(5),@"bgColor":RGB(240, 240, 240)}}];
     [self.dataList addObject:@{@"type":orderCell,@"data":detailModel}];
     [self.saleOrderTableView reloadData];
+    
     [self updateBottomBar];
+    [[ISDataBaseHelper sharedInstance] updateDataBaseByModelList:@[self.orderDataModel] block:nil];
+    [[ISDataBaseHelper sharedInstance] updateDataBaseByModelList:@[detailModel] block:nil];
 }
 
 
@@ -381,7 +430,15 @@ static float summaryHeight = 35;
             summary +=  price * amount;
         }
     }
+    self.orderDataModel.sumAmt = [NSString stringWithFormat:@"%.2f",summary];
     self.orderSummaryView.summaryLabel.text = [NSString stringWithFormat:@"总计: %.2f",summary];
+}
+
+- (void)textFieldDidEndEditing:(id)sender{
+    self.orderDataModel.Remark = self.orderSummaryView.remarkTextField.text;
+    if ([[self.dataList valueForKey:@"type"] containsObject:orderCell]) {
+        [[ISDataBaseHelper sharedInstance] updateDataBaseByModelList:@[self.orderDataModel] block:nil];
+    }
 }
 
 #pragma mark - UITableViewDelegate & UITableViewDataSource
@@ -466,6 +523,7 @@ static float summaryHeight = 35;
 - (ISOrderSummaryView*)orderSummaryView{
     if (_orderSummaryView == nil) {
         _orderSummaryView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([ISOrderSummaryView class]) owner:nil options:nil] lastObject];
+        [_orderSummaryView.remarkTextField addTarget:self action:@selector(textFieldDidEndEditing:) forControlEvents:UIControlEventEditingDidEnd];
     }
     return _orderSummaryView;
 }

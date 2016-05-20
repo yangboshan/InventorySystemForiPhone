@@ -18,18 +18,18 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="35"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="单据备注" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kgq-aQ-b6P">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="单据备注" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kgq-aQ-b6P">
                     <rect key="frame" x="10" y="7" width="60" height="20"/>
                     <fontDescription key="fontDescription" name="FZLTXHK--GBK1-0" family="Lantinghei SC" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="合计: 200" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQs-Ms-ems">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="合计: 200" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQs-Ms-ems">
                     <rect key="frame" x="235" y="7" width="75" height="20.5"/>
                     <fontDescription key="fontDescription" name="FZLTXHK--GBK1-0" family="Lantinghei SC" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B2q-Dl-4rG">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B2q-Dl-4rG">
                     <rect key="frame" x="212" y="10" width="15" height="15"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="15" id="JhD-Do-XWV"/>
@@ -41,7 +41,7 @@
                         <action selector="checkTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="ap3-PH-7Rd"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="小单位" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bDP-VD-Ikd">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="小单位" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bDP-VD-Ikd">
                     <rect key="frame" x="171" y="9" width="36" height="17"/>
                     <fontDescription key="fontDescription" name="FZLTXHK--GBK1-0" family="Lantinghei SC" pointSize="12"/>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -56,6 +56,7 @@
                 <constraint firstAttribute="trailing" secondItem="FQs-Ms-ems" secondAttribute="trailing" constant="10" id="KL9-35-mN8"/>
                 <constraint firstItem="B2q-Dl-4rG" firstAttribute="centerY" secondItem="FQs-Ms-ems" secondAttribute="centerY" id="Lj7-Pe-5Oz"/>
                 <constraint firstItem="Kgq-aQ-b6P" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="Lw0-Oj-lEg"/>
+                <constraint firstItem="bDP-VD-Ikd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Kgq-aQ-b6P" secondAttribute="trailing" constant="5" id="jlO-wN-mMM"/>
                 <constraint firstItem="Kgq-aQ-b6P" firstAttribute="centerY" secondItem="FQs-Ms-ems" secondAttribute="centerY" id="lCt-xB-2ZY"/>
                 <constraint firstItem="FQs-Ms-ems" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="7.5" id="par-d9-Gc3"/>
                 <constraint firstItem="B2q-Dl-4rG" firstAttribute="leading" secondItem="bDP-VD-Ikd" secondAttribute="trailing" constant="5" id="scL-He-U2t"/>
