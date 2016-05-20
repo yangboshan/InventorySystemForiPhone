@@ -47,8 +47,14 @@
 		<string>Lantinghei_1.ttf</string>
 		<string>Lantinghei_2.ttf</string>
 	</array>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>需要定位</string>
 	<key>CFBundleDisplayName</key>
 	<string>玲珑进销存</string>
+	<key>NSLocationWhenInUseDescription</key>
+	<string>需要定位</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>需要定位</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 </dict>

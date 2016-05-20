@@ -12,7 +12,6 @@
 #import "ISProductDataModel.h"
 
 @interface ISOrderTableViewCell()
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *productNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *unitLabel;
 @property (weak, nonatomic) IBOutlet UILabel *amountLabel;
@@ -30,8 +29,8 @@
 @implementation ISOrderTableViewCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     self.productNameLabel.textColor = [UIColor darkGrayColor];
-    self.heightConstraint.constant = 0.5;
     self.remarkLabel.text = @"";
     self.presentLabel.text = @"";
     self.presentLabel.backgroundColor = TheameColor;
@@ -64,9 +63,18 @@
     }
     
     if (![self.orderDetailModel.LargessQty IS_isEmptyObject]) {
+        self.presentLabel.hidden = NO;
         self.presentLabel.text = [NSString stringWithFormat:@"赠送%@%@",self.orderDetailModel.LargessQty,self.orderDetailModel.LargessUnite];
         self.presentWidth.constant = [self.presentLabel.text sizeWithAttributes:@{NSFontAttributeName:Lantinghei(9)}].width + 5;
+    }else{
+        self.presentLabel.hidden = YES;
     }
+}
+
+- (IBAction)deleteItem:(id)sender {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:kISOrderDeleteNotification object:nil userInfo:@{@"model":self.orderDetailModel}];
+    });
 }
 
 #pragma mark - property

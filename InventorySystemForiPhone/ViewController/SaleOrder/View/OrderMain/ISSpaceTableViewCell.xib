@@ -22,6 +22,7 @@
                         </constraints>
                     </view>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <constraints>
                     <constraint firstItem="EMV-ak-A75" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="OuF-RL-g1Q"/>
                     <constraint firstItem="EMV-ak-A75" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="pnY-U0-t0K"/>
@@ -29,6 +30,7 @@
                     <constraint firstAttribute="bottom" secondItem="EMV-ak-A75" secondAttribute="bottom" id="vMb-dt-0qD"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="bgView" destination="EMV-ak-A75" id="4qb-Xj-TcA"/>
                 <outlet property="heightConstraint" destination="FeB-hF-ioK" id="fNx-zK-C4g"/>

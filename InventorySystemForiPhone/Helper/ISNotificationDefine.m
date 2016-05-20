@@ -11,3 +11,9 @@ NSString * const kISLoginDidSuccessNotification = @"kISLoginDidSuccessNotificati
 NSString * const kISLogOutNotification = @"kISLogOutNotification";
 
 NSString * const kISOrderRefreshNotification = @"kISOrderRefreshNotification";
+
+NSString * const kISOrderDeleteNotification = @"kISOrderDeleteNotification";
+
+NSString * const kISLocationDidUpdateNotification = @"kISLocationDidUpdateNotification";
+
+

@@ -11,7 +11,7 @@
 @implementation ISOrderDetailModel
 
 - (NSArray*)primaryKey{
-    return @[@"ProId",@"SwapCode"];
+    return @[@"DtlId"];
 }
 
 - (instancetype)init{

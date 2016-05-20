@@ -19,9 +19,9 @@
         if ([obj isKindOfClass:[UIButton class]]) {
             UIButton * btn = (UIButton*)obj;
             btn.titleLabel.font = LantingheiBoldD(13);
-            btn.tintColor = [UIColor grayColor];
-            [btn setBackgroundColor:RGBA(240, 240, 240, 1)];
-            [btn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+            btn.tintColor = [UIColor darkGrayColor];
+            [btn setBackgroundColor:[UIColor whiteColor]];
+            [btn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
         }
     }];
 }

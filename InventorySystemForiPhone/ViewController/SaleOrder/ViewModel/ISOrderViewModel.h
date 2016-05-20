@@ -9,11 +9,16 @@
 #import <Foundation/Foundation.h>
 
 @class ISProductDataModel;
-
+@class ISParterDataModel;
 
 typedef NS_ENUM(NSInteger,ISSearchFieldType){
     ISSearchFieldTypeCustomer = 0,
     ISSearchFieldTypeProduct = 1,
+};
+
+typedef NS_ENUM(NSInteger,ISOrderType){
+    ISOrderTypeNormal = 0,
+    ISOrderTypeReturn = 1
 };
 
 @interface ISOrderViewModel : NSObject
@@ -23,14 +28,8 @@ typedef NS_ENUM(NSInteger,ISSearchFieldType){
  *
  *  @return 订单号
  */
-- (NSString*)generateSaleOrderNo;
+- (NSString*)generateSaleOrderNoByType:(ISOrderType)type;
 
-/**
- *  生成退单号
- *
- *  @return 退单号
- */
-- (NSString*)generateReOrderNo;
 
 /**
  *  根据关键字及类型获取列表
@@ -84,6 +83,68 @@ typedef NS_ENUM(NSInteger,ISSearchFieldType){
  *  @return 价格
  */
 - (NSString*)fetchLocalPriceByProId:(NSString*)proId unit:(NSString*)unit;
+
+
+/**
+ *  生成单据上传Grid参数
+ *
+ *  @param list 单据列表
+ *
+ *  @return 参数
+ */
+- (NSString*)generateParametersForOrderByList:(NSArray*)list;
+
+
+/**
+ *  更新本地订单号
+ *
+ *  @param newNo 服务器返回的订单号
+ *  @param oldNo 本地订单号
+ *
+ *  @return 
+ */
+- (void)updateOrderWithNewNo:(NSString*)newNo oldNo:(NSString*)oldNo;
+
+
+/**
+ *  检查服务器返回的订单号
+ *
+ *  @param orderNo 订单号
+ *  @param type    类型
+ *
+ *  @return 布尔值
+ */
+- (BOOL)checkOrderNoWithNo:(NSString*)orderNo type:(ISOrderType)type;
+
+
+/**
+ *  生成详细列表的ID
+ *
+ *  @param orderNo 订单号
+ *
+ *  @return ID
+ */
+- (NSString*)generateDetailIdWithOrderNo:(NSString*)orderNo;
+
+/**
+ *  根据条码获取产品
+ *
+ *  @param barCode 条码
+ *
+ *  @return 产品Model
+ */
+- (ISProductDataModel*)fetchProductByBarCode:(NSString*)barCode;
+
+
+/**
+ *  获取订单列表
+ *
+ *  @param partner partnerModel
+ *  @param date    date
+ *
+ *  @return 列表
+ */
+- (NSArray*)fetchOrderListByPartner:(ISParterDataModel*)partner date:(NSString*)date;
 
 
 @end

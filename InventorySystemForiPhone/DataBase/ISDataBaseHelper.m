@@ -57,6 +57,11 @@ static NSString* IS_SQL_checkDataExist = @"select  count(*) from %@ where ";
     return retList;
 }
 
+- (void)updateDataBaseBySQL:(NSString*)sql{
+    FMDatabase* db = [[ISDataBase sharedInstance] dataBase];
+    [db executeUpdate:sql];
+}
+
 - (void)updateDataBaseByModelList:(NSArray*)modelList block:(ISDataSyncProgressBlock)block{
     if (modelList.count) {
         for(int i = 0; i < modelList.count; i++){
@@ -170,6 +175,34 @@ static NSString* IS_SQL_checkDataExist = @"select  count(*) from %@ where ";
         }
     }
     
+    [db executeStatements:strSQL];
+}
+
+- (void)deleteDataBaseByModelList:(NSArray*)modelList block:(ISDataSyncProgressBlock)block{
+    if (modelList.count) {
+        for(int i = 0; i < modelList.count; i++){
+            [self deleteByModel:modelList[i]];
+            if (block) {
+                block((i+1)/(float)modelList.count);
+            }
+        }
+    }
+}
+
+- (void)deleteByModel:(ISBaseModel*)model{
+    
+    NSMutableString* strSQL = [NSMutableString string];
+    FMDatabase* db = [[ISDataBase sharedInstance] dataBase];
+    [strSQL appendString:[NSString stringWithFormat:@" DELETE FROM %@ ",[self getTableFromModel:model]]];
+    [strSQL appendString:@" WHERE "];
+
+    for(int i = 0; i < model.primaryKey.count; i++){
+        NSString * field = model.primaryKey[i];
+        [strSQL appendString:[NSString stringWithFormat:@" %@ = '%@' ",field,[model valueForKey:field]]];
+        if (i != model.primaryKey.count - 1) {
+            [strSQL appendString:@" AND "];
+        }
+    }
     [db executeStatements:strSQL];
 }
 

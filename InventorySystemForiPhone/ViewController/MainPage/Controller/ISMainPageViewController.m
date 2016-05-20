@@ -109,7 +109,9 @@ static float timeViewHeight = 50;
     self.dataList = [self.mainPageViewModel fetchFormatDataSource];
     [self.collectionView reloadData];
     [self.remainTimeAPIHandler loadData];
-    [[ISDataSyncModel sharedInstance] startSync];
+    if ([self.mainPageViewModel hasPrivilegeForSyncData]) {
+        [[ISDataSyncModel sharedInstance] startSync];
+    }
 }
 
 - (void)showLoginController{
@@ -167,6 +169,9 @@ static float timeViewHeight = 50;
     NSDictionary* d = self.dataList[indexPath.row];
     if (![NSString stringIsNilOrEmpty:d[@"vc"]]) {
         id controller = [NSClassFromString(d[@"vc"]) new];
+        if ([d.allKeys containsObject:@"type"]) {
+            [controller setValue:d[@"type"] forKey:@"type"];
+        }
         [self.navigationController pushViewController:controller animated:YES];
     }else{
         [[ISProcessViewHelper sharedInstance] showProcessViewWithText:@"敬请期待" InView:self.view];

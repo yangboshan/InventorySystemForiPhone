@@ -23,3 +23,15 @@ extern NSString * const kISLogOutNotification;
  *  Order Refresh
  */
 extern NSString * const kISOrderRefreshNotification;
+
+
+/**
+ *  Order Delete
+ */
+extern NSString * const kISOrderDeleteNotification;
+
+/**
+ *  Location Update
+ */
+extern NSString * const kISLocationDidUpdateNotification;
+

@@ -12,6 +12,8 @@
 
 - (UIImage*)fixOrientation;
 
-- (UIImage*)waterMarkImageWithLocation:(NSString*)location;
+- (UIImage*)waterMarkImageWithInfo:(NSString*)info;
+
+- (NSData*)compressedData;
 
 @end

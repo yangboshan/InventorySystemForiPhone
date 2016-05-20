@@ -19,6 +19,7 @@
     [self.contentView autoSetDimension:ALDimensionWidth toSize:ScreenWidth];
     [self.contentView autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:0];
     [self.contentView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:0];
+
 }
 
 

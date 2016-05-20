@@ -24,7 +24,9 @@
 + (NSDictionary*)formatterMapDictionary{
     return @{@"t_PartnerData":@"ISDataSyncPartnerFormatter",
              @"t_ProductData":@"ISDataSyncProductFormatter",
-             @"t_Unite":@"ISDataSyncUnitFormatter"};
+             @"t_Unite":@"ISDataSyncUnitFormatter",
+             @"t_SwapBillList":@"ISOrderInfoFormatter",
+             @"t_SwapBillDtl":@"ISOrderInfoFormatter"};
 }
 
 @end

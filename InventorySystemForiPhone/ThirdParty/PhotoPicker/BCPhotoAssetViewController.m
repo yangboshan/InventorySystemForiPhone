@@ -176,7 +176,7 @@ static float const bottomHeight = 45;
     if(!image) image = [[info objectForKey:UIImagePickerControllerOriginalImage] fixOrientation];
     BCPhotoPickerViewController* navController = (BCPhotoPickerViewController*)self.navigationController;
     if (navController.block) {
-        navController.block(@[[self getCompressedImage:image]]);
+        navController.block(@[image]);
     }
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
@@ -216,10 +216,13 @@ static float const bottomHeight = 45;
 
 - (void)finishAction:(UIButton*)sender{
     NSMutableArray* retData = [NSMutableArray array];
-    [[[self.collectionView.indexPathsForSelectedItems reverseObjectEnumerator] allObjects] enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull indexPath, NSUInteger idx, BOOL * _Nonnull stop) {
+    NSArray * seletedItems = [self.collectionView.indexPathsForSelectedItems sortedArrayUsingComparator:^NSComparisonResult(NSIndexPath *   _Nonnull obj1, NSIndexPath *  _Nonnull obj2) {
+        return obj1.row > obj2.row;
+    }];
+    [seletedItems enumerateObjectsUsingBlock:^(NSIndexPath * _Nonnull indexPath, NSUInteger idx, BOOL * _Nonnull stop) {
         ALAsset *asset = [[self currentGroupData] valueForKey:@"data"][indexPath.row];
         UIImage *image = [UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage];
-        [retData addObject:[self getCompressedImage:image]];
+        [retData addObject:image];
     }];
     
     BCPhotoPickerViewController* navController = (BCPhotoPickerViewController*)self.navigationController;
@@ -227,19 +230,6 @@ static float const bottomHeight = 45;
         navController.block(retData);
     }
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (UIImage*)getCompressedImage:(UIImage*)image{
-    
-    NSData *data = [[NSData alloc] init];
-    for (float compression = 1.0; compression >= 0.0; compression -= .1) {
-        data = UIImageJPEGRepresentation(image, compression);
-        NSInteger imageLength = data.length;
-        if (imageLength < ImageSize) {
-            break;
-        }
-    }
-    return [UIImage imageWithData:data];
 }
 
 - (void)dismiss:(id)sender{

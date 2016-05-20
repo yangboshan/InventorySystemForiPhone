@@ -19,18 +19,13 @@
 #pragma mark - life Cycle
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
-    sleep(1);
-    
+
+
     [self initialSetup];
     
     ISMainPageViewController* mainPageController = [ISMainPageViewController new];
     UINavigationController* navController = [[UINavigationController alloc] initWithRootViewController:mainPageController];
     self.window.rootViewController = navController;
-    
-    if ([ISSettingManager sharedInstance].isLogined) {
-//        [[ISDataSyncModel sharedInstance] startSync];
-    }
     
     NSLog(@"%@",[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]);
     

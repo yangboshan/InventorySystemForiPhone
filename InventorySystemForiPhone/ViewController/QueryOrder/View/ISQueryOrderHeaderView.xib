@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="Lantinghei_1.ttf">
+            <string>FZLTHJW--GB1-0</string>
+            <string>FZLTHJW--GB1-0</string>
+            <string>FZLTHJW--GB1-0</string>
+            <string>FZLTHJW--GB1-0</string>
+        </mutableArray>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ISQueryOrderHeaderView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="63"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="客户:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iOe-o2-lmB">
+                    <rect key="frame" x="13" y="10" width="32.5" height="16.5"/>
+                    <fontDescription key="fontDescription" name="FZLTHJW--GB1-0" family="FZLanTingHeiS-R-GB" pointSize="14"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u87-PA-Nx5">
+                    <rect key="frame" x="58" y="4" width="252" height="29"/>
+                    <fontDescription key="fontDescription" name="FZLTHJW--GB1-0" family="FZLanTingHeiS-R-GB" pointSize="14"/>
+                    <state key="normal">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected" image="order_edit_icon"/>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="日期:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ggb-Wp-exb">
+                    <rect key="frame" x="13" y="34" width="32.5" height="16.5"/>
+                    <fontDescription key="fontDescription" name="FZLTHJW--GB1-0" family="FZLanTingHeiS-R-GB" pointSize="14"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2016-01-10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lMW-Zz-fqd">
+                    <rect key="frame" x="58" y="34" width="86.5" height="16.5"/>
+                    <fontDescription key="fontDescription" name="FZLTHJW--GB1-0" family="FZLanTingHeiS-R-GB" pointSize="14"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="iOe-o2-lmB" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="Aju-ZG-lk6"/>
+                <constraint firstAttribute="trailing" secondItem="u87-PA-Nx5" secondAttribute="trailing" constant="10" id="EKO-PT-hSP"/>
+                <constraint firstItem="iOe-o2-lmB" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="13" id="Exq-T8-jmu"/>
+                <constraint firstAttribute="bottom" secondItem="ggb-Wp-exb" secondAttribute="bottom" constant="12.5" id="Gkp-4Z-O9o"/>
+                <constraint firstItem="lMW-Zz-fqd" firstAttribute="centerY" secondItem="ggb-Wp-exb" secondAttribute="centerY" id="Lkt-lT-BGo"/>
+                <constraint firstItem="u87-PA-Nx5" firstAttribute="leading" secondItem="iOe-o2-lmB" secondAttribute="trailing" constant="13" id="W5p-S6-OfV"/>
+                <constraint firstItem="ggb-Wp-exb" firstAttribute="leading" secondItem="iOe-o2-lmB" secondAttribute="leading" id="cSx-Jf-5o9"/>
+                <constraint firstItem="ggb-Wp-exb" firstAttribute="top" secondItem="iOe-o2-lmB" secondAttribute="bottom" constant="7.5" id="pn2-JO-lo5"/>
+                <constraint firstItem="u87-PA-Nx5" firstAttribute="centerY" secondItem="iOe-o2-lmB" secondAttribute="centerY" id="smV-t8-J01"/>
+                <constraint firstItem="lMW-Zz-fqd" firstAttribute="leading" secondItem="ggb-Wp-exb" secondAttribute="trailing" constant="13" id="tZN-63-qTJ"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="customBtn" destination="u87-PA-Nx5" id="lIq-ez-MB3"/>
+                <outlet property="dateLabel" destination="lMW-Zz-fqd" id="let-cG-Dsg"/>
+            </connections>
+        </view>
+    </objects>
+    <resources>
+        <image name="order_edit_icon" width="16" height="15"/>
+    </resources>
+</document>

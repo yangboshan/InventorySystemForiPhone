@@ -11,6 +11,9 @@
 #import "ISNetworkingPriceAPIHandler.h"
 #import "ISNetworkingStockAPIHandler.h"
 #import "ISNetworkingLastInfoAPIHandler.h"
+#import "ISNetworkingUploadOrderAPIHandler.h"
+#import "ISNetworkingUploadReturnOrderAPIHandler.h"
+#import "ISNetworkingUploadOrderPicAPIHandler.h"
 
 
 NSString* const  kISOderInfoResut = @"kISOderInfoResut";
@@ -20,7 +23,7 @@ NSString* const  kISOderInfoResut = @"kISOderInfoResut";
 
 - (id)manager:(ISNetworkingBaseAPIHandler *)manager reformData:(id)data{
     
-    if ([manager isKindOfClass:[ISNetworkingPriceAPIHandler class]] || [manager isKindOfClass:[ISNetworkingStockAPIHandler class]] || [manager isKindOfClass:[ISNetworkingLastInfoAPIHandler class]]) {
+    if ([manager isKindOfClass:[ISNetworkingPriceAPIHandler class]] || [manager isKindOfClass:[ISNetworkingStockAPIHandler class]] || [manager isKindOfClass:[ISNetworkingLastInfoAPIHandler class]] || [manager isKindOfClass:[ISNetworkingUploadOrderAPIHandler class]] || [manager isKindOfClass:[ISNetworkingUploadOrderPicAPIHandler class]] || [manager isKindOfClass:[ISNetworkingUploadReturnOrderAPIHandler class]]) {
         if ([data isKindOfClass:[NSData class]]) {
             GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:data error:nil];
             GDataXMLElement *rootElement = [doc rootElement];

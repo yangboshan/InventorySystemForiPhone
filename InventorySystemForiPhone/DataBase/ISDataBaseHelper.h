@@ -46,6 +46,24 @@ typedef void(^ISDataSyncProgressBlock)(float progress);
  */
 - (void)updateDataBaseByModelList:(NSArray*)modelList block:(ISDataSyncProgressBlock)block;
 
+
+/**
+ *  删除数据
+ *
+ *  @param modelList 列表
+ *  @param block     block
+ */
+- (void)deleteDataBaseByModelList:(NSArray*)modelList block:(ISDataSyncProgressBlock)block;
+
+
+/**
+ *  更新SQL
+ *
+ *  @param sql sql
+ */
+- (void)updateDataBaseBySQL:(NSString*)sql;
+
+
 /**
  *  表 Model 对应
  *

@@ -26,6 +26,7 @@
 #import "UIView+ISCategory.h"
 
 #import "ISSettingManager.h"
+#import "ISLocationManager.h"
 #import "ISProcessViewHelper.h"
 #import "ISGDataXMLHelper.h"
 #import "ISDataBaseHelper.h"

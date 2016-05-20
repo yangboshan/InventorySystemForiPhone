@@ -19,8 +19,9 @@
 
 @implementation ISOrderAddImageCell
 
-static float const margin  = 5;
-static float const item_margin = 5;
+static float const leadingMargin  = 12;
+static float const topMargin  = 5;
+static float const item_margin = 8;
 static int const items_per_row = 6;
 static int const max_number = 10;
 
@@ -40,19 +41,19 @@ static int const max_number = 10;
         [subview removeFromSuperview];
     }
     
-    float item_width = (ScreenWidth - margin * 2 - (items_per_row - 1) * item_margin) / items_per_row;
+    float item_width = (ScreenWidth - leadingMargin * 2 - (items_per_row - 1) * item_margin) / items_per_row;
     float item_height = item_width;
-    self.containerHeight.constant = item_height + margin * 2;
+    self.containerHeight.constant = item_height + topMargin * 2;
     
-    float xOffset = margin;
-    float yOffset = margin;
+    float xOffset = leadingMargin;
+    float yOffset = topMargin;
     
     for(int i = 0; i <= self.imageList.count; i++){
         NSMutableDictionary* d =  (self.imageList.count >= 1 && (i < self.imageList.count)) ? self.imageList[i] : nil;
         if (i) {
-            xOffset = margin +  (i % items_per_row) * (item_width + item_margin);
-            yOffset = margin + (i / items_per_row) * (item_height + item_margin);
-            self.containerHeight.constant = yOffset + item_height + margin;
+            xOffset = leadingMargin +  (i % items_per_row) * (item_width + item_margin);
+            yOffset = topMargin + (i / items_per_row) * (item_height + item_margin);
+            self.containerHeight.constant = yOffset + item_height + topMargin;
         }
         
         UIImageView* imageView = [[UIImageView alloc] initWithFrame:CGRectMake(xOffset, yOffset, item_width, item_height)];
@@ -85,7 +86,14 @@ static int const max_number = 10;
                 photoPickerController.maxOfSelection = max_number - weakSelf.imageList.count;
                 photoPickerController.block = ^(NSArray * imageList){
                     for(UIImage *image in imageList){
-                        UIImage * waterMark = [image waterMarkImageWithLocation:list[index]];
+                        
+                        NSString * location = [ISLocationManager sharedInstance].fetchedLocation;
+                        NSString * info = [NSString stringWithFormat:@"%@\n%@\n%@",
+                                           list[index],
+                                           [[NSDate currentDate] dateStringWithFormat:@"yyyy-MM-dd HH:mm:ss"],
+                                           location];
+                        
+                        UIImage * waterMark = [image waterMarkImageWithInfo:info];
                         [weakSelf.imageList addObject:[@{@"image":waterMark,@"remark":list[index]} mutableCopy]];
                     }
                     [weakSelf.tableView reloadData];

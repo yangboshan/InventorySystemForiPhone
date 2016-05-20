@@ -10,21 +10,34 @@
 
 @implementation UIImage (ISCategory)
 
-- (UIImage*)waterMarkImageWithLocation:(NSString*)location{
+- (UIImage*)waterMarkImageWithInfo:(NSString*)info{
     
     UIGraphicsBeginImageContext(self.size);
     [self drawInRect:CGRectMake(0, 0, self.size.width, self.size.height)];
-    CGRect rect = CGRectMake(20, self.size.height/5 * 4, self.size.width, self.size.height/5);
+    CGRect rect = CGRectMake(20, self.size.height - 150, self.size.width, 150);
 
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
+    style.lineSpacing = 5;
     style.alignment = NSTextAlignmentLeft;
-    NSDictionary *dic = @{NSFontAttributeName:[UIFont systemFontOfSize:50],
+    NSDictionary *dic = @{NSFontAttributeName:[UIFont systemFontOfSize:30],
                           NSParagraphStyleAttributeName:style,
                           NSForegroundColorAttributeName:[UIColor whiteColor]};
-    [[NSString stringWithFormat:@"%@\n%@",[[NSDate currentDate] dateStringWithFormat:@"yyyy-MM-dd HH:mm:ss"],location] drawInRect:rect withAttributes:dic];
+    [info drawInRect:rect withAttributes:dic];
     UIImage *watermarkImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return watermarkImage;
+}
+
+- (NSData*)compressedData{
+    NSData *data = [[NSData alloc] init];
+    for (float compression = 1.0; compression >= 0.0; compression -= .1) {
+        data = UIImageJPEGRepresentation(self, compression);
+        NSInteger imageLength = data.length;
+        if (imageLength < ImageSize) {
+            break;
+        }
+    }
+    return data;
 }
 
 - (UIImage *)fixOrientation{

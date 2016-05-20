@@ -10,28 +10,43 @@
 #import "ISSearchFieldViewController.h"
 #import "BCPhotoPickerViewController.h"
 #import "ISAddProductViewController.h"
+#import "ISScanViewController.h"
 
 #import "ISParterDataModel.h"
 #import "ISOrderDataModel.h"
 #import "ISOrderDetailModel.h"
 #import "ISProductDataModel.h"
+#import "ISMainPageViewModel.h"
 
 #import "ISOrderHeaderView.h"
 #import "ISOrderBottomView.h"
 #import "ISOrderSummaryView.h"
 
-@interface ISSaleOrderViewController ()<UITableViewDataSource,UITableViewDelegate>
+
+#import "ISOrderInfoFormatter.h"
+#import "ISNetworkingUploadOrderAPIHandler.h"
+#import "ISNetworkingUploadReturnOrderAPIHandler.h"
+#import "ISNetworkingUploadOrderPicAPIHandler.h"
+
+@interface ISSaleOrderViewController ()<UITableViewDataSource,UITableViewDelegate,ISNetworkingAPIHandlerCallBackDelegate,ISNetworkingAPIHandlerParamSourceDelegate>
 @property (nonatomic, strong) ISOrderHeaderView * orderHeaderView;
 @property (nonatomic, strong) ISOrderBottomView * orderBottomView;
 @property (nonatomic, strong) ISOrderSummaryView * orderSummaryView;
 @property (nonatomic, strong) UITableView * saleOrderTableView;
-@property (nonatomic, strong) NSMutableDictionary *offscreenCells;
+@property (nonatomic, strong) NSMutableDictionary * offscreenCells;
 @property (nonatomic, strong) NSMutableArray * dataList;
 @property (nonatomic, strong) NSMutableArray * imageList;
+@property (nonatomic, assign) ISOrderType type;
 
 @property (nonatomic, strong) ISOrderDataModel * orderDataModel;
 @property (nonatomic, strong) ISParterDataModel * partnerModel;
 @property (nonatomic, strong) ISOrderViewModel * orderViewModel;
+@property (nonatomic, strong) ISMainPageViewModel * mainPageViewModel;
+
+@property (nonatomic, strong) ISOrderInfoFormatter * orderInfoFormatter;
+@property (nonatomic, strong) ISNetworkingUploadOrderAPIHandler * uploadOrderAPIHandler;
+@property (nonatomic, strong) ISNetworkingUploadReturnOrderAPIHandler * uploadReturnOrderAPIHandler;
+@property (nonatomic, strong) ISNetworkingUploadOrderPicAPIHandler * uploadOrderPicAPIHandler;
 @end
 
 
@@ -47,6 +62,10 @@ static float summaryHeight = 35;
 
 #pragma mark - lifeCycle
 
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kISOrderDeleteNotification object:nil];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initialSetup];
@@ -54,8 +73,20 @@ static float summaryHeight = 35;
 
 - (void)initialSetup{
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteOrder:) name:kISOrderDeleteNotification object:nil];
     UIBarButtonItem * saveBarItem = [[UIBarButtonItem alloc] initWithTitle:@"上传单据" style:UIBarButtonItemStyleDone target:self action:@selector(postOrder:)];
     self.navigationItem.rightBarButtonItem = saveBarItem;
+    
+    switch (self.type) {
+        case ISOrderTypeNormal:
+            self.title = @"销售单据";
+            break;
+        case ISOrderTypeReturn:
+            self.title = @"退货单据";
+            break;
+        default:
+            break;
+    }
     
     [self.view setBackgroundColor:RGB(240, 240, 240)];
     [self.view addSubview:self.saleOrderTableView];
@@ -73,10 +104,14 @@ static float summaryHeight = 35;
     [self.dataList addObject:[@{@"type":spaceCell,@"data":@{@"height":@(5),@"bgColor":RGB(240, 240, 240)}} mutableCopy]];
     [self.dataList addObject:[@{@"type":addImageCell,@"data":self.imageList} mutableCopy]];
 
-    self.orderDataModel.SwapCode = [self.orderViewModel generateSaleOrderNo];
+    self.orderDataModel.SwapCode = [self.orderViewModel generateSaleOrderNoByType:self.type];
     self.orderHeaderView.orderNOLabel.text = self.orderDataModel.SwapCode;
     
     [self updateBottomBar];
+    
+    if ([self.mainPageViewModel shouldLocation]) {
+        [[ISLocationManager sharedInstance] startUpdatingLocation];
+    }
 }
 
 - (void)autolayoutSubView{
@@ -92,9 +127,124 @@ static float summaryHeight = 35;
     [self.orderSummaryView autoSetDimension:ALDimensionHeight toSize:summaryHeight];
 }
 
+#pragma mark - Notification
+
+/**
+ *  删除条目 更新本地数据酷 刷新列表
+ *
+ *  @param notify
+ */
+- (void)deleteOrder:(NSNotification*)notify{
+    ISOrderDetailModel * model = notify.userInfo[@"model"];
+    int index = 0;
+    for(int i = 0;i < self.dataList.count; i++){
+        NSDictionary * d = self.dataList[i];
+        if ([d[@"type"] isEqualToString:orderCell]) {
+            ISOrderDetailModel * detailModel = d[@"data"];
+            if ([detailModel.DtlId isEqualToString:model.DtlId]) {
+                index = i;
+                break;
+            }
+        }
+    }
+    [self.dataList removeObjectAtIndex:index];
+    [self.dataList removeObjectAtIndex:--index];
+    [[ISDataBaseHelper sharedInstance] deleteDataBaseByModelList:@[model] block:nil];
+    [self.saleOrderTableView reloadData];
+}
+
+#pragma mark - ISNetworkingAPIHandlerCallBackDelegate
+
+- (void)orderUploadSuccess:(NSString*)result{
+    if ([self.orderViewModel checkOrderNoWithNo:result type:self.type]) {
+        [self.orderViewModel updateOrderWithNewNo:result oldNo:self.orderDataModel.SwapCode];
+        self.orderDataModel.SwapCode = result;
+        if (self.imageList.count) {
+            [self.uploadOrderPicAPIHandler loadData];
+        }else{
+            [[ISProcessViewHelper sharedInstance] showProcessViewWithText:@"操作成功" InView:self.view];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }
+}
+
+- (void)managerCallAPIDidSuccess:(ISNetworkingBaseAPIHandler *)manager{
+    
+    if ([manager isKindOfClass:[ISNetworkingUploadOrderAPIHandler class]]) {
+        NSDictionary * data = [self.orderInfoFormatter manager:manager reformData:manager.fetchedRawData];
+        if (![data[kISOderInfoResut] IS_isEmptyObject]) {
+            [self orderUploadSuccess:data[kISOderInfoResut]];
+        }
+    }
+    
+    if ([manager isKindOfClass:[ISNetworkingUploadReturnOrderAPIHandler class]]) {
+        NSDictionary * data = [self.orderInfoFormatter manager:manager reformData:manager.fetchedRawData];
+        if (![data[kISOderInfoResut] IS_isEmptyObject]) {
+            [self orderUploadSuccess:data[kISOderInfoResut]];
+        }
+    }
+    
+    if ([manager isKindOfClass:[ISNetworkingUploadOrderPicAPIHandler class]]) {
+        NSDictionary * data = [self.orderInfoFormatter manager:manager reformData:manager.fetchedRawData];
+        if (![data[kISOderInfoResut] IS_isEmptyObject]) {
+            if ([data[kISOderInfoResut] isEqualToString:@"1"]) {
+                if (self.imageList.count) {
+                    [self.imageList removeObjectAtIndex:0];
+                }
+                if (self.imageList.count) {
+                    [self.uploadOrderPicAPIHandler loadData];
+                }else{
+                    [[ISProcessViewHelper sharedInstance] showProcessViewWithText:@"操作成功" InView:self.view];
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+            }else{
+                [[ISProcessViewHelper sharedInstance] showProcessViewWithText:@"ERROR" InView:self.view];
+            }
+        }
+    }
+}
+
+- (void)managerCallAPIDidFailed:(ISNetworkingBaseAPIHandler *)manager{
+    [[ISProcessViewHelper sharedInstance] showProcessViewWithText:@"ERROR" InView:self.view];
+}
+
+#pragma mark - ISNetworkingAPIHandlerParamSourceDelegate
+
+- (NSDictionary*)paramsForApi:(ISNetworkingBaseAPIHandler *)manager{
+    if ([manager isKindOfClass:[ISNetworkingUploadOrderAPIHandler class]]) {
+        self.orderDataModel.Remark = [[self.orderSummaryView.remarkTextField.text trim] IS_isEmptyObject] ? @"" : [self.orderSummaryView.remarkTextField.text trim];
+        return @{@"sPartnerId":self.orderDataModel.PartnerId,
+                 @"sRemark":self.orderDataModel.Remark,
+                 @"Cre_User":self.orderDataModel.UPD_USER,
+                 @"SalesId":self.orderDataModel.CRE_USER,
+                 @"picBF":@"",
+                 @"picAF":@"",
+                 @"upPosition":[ISLocationManager sharedInstance].fetchedLocation,
+                 @"dsGrid":[self.orderViewModel generateParametersForOrderByList:[self.dataList valueForKey:@"data"]]};
+    }
+    if ([manager isKindOfClass:[ISNetworkingUploadReturnOrderAPIHandler class]]) {
+        self.orderDataModel.Remark = [[self.orderSummaryView.remarkTextField.text trim] IS_isEmptyObject] ? @"" : [self.orderSummaryView.remarkTextField.text trim];
+        return @{@"sPartnerId":self.orderDataModel.PartnerId,
+                 @"sRemark":self.orderDataModel.Remark,
+                 @"Cre_User":self.orderDataModel.UPD_USER,
+                 @"SalesId":self.orderDataModel.CRE_USER,
+                 @"dsGrid":[self.orderViewModel generateParametersForOrderByList:[self.dataList valueForKey:@"data"]]};
+    }
+    if ([manager isKindOfClass:[ISNetworkingUploadOrderPicAPIHandler class]]) {
+        return @{@"SwapCode":self.orderDataModel.SwapCode,
+                 @"Pic":[[[self.imageList firstObject][@"image"] compressedData] base64Encoding],
+                 @"sRemark":[self.imageList firstObject][@"remark"]};
+    }
+    return nil;
+}
+
 #pragma mark - event
 
-//弹出客户搜索界面
+/**
+ *  显示客户搜索界面
+ *
+ *  @param sender
+ */
 - (void)showSearch:(id)sender{
     __weak typeof(self) weakSelf = self;
     ISSearchFieldViewController * searchController = [[ISSearchFieldViewController alloc] initWithType:ISSearchFieldTypeCustomer finish:^(ISParterDataModel * model) {
@@ -107,12 +257,46 @@ static float summaryHeight = 35;
     [self.navigationController presentViewController:navController animated:YES completion:nil];
 }
 
-//上传单据
+/**
+ *  上传单据
+ *
+ *  @param sender
+ */
 - (void)postOrder:(id)sender{
     
+    if ([self.orderDataModel.PartnerId IS_isEmptyObject] || ![[self.dataList valueForKey:@"type"] containsObject:orderCell]) {
+        [[ISProcessViewHelper sharedInstance] showProcessViewWithText:@"单据不完整" InView:self.view];
+        return;
+    }
+    
+    if ([self.mainPageViewModel shouldShootPhoto]) {
+        if (!self.imageList.count) {
+            [[ISProcessViewHelper sharedInstance] showProcessViewWithText:@"请选择图片并上传" InView:self.view];
+        }
+    }
+    
+    [[ISProcessViewHelper sharedInstance] showProcessViewInView:self.view];
+    if (![self.orderViewModel checkOrderNoWithNo:self.orderDataModel.SwapCode type:self.type]) {
+        switch (self.type) {
+            case ISOrderTypeNormal:
+                [self.uploadOrderAPIHandler loadData];
+                  break;
+            case ISOrderTypeReturn:
+                [self.uploadReturnOrderAPIHandler loadData];
+                break;
+            default:
+                break;
+        }
+    }else{
+        [self.uploadOrderPicAPIHandler loadData];
+    }
 }
 
-//显示添加商品界面
+/**
+ *  显示添加商品界面
+ *
+ *  @param sender
+ */
 - (void)addProduct:(UIButton*)sender{
     
     if (!self.partnerModel) {
@@ -128,9 +312,50 @@ static float summaryHeight = 35;
     [self.navigationController pushViewController:addProductController animated:YES];
 }
 
+
+/**
+ *  扫描条码
+ *
+ *  @param sender
+ */
+- (void)scan:(id)sender{
+    
+    if (!self.partnerModel) {
+        [[ISProcessViewHelper sharedInstance] showProcessViewWithText:@"请先选择客户" InView:self.view];
+        return;
+    }
+    
+    __weak typeof(self) weakSelf = self;
+    ISScanViewController * scanController = [ISScanViewController new];
+    scanController.block = ^(NSString * result){
+        [weakSelf.navigationController popViewControllerAnimated:NO];
+        if (![result IS_isEmptyObject]) {
+            ISAddProductViewController * addProductController = [[ISAddProductViewController alloc] initWithType:ISAddProductTypeScan block:^(ISOrderDetailModel * detailModel) {
+                [weakSelf addDetailModel:detailModel];
+            }];
+            ISProductDataModel * product = [weakSelf.orderViewModel fetchProductByBarCode:result];
+            if (product) {
+                addProductController.productId = product.ProId;
+                addProductController.partnerModel = weakSelf.partnerModel;
+                addProductController.smallUnit = weakSelf.orderSummaryView.checkBtn.selected;
+                [weakSelf.navigationController pushViewController:addProductController animated:YES];
+            }else{
+                [[ISProcessViewHelper sharedInstance] showProcessViewWithText:@"产品不存在" InView:weakSelf.view];
+            }
+        }
+    };
+    [self.navigationController pushViewController:scanController animated:NO];
+}
+
+/**
+ *  添加商品成功后 更新DetailModel订单号 ID 刷新列表
+ *
+ *  @param detailModel
+ */
 - (void)addDetailModel:(ISOrderDetailModel*)detailModel{
     
     detailModel.SwapCode = self.orderDataModel.SwapCode;
+    detailModel.DtlId = [self.orderViewModel generateDetailIdWithOrderNo:detailModel.SwapCode];
 
     [[ISDataBaseHelper sharedInstance] updateDataBaseByModelList:@[self.orderDataModel] block:nil];
     [[ISDataBaseHelper sharedInstance] updateDataBaseByModelList:@[detailModel] block:nil];
@@ -141,14 +366,19 @@ static float summaryHeight = 35;
 }
 
 
-//更新底部总价
+
+/**
+ *  更新底部总价
+ */
 - (void)updateBottomBar{
     float summary = 0;
     for(int i = 0; i < self.dataList.count; i++){
         NSDictionary * d = self.dataList[i];
         if ([d[@"type"] isEqualToString:orderCell]) {
             ISOrderDetailModel * detailModel = d[@"data"];
-            summary += [detailModel.Amt floatValue] * [detailModel.ProQuantity floatValue];
+            float price = [detailModel.Amt floatValue];
+            float amount = [detailModel.ProQuantity floatValue];
+            summary +=  price * amount;
         }
     }
     self.orderSummaryView.summaryLabel.text = [NSString stringWithFormat:@"总计: %.2f",summary];
@@ -228,6 +458,7 @@ static float summaryHeight = 35;
     if (_orderBottomView == nil) {
         _orderBottomView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([ISOrderBottomView class]) owner:nil options:nil] lastObject];
         [_orderBottomView.addProductBtn addTarget:self action:@selector(addProduct:) forControlEvents:UIControlEventTouchUpInside];
+        [_orderBottomView.scanBtn addTarget:self action:@selector(scan:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _orderBottomView;
 }
@@ -246,6 +477,14 @@ static float summaryHeight = 35;
     return _orderViewModel;
 }
 
+- (ISMainPageViewModel*)mainPageViewModel{
+    if (_mainPageViewModel == nil) {
+        _mainPageViewModel = [[ISMainPageViewModel alloc] init];
+    }
+    return _mainPageViewModel;
+}
+
+
 - (ISOrderDataModel*)orderDataModel{
     if (_orderDataModel == nil) {
         _orderDataModel = [ISOrderDataModel new];
@@ -258,6 +497,40 @@ static float summaryHeight = 35;
         _offscreenCells = [NSMutableDictionary dictionary];
     }
     return _offscreenCells;
+}
+
+- (ISNetworkingBaseAPIHandler*)uploadOrderPicAPIHandler{
+    if (_uploadOrderPicAPIHandler == nil) {
+        _uploadOrderPicAPIHandler = [ISNetworkingUploadOrderPicAPIHandler new];
+        _uploadOrderPicAPIHandler.delegate = self;
+        _uploadOrderPicAPIHandler.paramSource = self;
+    }
+    return _uploadOrderPicAPIHandler;
+}
+
+- (ISNetworkingUploadOrderAPIHandler*)uploadOrderAPIHandler{
+    if (_uploadOrderAPIHandler == nil) {
+        _uploadOrderAPIHandler = [ISNetworkingUploadOrderAPIHandler new];
+        _uploadOrderAPIHandler.delegate = self;
+        _uploadOrderAPIHandler.paramSource = self;
+    }
+    return _uploadOrderAPIHandler;
+}
+
+- (ISNetworkingUploadReturnOrderAPIHandler*)uploadReturnOrderAPIHandler{
+    if (_uploadReturnOrderAPIHandler == nil) {
+        _uploadReturnOrderAPIHandler = [ISNetworkingUploadReturnOrderAPIHandler new];
+        _uploadReturnOrderAPIHandler.delegate = self;
+        _uploadReturnOrderAPIHandler.paramSource = self;
+    }
+    return _uploadReturnOrderAPIHandler;
+}
+
+- (ISOrderInfoFormatter*)orderInfoFormatter{
+    if (_orderInfoFormatter == nil) {
+        _orderInfoFormatter = [ISOrderInfoFormatter new];
+    }
+    return _orderInfoFormatter;
 }
 
 @end

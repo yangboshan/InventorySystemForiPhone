@@ -10,6 +10,8 @@
 
 @interface ISOrderDetailModel : ISBaseModel
 
+@property (nonatomic, copy) NSString * DtlId;
+
 @property (nonatomic, copy) NSString * SwapCode;  //订单号
 
 @property (nonatomic, copy) NSString * ProId;     //产品ID
