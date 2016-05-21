@@ -9,6 +9,7 @@
 #import "ISMainPageViewController.h"
 #import "ISLoginViewController.h"
 #import "ISRemainTimeViewController.h"
+#import "ISSettingViewController.h"
 
 #import "ISMainPageViewModel.h"
 #import "ISNetworkingRemainTimeAPIHandler.h"
@@ -49,6 +50,9 @@ static float timeViewHeight = 50;
 }
 
 - (void)initialSetup{
+    
+    UIBarButtonItem * rightItem = [[UIBarButtonItem alloc] initWithTitle:@"设置" style:UIBarButtonItemStyleDone target:self action:@selector(showSetting:)];
+    self.navigationItem.rightBarButtonItem = rightItem;
     
     if ([ISSettingManager sharedInstance].isLogined) {
         [self.remainTimeAPIHandler loadData];
@@ -104,6 +108,11 @@ static float timeViewHeight = 50;
 }
 
 #pragma mark - methods
+
+- (void)showSetting:(id)sender{
+    ISSettingViewController * settingController = [ISSettingViewController new];
+    [self.navigationController pushViewController:settingController animated:YES];
+}
 
 - (void)loginDidSuccess:(NSNotification*)notification{
     self.dataList = [self.mainPageViewModel fetchFormatDataSource];

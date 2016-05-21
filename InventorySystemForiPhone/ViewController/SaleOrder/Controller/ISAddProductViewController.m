@@ -98,8 +98,20 @@ static NSString* infoCell = @"ISAddProductNameTableViewCell";
         NSString * property = propertyList[i];
         [self.orderDetailModel setValue:self.sourceFields[property] forKey:property];
     }
+    
+    BOOL flag = YES;
     if ([self.orderDetailModel.ProId IS_isEmptyObject] || [self.orderDetailModel.ProQuantity IS_isEmptyObject]) {
+        flag = NO;
+    }
+    if (![self.orderDetailModel.LargessQty IS_isEmptyObject] && [self.orderDetailModel.LargessUnite IS_isEmptyObject]) {
+        flag = NO;
+    }
+    if ([self.orderDetailModel.LargessQty IS_isEmptyObject] && ![self.orderDetailModel.LargessUnite IS_isEmptyObject]) {
+        flag = NO;
+    }
+    if (!flag) {
         [[ISProcessViewHelper sharedInstance] showProcessViewWithText:@"单据不完整" InView:self.view];
+
     }else{
         if (self.block) {
             self.block(self.orderDetailModel);

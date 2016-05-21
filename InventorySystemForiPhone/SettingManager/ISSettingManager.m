@@ -13,6 +13,7 @@ static NSString *SETTING_ISLOGINED = @"SETTING_ISLOGINED";
 static NSString *SETTING_USER = @"SETTING_USER";
 static NSString *SETTING_LASTSYNCDATE = @"SETTING_LASTSYNCDATE";
 static NSString *SETTING_DBVERSION = @"SETTING_DBVERSION";
+static NSString *SETTING_SERVICE_URL = @"SETTING_SERVICE_URL";
 
 
 @interface ISSettingManager()
@@ -38,6 +39,7 @@ static NSString *SETTING_DBVERSION = @"SETTING_DBVERSION";
         NSObject *setting = [self.userDefaults objectForKey:SETTING_FIRST_TIME_RUN];
         if (!setting) {
             [self.userDefaults setObject:@(1) forKey:SETTING_FIRST_TIME_RUN];
+            [self.userDefaults setObject:@"http://221.224.95.14:1897/linooninvservicesj/service1.asmx" forKey:SETTING_SERVICE_URL];
             [self initialSetup];
         }
     }
@@ -90,6 +92,10 @@ static NSString *SETTING_DBVERSION = @"SETTING_DBVERSION";
     return [self.userDefaults integerForKey:SETTING_DBVERSION];
 }
 
+- (NSString*)serviceUrl{
+    return [self.userDefaults stringForKey:SETTING_SERVICE_URL];
+}
+
 #pragma mark - setter
 - (void)setLogined:(BOOL)logined{
     [self.userDefaults setBool:logined forKey:SETTING_ISLOGINED];
@@ -108,6 +114,11 @@ static NSString *SETTING_DBVERSION = @"SETTING_DBVERSION";
 
 - (void)setDBVersion:(NSInteger)dBVersion{
     [self.userDefaults setValue:@(dBVersion) forKey:SETTING_DBVERSION];
+    [self.userDefaults synchronize];
+}
+
+- (void)setServiceUrl:(NSString *)serviceUrl{
+    [self.userDefaults setValue:serviceUrl forKey:SETTING_SERVICE_URL];
     [self.userDefaults synchronize];
 }
 

@@ -25,10 +25,13 @@
 
     self.lastUpdateLabel.textColor = [UIColor grayColor];
     self.statusLabel.textColor = TheameColor;
+    self.progressLabel.textColor = TheameColor;
+    self.progressLabel.text = @"";
 }
 
 - (void)setProgress:(float)progress{
     _progress = progress;
+    self.progressLabel.text = [NSString stringWithFormat:@"%.2f%%",progress * 100];
     [self.filledIndicator updateWithTotalBytes:100 downloadedBytes:progress*100];
 }
 

@@ -30,7 +30,16 @@
  */
 @property (nonatomic,assign) NSInteger dBVersion;
 
+/**
+ *  last Sync Date
+ */
 @property (nonatomic,strong) NSDate * lastSyncDate;
+
+/**
+ *  Service URL
+ */
+@property (nonatomic,strong) NSString * serviceUrl;
+
 
 + (instancetype)sharedInstance;
 

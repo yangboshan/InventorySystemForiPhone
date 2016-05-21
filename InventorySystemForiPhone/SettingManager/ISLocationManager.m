@@ -36,8 +36,7 @@
 - (instancetype)init{
     self = [super init];
     if (self) {
-#warning TEST
-        self.fetchedLocation = @"南京市建邺区奥体大街1118号";
+        self.fetchedLocation = @"";
     }
     return self;
 }

@@ -153,8 +153,8 @@ static float const bottomHeight = 45;
 - (UIButton*)rightBtn{
     if (!_rightBtn) {
         _rightBtn = [[UIButton alloc] initWithFrame:CGRectMake(ScreenWidth - 80, NavBarHeight + 20, 80, 40)];
-        [_rightBtn setImage:[UIImage imageNamed:@"square_unchecked"] forState:UIControlStateNormal];
-        [_rightBtn setImage:[UIImage imageNamed:@"square_checked"] forState:UIControlStateSelected];
+        [_rightBtn setImage:[UIImage imageNamed:@"photopicker_unchecked"] forState:UIControlStateNormal];
+        [_rightBtn setImage:[UIImage imageNamed:@"photopicker_checked"] forState:UIControlStateSelected];
         [_rightBtn addTarget:self action:@selector(changeStatus:) forControlEvents:UIControlEventTouchUpInside];
         _rightBtn.selected = YES;
     }

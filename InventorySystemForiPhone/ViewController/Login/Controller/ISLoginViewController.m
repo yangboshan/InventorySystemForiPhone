@@ -7,6 +7,7 @@
 //
 
 #import "ISLoginViewController.h"
+#import "ISLoginAddressViewController.h"
 #import "ISLoginViewModel.h"
 
 
@@ -42,6 +43,10 @@
 
 
 - (void)initialSetup{
+    
+    UIBarButtonItem * rightItem = [[UIBarButtonItem alloc] initWithTitle:@"设置地址" style:UIBarButtonItemStyleDone target:self action:@selector(showSetting:)];
+    self.navigationItem.rightBarButtonItem = rightItem;
+    
     [self.view setBackgroundColor:RGB(243, 244, 245)];
     [self.view addSubview:self.loginBoardView];
     [self autolayoutBoardView];
@@ -52,6 +57,11 @@
 }
 
 #pragma mark - event
+
+- (void)showSetting:(id)sender{
+    ISLoginAddressViewController * addressController = [ISLoginAddressViewController new];
+    [self.navigationController pushViewController:addressController animated:YES];
+}
 
 - (void)login:(UIButton*)sender{
     if ([self.loginViewModel checkLoginInfoByUserName:self.loginBoardView.userNameTextField.text userPsw:self.loginBoardView.pswTextField.text]) {

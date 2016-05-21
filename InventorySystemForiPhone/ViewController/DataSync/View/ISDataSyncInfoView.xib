@@ -9,6 +9,7 @@
             <string>FZLTHJW--GB1-0</string>
             <string>FZLTHJW--GB1-0</string>
             <string>FZLTHJW--GB1-0</string>
+            <string>FZLTHJW--GB1-0</string>
         </mutableArray>
     </customFonts>
     <objects>
@@ -45,6 +46,12 @@
                         <color key="titleColor" red="0.1450980392" green="0.62352941179999999" blue="0.85882352939999995" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="正在同步" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zG2-iR-lIJ">
+                    <rect key="frame" x="74" y="32" width="52" height="15"/>
+                    <fontDescription key="fontDescription" name="FZLTHJW--GB1-0" family="FZLanTingHeiS-R-GB" pointSize="13"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
@@ -54,7 +61,9 @@
                 <constraint firstItem="0Lo-3g-Knd" firstAttribute="top" secondItem="oBg-Nb-l6s" secondAttribute="bottom" constant="22" id="GKU-yk-BR8"/>
                 <constraint firstItem="oBg-Nb-l6s" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="LZb-Fz-f6z"/>
                 <constraint firstItem="0Lo-3g-Knd" firstAttribute="centerX" secondItem="oBg-Nb-l6s" secondAttribute="centerX" id="Q6e-F5-xlq"/>
+                <constraint firstItem="zG2-iR-lIJ" firstAttribute="centerY" secondItem="AiZ-vv-ZYG" secondAttribute="centerY" id="Vcs-G4-38Q"/>
                 <constraint firstItem="58I-AN-ce8" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="14" id="ax7-Gu-Eze"/>
+                <constraint firstItem="zG2-iR-lIJ" firstAttribute="leading" secondItem="AiZ-vv-ZYG" secondAttribute="trailing" constant="8" id="s72-hz-jeq"/>
                 <constraint firstItem="58I-AN-ce8" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="slo-yp-9pF"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
@@ -62,6 +71,7 @@
             <connections>
                 <outlet property="filledIndicator" destination="oBg-Nb-l6s" id="SnS-oT-YJk"/>
                 <outlet property="lastUpdateLabel" destination="58I-AN-ce8" id="NXC-r0-d5S"/>
+                <outlet property="progressLabel" destination="zG2-iR-lIJ" id="pLe-ZF-ygf"/>
                 <outlet property="statusLabel" destination="AiZ-vv-ZYG" id="owk-Uc-pwd"/>
                 <outlet property="syncBtn" destination="0Lo-3g-Knd" id="f5H-oT-QJ1"/>
             </connections>

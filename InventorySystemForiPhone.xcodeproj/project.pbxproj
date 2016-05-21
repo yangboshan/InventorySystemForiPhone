@@ -24,6 +24,10 @@
 		3E2D8F881CEF0CEE00BFD14C /* ISDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E2D8F871CEF0CEE00BFD14C /* ISDatePickerView.m */; };
 		3E2D8F8C1CEF169300BFD14C /* ISQueryOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E2D8F8A1CEF169300BFD14C /* ISQueryOrderCell.m */; };
 		3E2D8F8D1CEF169300BFD14C /* ISQueryOrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2D8F8B1CEF169300BFD14C /* ISQueryOrderCell.xib */; };
+		3E2D8F911CF022F700BFD14C /* ISSettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E2D8F8F1CF022F700BFD14C /* ISSettingTableViewCell.m */; };
+		3E2D8F921CF022F700BFD14C /* ISSettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2D8F901CF022F700BFD14C /* ISSettingTableViewCell.xib */; };
+		3E2D8F961CF0264700BFD14C /* ISLoginAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E2D8F941CF0264700BFD14C /* ISLoginAddressViewController.m */; };
+		3E2D8F971CF0264700BFD14C /* ISLoginAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2D8F951CF0264700BFD14C /* ISLoginAddressViewController.xib */; };
 		3E40E2001CD1BB56008B75BB /* ISNetworkingLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E40E1FF1CD1BB56008B75BB /* ISNetworkingLogger.m */; };
 		3E40E2061CD1BB8A008B75BB /* ISNetworkingContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E40E2051CD1BB8A008B75BB /* ISNetworkingContext.m */; };
 		3E40E2091CD1BB9F008B75BB /* ISNetworkingProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E40E2081CD1BB9F008B75BB /* ISNetworkingProxy.m */; };
@@ -175,6 +179,12 @@
 		3E2D8F891CEF169300BFD14C /* ISQueryOrderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISQueryOrderCell.h; sourceTree = "<group>"; };
 		3E2D8F8A1CEF169300BFD14C /* ISQueryOrderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISQueryOrderCell.m; sourceTree = "<group>"; };
 		3E2D8F8B1CEF169300BFD14C /* ISQueryOrderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ISQueryOrderCell.xib; sourceTree = "<group>"; };
+		3E2D8F8E1CF022F700BFD14C /* ISSettingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISSettingTableViewCell.h; sourceTree = "<group>"; };
+		3E2D8F8F1CF022F700BFD14C /* ISSettingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISSettingTableViewCell.m; sourceTree = "<group>"; };
+		3E2D8F901CF022F700BFD14C /* ISSettingTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ISSettingTableViewCell.xib; sourceTree = "<group>"; };
+		3E2D8F931CF0264700BFD14C /* ISLoginAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISLoginAddressViewController.h; sourceTree = "<group>"; };
+		3E2D8F941CF0264700BFD14C /* ISLoginAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISLoginAddressViewController.m; sourceTree = "<group>"; };
+		3E2D8F951CF0264700BFD14C /* ISLoginAddressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ISLoginAddressViewController.xib; sourceTree = "<group>"; };
 		3E40E1F71CD1BA4D008B75BB /* ISNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISNetworking.h; sourceTree = "<group>"; };
 		3E40E1F81CD1BA4D008B75BB /* ISNetworkingConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISNetworkingConfiguration.h; sourceTree = "<group>"; };
 		3E40E1FE1CD1BB56008B75BB /* ISNetworkingLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISNetworkingLogger.h; sourceTree = "<group>"; };
@@ -650,6 +660,9 @@
 		3E5775311CDB1A00004FA21C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				3E2D8F931CF0264700BFD14C /* ISLoginAddressViewController.h */,
+				3E2D8F941CF0264700BFD14C /* ISLoginAddressViewController.m */,
+				3E2D8F951CF0264700BFD14C /* ISLoginAddressViewController.xib */,
 				3E5775321CDB1A00004FA21C /* ISLoginViewController.h */,
 				3E5775331CDB1A00004FA21C /* ISLoginViewController.m */,
 			);
@@ -826,6 +839,9 @@
 		3E5775511CDB1A00004FA21C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3E2D8F8E1CF022F700BFD14C /* ISSettingTableViewCell.h */,
+				3E2D8F8F1CF022F700BFD14C /* ISSettingTableViewCell.m */,
+				3E2D8F901CF022F700BFD14C /* ISSettingTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1189,6 +1205,8 @@
 				3EB621801CEB4D3300BEE053 /* ISOrderSummaryView.xib in Resources */,
 				3E5775001CDA32EA004FA21C /* Localizable.strings in Resources */,
 				3EE9921C1CEC4B7A001703F1 /* ISOrderAddImageCell.xib in Resources */,
+				3E2D8F971CF0264700BFD14C /* ISLoginAddressViewController.xib in Resources */,
+				3E2D8F921CF022F700BFD14C /* ISSettingTableViewCell.xib in Resources */,
 				3E2D8F7D1CEEE32400BFD14C /* qrcode_found.wav in Resources */,
 				3EB8177C1CE5B930005CC5B9 /* BCPhotoAssetBottomBar.xib in Resources */,
 				3E5775571CDB1A00004FA21C /* ISLoginBoardView.xib in Resources */,
@@ -1333,6 +1351,7 @@
 				3EE992141CEC43F5001703F1 /* ISSQLiteManager.m in Sources */,
 				3EB094AD1CD9C1BB0018BE1E /* ISNetworkingLoginAPIHandler.m in Sources */,
 				3EB8177F1CE5B930005CC5B9 /* BCPhotoAssetGroupCell.m in Sources */,
+				3E2D8F961CF0264700BFD14C /* ISLoginAddressViewController.m in Sources */,
 				3E40E21B1CD1BCEA008B75BB /* ISNetworkingSOAPServiceProvider.m in Sources */,
 				3E5E19B61CDDE394003F6E70 /* ISDataSyncUnitFormatter.m in Sources */,
 				3EB817861CE5B930005CC5B9 /* BCPhotoPreviewController.m in Sources */,
@@ -1354,6 +1373,7 @@
 				3E57755A1CDB1A7E004FA21C /* ISLoginViewModel.m in Sources */,
 				3EE992321CECAEAB001703F1 /* ISNetworkingUploadOrderPicAPIHandler.m in Sources */,
 				3E57750E1CDAEE04004FA21C /* ISProcessViewHelper.m in Sources */,
+				3E2D8F911CF022F700BFD14C /* ISSettingTableViewCell.m in Sources */,
 				3E5775051CDAE07F004FA21C /* UIViewExt.m in Sources */,
 				3E5775561CDB1A00004FA21C /* ISLoginBoardView.m in Sources */,
 				3E40E20C1CD1BBCC008B75BB /* ISNetworkingRequestGenerator.m in Sources */,
