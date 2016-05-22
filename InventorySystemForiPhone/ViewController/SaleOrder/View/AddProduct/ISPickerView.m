@@ -92,7 +92,11 @@ static float pickerHeight  = 150;
 }
 
 -(void)confirmTouched:(UIButton*)sender{
-    self.block(self.dataSource[[self.picker selectedRowInComponent:0]]);
+    
+    if (self.dataSource.count) {
+        self.block(self.dataSource[[self.picker selectedRowInComponent:0]]);
+    }
+    
     [self hideDatePickerView];
 }
 

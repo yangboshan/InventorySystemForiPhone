@@ -33,7 +33,7 @@
 
 @property (nonatomic,copy) NSString * Remark;
 
-@property (nonatomic,copy) NSString * Disconnect;
+@property (nonatomic,copy) NSString * DisConnect;
 
 @property (nonatomic,copy) NSString * DelFlag;
 

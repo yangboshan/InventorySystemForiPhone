@@ -21,6 +21,11 @@
 @property (nonatomic,assign) BOOL hasPrivilegeForReport;
 
 /**
+ *  是否有修改单价权限
+ */
+@property (nonatomic,assign) BOOL hasPrivilegeForModifyPrice;
+
+/**
  *  是否必须拍照片
  */
 @property (nonatomic,assign) BOOL shouldShootPhoto;

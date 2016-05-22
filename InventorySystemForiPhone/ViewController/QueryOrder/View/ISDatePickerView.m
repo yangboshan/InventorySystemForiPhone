@@ -48,6 +48,9 @@ static float pickerHeight  = 150;
 #pragma mark - event
 
 -(void)hide:(UIGestureRecognizer*)gesture{
+    if (self.block) {
+        self.block([self.picker.date dateStringWithFormat:@"yyyyMMdd"]);
+    }
     [self hideDatePickerView];
 }
 

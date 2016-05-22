@@ -176,7 +176,7 @@ static float const bottomHeight = 45;
     if(!image) image = [[info objectForKey:UIImagePickerControllerOriginalImage] fixOrientation];
     BCPhotoPickerViewController* navController = (BCPhotoPickerViewController*)self.navigationController;
     if (navController.block) {
-        navController.block(@[image]);
+        navController.block(@[image],BCPhotoPickerTypeCamare);
     }
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
@@ -227,7 +227,7 @@ static float const bottomHeight = 45;
     
     BCPhotoPickerViewController* navController = (BCPhotoPickerViewController*)self.navigationController;
     if (navController.block) {
-        navController.block(retData);
+        navController.block(retData,BCPhotoPickerTypeAlbum);
     }
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }

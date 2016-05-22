@@ -11,6 +11,7 @@
 #import "ISProductDataModel.h"
 #import "ISOrderViewModel.h"
 #import "ISPickerView.h"
+#import "ISMainPageViewModel.h"
 
 @interface ISAddProductNameTableViewCell()
 @property (weak, nonatomic) IBOutlet UILabel *infoLabel;
@@ -19,6 +20,7 @@
 @property (nonatomic, strong) NSString * field;
 @property (nonatomic, strong) UITableView * tableView;
 @property (nonatomic, strong) ISOrderViewModel * orderViewModel;
+@property (nonatomic, strong) ISMainPageViewModel * mainModel;
 @end
 
 @implementation ISAddProductNameTableViewCell
@@ -89,7 +91,8 @@
     }
     if ([self.field isEqualToString:@"Amt"]) {
         self.valueTextField.placeholder = @"单价";
-        self.valueTextField.enabled = NO;
+        self.valueTextField.enabled = self.mainModel.hasPrivilegeForModifyPrice ? YES : NO;
+        self.valueTextField.keyboardType = UIKeyboardTypeNumberPad;
     }
     if ([self.field isEqualToString:@"N_JinE"]) {
         self.valueTextField.placeholder = @"金额";
@@ -143,7 +146,15 @@
         ISSearchFieldViewController * searchController = [[ISSearchFieldViewController alloc] initWithType:ISSearchFieldTypeProduct finish:^(ISProductDataModel * model) {
             [weakSelf.sourceFields setValue:model.ProName forKey:self.field];
             [weakSelf.sourceFields setValue:model.ProId forKey:@"ProId"];
-            [weakSelf.sourceFields setValue:[[weakSelf.orderViewModel fetchUnitByProductId:model.ProId smallUnit:[[[weakSelf viewController] valueForKey:@"smallUnit"] boolValue]] firstObject] forKey:@"ProUnite"];
+            
+            
+            [weakSelf.sourceFields setValue:@"" forKey:@"ProUnite"];
+            NSString * unit = [[weakSelf.orderViewModel fetchUnitByProductId:model.ProId smallUnit:[[[weakSelf viewController] valueForKey:@"smallUnit"] boolValue]] firstObject];
+            if (unit) {
+               [weakSelf.sourceFields setValue:[[weakSelf.orderViewModel fetchUnitByProductId:model.ProId smallUnit:[[[weakSelf viewController] valueForKey:@"smallUnit"] boolValue]] firstObject] forKey:@"ProUnite"];
+            }
+            
+            
             [weakSelf.sourceFields setValue:model.Type forKey:@"N_GuiGe"];
             [weakSelf.sourceFields setValue:@"" forKey:@"Amt"];
             [weakSelf.sourceFields setValue:@"" forKey:@"N_KuCun"];
@@ -194,8 +205,10 @@
 }
 
 - (void)textFieldValueChanged:(id)sender{
+    
     [self.sourceFields setValue:[self.valueTextField.text trim] forKey:self.field];
-    if ([self.field isEqualToString:@"ProQuantity"]){
+    
+    if ([self.field isEqualToString:@"ProQuantity"] || [self.field isEqualToString:@"Amt"]){
         if (self.valueTextField.text.length) {
             if (![self.sourceFields[@"Amt"] IS_isEmptyObject]) {
                 self.sourceFields[@"N_JinE"] = [NSString stringWithFormat:@"%.2f", [self.sourceFields[@"Amt"] floatValue] * [self.sourceFields[@"ProQuantity"] floatValue]];
@@ -205,6 +218,13 @@
 }
 
 #pragma mark - property
+
+- (ISMainPageViewModel*)mainModel{
+    if(_mainModel == nil){
+        _mainModel = [ISMainPageViewModel new];
+    }
+    return _mainModel;
+}
 
 - (ISOrderViewModel*)orderViewModel{
     if (_orderViewModel == nil) {

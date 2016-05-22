@@ -9,7 +9,12 @@
 #import <UIKit/UIKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 
-typedef void(^BCPhotoPickerFinishBlock)(NSArray* data);
+typedef NS_ENUM(NSInteger,BCPhotoPickerType){
+    BCPhotoPickerTypeCamare = 0,
+    BCPhotoPickerTypeAlbum = 1
+};
+
+typedef void(^BCPhotoPickerFinishBlock)(NSArray* data,BCPhotoPickerType type);
 
 @interface BCPhotoPickerViewController : UINavigationController
 

@@ -83,12 +83,14 @@ static NSString* infoCell = @"ISAddProductNameTableViewCell";
 #pragma mark - methods
 
 - (void)initialShowForScan{
+    
     NSParameterAssert(self.productId);
     ISProductDataModel * model = [self.orderViewModel fetchProductModelById:self.productId];
     [self.sourceFields setValue:model.ProName forKey:@"N_MingCheng"];
     [self.sourceFields setValue:model.ProId forKey:@"ProId"];
     [self.sourceFields setValue:[[self.orderViewModel fetchUnitByProductId:model.ProId smallUnit:self.smallUnit] firstObject] forKey:@"ProUnite"];
     [self.sourceFields setValue:model.Type forKey:@"N_GuiGe"];
+
     [self orderRefresh:nil];
 }
 
@@ -123,6 +125,16 @@ static NSString* infoCell = @"ISAddProductNameTableViewCell";
 #pragma mark - NSNotification
 
 - (void)orderRefresh:(NSNotification*)notify{
+    
+    NSString * localPrice = [self.orderViewModel fetchLocalPriceByProId:self.sourceFields[@"ProId"] unit:self.sourceFields[@"ProUnite"]];
+    self.sourceFields[@"Amt"] = localPrice;
+    if (![self.sourceFields[@"ProQuantity"] IS_isEmptyObject]) {
+        self.sourceFields[@"N_JinE"] = [NSString stringWithFormat:@"%.2f", [self.sourceFields[@"Amt"] floatValue] * [self.sourceFields[@"ProQuantity"] floatValue]];
+    }
+    
+    [self.tableView reloadData];
+    
+    
     [self.priceAPIHandler cancelAllRequests];
     [self.priceAPIHandler loadData];
 }
@@ -166,16 +178,6 @@ static NSString* infoCell = @"ISAddProductNameTableViewCell";
 
 - (void)managerCallAPIDidFailed:(ISNetworkingBaseAPIHandler *)manager{
     [[ISProcessViewHelper sharedInstance] showProcessViewWithText:@"数据获取出错，请检查您的网络" InView:self.view];
-    if ([manager isKindOfClass:[ISNetworkingPriceAPIHandler class]]) {
-        if (![self.sourceFields[@"ProId"] IS_isEmptyObject]) {
-            NSString * localPrice = [self.orderViewModel fetchLocalPriceByProId:self.sourceFields[@"ProId"] unit:self.sourceFields[@"ProUnite"]];
-            self.sourceFields[@"Amt"] = localPrice;
-            if (![self.sourceFields[@"ProQuantity"] IS_isEmptyObject]) {
-                self.sourceFields[@"N_JinE"] = [NSString stringWithFormat:@"%.2f", [self.sourceFields[@"Amt"] floatValue] * [self.sourceFields[@"ProQuantity"] floatValue]];
-                [self.tableView reloadData];
-            }
-        }
-    }
 }
 
 #pragma mark - ISNetworkingAPIHandlerParamSourceDelegate

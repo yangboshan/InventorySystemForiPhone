@@ -23,7 +23,7 @@
                     <fontDescription key="fontDescription" name="FZLTXHK--GBK1-0" family="Lantinghei SC" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="合计: 200" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQs-Ms-ems">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="合计: 200" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQs-Ms-ems">
                     <rect key="frame" x="235" y="7" width="75" height="20.5"/>
                     <fontDescription key="fontDescription" name="FZLTXHK--GBK1-0" family="Lantinghei SC" pointSize="17"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>

@@ -56,7 +56,7 @@ static NSString* chargeUrl = @"http://www.linoon.com/MPay/PaySelect.aspx?hashID=
 
 - (void)chargeAccount:(UIButton*)sender{
     ISWebViewController* webController = [ISWebViewController new];
-    webController.url = [NSString stringWithFormat:@"%@%@",chargeUrl,[[UIDevice currentDevice] IS_macaddressMD5]];
+    webController.url = [NSString stringWithFormat:@"%@%@",chargeUrl,[[ISSettingManager sharedInstance].deviceId uppercaseString]];
     webController.resTitle = @"充值";
     [self.navigationController pushViewController:webController animated:YES];
 }
@@ -104,7 +104,7 @@ static NSString* chargeUrl = @"http://www.linoon.com/MPay/PaySelect.aspx?hashID=
 
 - (NSDictionary*)paramsForApi:(ISNetworkingBaseAPIHandler *)manager{
     if ([manager isKindOfClass:[ISNetworkingRegisterInfoAPIHandler class]]) {
-        return @{@"HashID":[[UIDevice currentDevice] IS_macaddressMD5]};
+        return @{@"HashID":[[ISSettingManager sharedInstance].deviceId uppercaseString]};
     }
     return nil;
 }

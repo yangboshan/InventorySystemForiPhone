@@ -33,7 +33,7 @@ static NSString* cellId = @"ISSettingTableViewCell";
     
     self.dataList = @[@{@"title":@"关于我们",@"info":@"玲珑进销存"},
                       @{@"title":@"APP版本",@"info":@"Ver1.0"},
-                      @{@"title":@"联系电话",@"info":@"18988882888"}];
+                      @{@"title":@"联系电话",@"info":@"13306218232"}];
     [self.tableView reloadData];
 }
 

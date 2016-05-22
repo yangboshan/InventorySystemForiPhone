@@ -47,12 +47,16 @@
     return [[ISSettingManager sharedInstance].currentUser[@"privilege"] containsObject:@"Q02_P01"];
 }
 
+- (BOOL)hasPrivilegeForModifyPrice{
+    return [[ISSettingManager sharedInstance].currentUser[@"privilege"] containsObject:@"Q02_P01"];
+}
+
 - (BOOL)shouldLocation{
     return [[ISSettingManager sharedInstance].currentUser[@"privilege"] containsObject:@"Q04_P02"];
 }
 
 - (BOOL)shouldShootPhoto{
-    return [[ISSettingManager sharedInstance].currentUser[@"privilege"] containsObject:@"Q04_P01"];
+    return [[ISSettingManager sharedInstance].currentUser[@"privilege"] containsObject:@"Q00_P00"];
 }
 
 - (NSArray*)pList{
@@ -100,9 +104,14 @@
                    
                    @{@"code":@"Q04_P02",
                      @"desc":@"必须定位",
+                     @"flag":@"0"},
+                   
+                   @{@"code":@"Q00_P00",
+                     @"desc":@"修改单价",
                      @"flag":@"0"}];
     }
     return _pList;
 }
+
 
 @end

@@ -7,6 +7,8 @@
 //
 
 #import "ISSettingManager.h"
+#import "SSKeychain.h"
+
 
 static NSString *SETTING_FIRST_TIME_RUN = @"SETTING_FIRST_TIME_RUN";
 static NSString *SETTING_ISLOGINED = @"SETTING_ISLOGINED";
@@ -14,6 +16,7 @@ static NSString *SETTING_USER = @"SETTING_USER";
 static NSString *SETTING_LASTSYNCDATE = @"SETTING_LASTSYNCDATE";
 static NSString *SETTING_DBVERSION = @"SETTING_DBVERSION";
 static NSString *SETTING_SERVICE_URL = @"SETTING_SERVICE_URL";
+static NSString *SETTING_DEVICE_ID = @"IS_INVENTORY_DEVICE_ID";
 
 
 @interface ISSettingManager()
@@ -39,7 +42,6 @@ static NSString *SETTING_SERVICE_URL = @"SETTING_SERVICE_URL";
         NSObject *setting = [self.userDefaults objectForKey:SETTING_FIRST_TIME_RUN];
         if (!setting) {
             [self.userDefaults setObject:@(1) forKey:SETTING_FIRST_TIME_RUN];
-            [self.userDefaults setObject:@"http://221.224.95.14:1897/linooninvservicesj/service1.asmx" forKey:SETTING_SERVICE_URL];
             [self initialSetup];
         }
     }
@@ -94,6 +96,20 @@ static NSString *SETTING_SERVICE_URL = @"SETTING_SERVICE_URL";
 
 - (NSString*)serviceUrl{
     return [self.userDefaults stringForKey:SETTING_SERVICE_URL];
+}
+
+- (NSString*)deviceId{
+    NSString * deviceId = [SSKeychain passwordForService:[[NSBundle mainBundle] bundleIdentifier]
+                                                 account:SETTING_DEVICE_ID];
+    if (!deviceId) {
+        [SSKeychain setPassword:[[[UIDevice currentDevice] identifierForVendor] UUIDString]
+                     forService:[[NSBundle mainBundle] bundleIdentifier]
+                        account:SETTING_DEVICE_ID];
+        deviceId = [SSKeychain passwordForService:[[NSBundle mainBundle] bundleIdentifier]
+                                          account:SETTING_DEVICE_ID];
+    }
+    deviceId = [deviceId stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    return [deviceId substringToIndex:16];
 }
 
 #pragma mark - setter

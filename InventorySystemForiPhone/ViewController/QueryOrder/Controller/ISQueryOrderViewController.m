@@ -50,6 +50,7 @@ static NSString* orderCell = @"ISQueryOrderCell";
     [self.view addSubview:self.saleOrderTableView];
     [self autolayoutSubView];
     self.dataList = [NSMutableArray array];
+    [self refreshList];
 }
 
 - (void)autolayoutSubView{
@@ -91,6 +92,7 @@ static NSString* orderCell = @"ISQueryOrderCell";
     
     [self.dataList removeAllObjects];
     NSArray * orderList =  [self.orderViewModel fetchOrderListByPartner:self.partnerModel date:self.orderHeaderView.dateLabel.text];
+    orderList = [[orderList reverseObjectEnumerator] allObjects];
     for(int i = 0; i < orderList.count; i++){
         [self.dataList addObject:[@{@"type":spaceCell,@"data":@{@"height":@(5),@"bgColor":RGB(240, 240, 240)}} mutableCopy]];
         [self.dataList addObject:@{@"type":orderCell,@"data":orderList[i]}];

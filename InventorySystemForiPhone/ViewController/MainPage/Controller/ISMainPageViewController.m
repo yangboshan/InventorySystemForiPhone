@@ -36,7 +36,7 @@
 static NSString* mainPageCell = @"ISMainPageCollectionViewCell";
 static float cellMargin = 10;
 static int   cellPerRow = 4;
-static float timeViewHeight = 50;
+static float timeViewHeight = 104;
 
 #pragma mark - life Cycle
 
@@ -54,17 +54,17 @@ static float timeViewHeight = 50;
     UIBarButtonItem * rightItem = [[UIBarButtonItem alloc] initWithTitle:@"设置" style:UIBarButtonItemStyleDone target:self action:@selector(showSetting:)];
     self.navigationItem.rightBarButtonItem = rightItem;
     
-    if ([ISSettingManager sharedInstance].isLogined) {
-        [self.remainTimeAPIHandler loadData];
-    }
-    
     self.dataList = [self.mainPageViewModel fetchFormatDataSource];
-    [self.view setBackgroundColor:[UIColor whiteColor]];
+    [self.view setBackgroundColor:RGB(239, 244, 244)];
     [self.view addSubview:self.collectionView];
     [self.view addSubview:self.headerView];
-    self.headerView.deviceIdLabel.text = [[UIDevice currentDevice].IS_macaddressMD5 uppercaseString];
+    
     [self autolayoutSubView];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginDidSuccess:) name:kISLoginDidSuccessNotification object:nil];
+    
+    if ([ISSettingManager sharedInstance].isLogined) {
+        [[ISDataSyncModel sharedInstance] startSync];
+    }
 }
 
 - (void)autolayoutSubView{
@@ -74,6 +74,11 @@ static float timeViewHeight = 50;
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    
+    if ([ISSettingManager sharedInstance].isLogined) {
+        [self.remainTimeAPIHandler loadData];
+    }
+    
     if (![ISSettingManager sharedInstance].isLogined) {
         [self showLoginController];
     }
@@ -101,8 +106,7 @@ static float timeViewHeight = 50;
 
 - (NSDictionary*)paramsForApi:(ISNetworkingBaseAPIHandler *)manager{
     if ([manager isKindOfClass:[ISNetworkingRemainTimeAPIHandler class]]) {
-        NSLog(@"%@",[[UIDevice currentDevice] IS_macaddressMD5]);
-        return @{@"HashID":[[UIDevice currentDevice] IS_macaddressMD5]};
+        return @{@"HashID":[[ISSettingManager sharedInstance].deviceId uppercaseString]};
     }
     return nil;
 }

@@ -84,17 +84,19 @@ static int const max_number = 10;
             DownSheet * sheet = [[DownSheet alloc] initWithlist:list block:^(NSInteger index) {
                 BCPhotoPickerViewController* photoPickerController = [[BCPhotoPickerViewController alloc] init];
                 photoPickerController.maxOfSelection = max_number - weakSelf.imageList.count;
-                photoPickerController.block = ^(NSArray * imageList){
+                photoPickerController.block = ^(NSArray * imageList,BCPhotoPickerType type){
                     for(UIImage *image in imageList){
-                        
-                        NSString * location = [ISLocationManager sharedInstance].fetchedLocation;
-                        NSString * info = [NSString stringWithFormat:@"%@\n%@\n%@",
-                                           list[index],
-                                           [[NSDate currentDate] dateStringWithFormat:@"yyyy-MM-dd HH:mm:ss"],
-                                           location];
-                        
-                        UIImage * waterMark = [image waterMarkImageWithInfo:info];
-                        [weakSelf.imageList addObject:[@{@"image":waterMark,@"remark":list[index]} mutableCopy]];
+                        UIImage * retImage = image;
+                        if (type == BCPhotoPickerTypeCamare) {
+                            NSString * location = [ISLocationManager sharedInstance].fetchedLocation;
+                            NSString * info = [NSString stringWithFormat:@"%@\n%@\n%@",
+                                               list[index],
+                                               [[NSDate currentDate] dateStringWithFormat:@"yyyy-MM-dd HH:mm:ss"],
+                                               location];
+                            
+                            retImage = [image waterMarkImageWithInfo:info];
+                        }
+                        [weakSelf.imageList addObject:[@{@"image":retImage,@"remark":list[index]} mutableCopy]];
                     }
                     [weakSelf.tableView reloadData];
                 };

@@ -14,4 +14,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *deviceIdLabel;
 @property (weak, nonatomic) IBOutlet UILabel *remainTimeLabel;
 @property (weak, nonatomic) IBOutlet UIButton *remainTimeBtn;
+@property (weak, nonatomic) IBOutlet UIView *bgView;
+@property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
+@property (weak, nonatomic) IBOutlet UILabel *progressLabel;
+@property (weak, nonatomic) IBOutlet UILabel *lastSyncDate;
 @end

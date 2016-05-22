@@ -18,7 +18,7 @@
 @end
 
 //客户列表
-static NSString* IS_SQL_getCustomerList = @"select * from t_PartnerData where pycode like '%%%@%%' or partnercode like '%%%@%%' or PartnerName like '%%%@%%' and type like '客户%' and DelFlag='0' and Disconnect = '0'";
+static NSString* IS_SQL_getCustomerList = @"select * from t_PartnerData where (pycode like '%%%@%%' or partnercode like '%%%@%%' or PartnerName like '%%%@%%') and type like '客户%%' and DelFlag='false' and Disconnect = 'false'";
 
 //产品列表
 static NSString* IS_SQL_getProductList = @"select * from t_ProductData where pycode like '%%%@%%' or procode like '%%%@%%' or ProName like '%%%@%%'";

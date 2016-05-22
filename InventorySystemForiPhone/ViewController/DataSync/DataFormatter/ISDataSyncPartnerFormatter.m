@@ -28,7 +28,11 @@ NSString* const  kISDataSyncResut = @"kISDataSyncResut";
             GDataXMLElement *diffgr= [[resut elementsForName:@"diffgr:diffgram"] firstObject];
             GDataXMLElement *dataset = [[diffgr elementsForName:@"NewDataSet"] firstObject];
             for(GDataXMLElement * child in dataset.children){
-                [retList addObject:[[ISGDataXMLHelper sharedInstance] fetchModelFromXMLElement:child withEntity:@"ISParterDataModel"]];
+                
+                GDataXMLElement * type = [[child elementsForName:@"Type"] firstObject];
+                if ([type.stringValue hasPrefix:@"客户"]) {
+                    [retList addObject:[[ISGDataXMLHelper sharedInstance] fetchModelFromXMLElement:child withEntity:@"ISParterDataModel"]];
+                }
             }
             return @{kISDataSyncResut:retList};
         }

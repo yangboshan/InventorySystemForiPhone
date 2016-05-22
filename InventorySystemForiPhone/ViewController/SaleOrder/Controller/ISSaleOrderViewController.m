@@ -199,6 +199,8 @@ static float summaryHeight = 35;
         dispatch_async(dispatch_get_main_queue(), ^{
             [[NSNotificationCenter defaultCenter] postNotificationName:kISOrderDataRefreshNotification object:nil];
          });
+    }else{
+        [[ISProcessViewHelper sharedInstance] showProcessViewWithText:result InView:self.view];
     }
 }
 
@@ -232,14 +234,19 @@ static float summaryHeight = 35;
                     [self.navigationController popViewControllerAnimated:YES];
                 }
             }else{
-                [[ISProcessViewHelper sharedInstance] showProcessViewWithText:@"ERROR" InView:self.view];
+                [[ISProcessViewHelper sharedInstance] showProcessViewWithText:@"上传图片失败" InView:self.view];
             }
         }
     }
 }
 
 - (void)managerCallAPIDidFailed:(ISNetworkingBaseAPIHandler *)manager{
-    [[ISProcessViewHelper sharedInstance] showProcessViewWithText:@"ERROR" InView:self.view];
+    if ([manager isKindOfClass:[ISNetworkingUploadOrderAPIHandler class]]) {
+        [[ISProcessViewHelper sharedInstance] showProcessViewWithText:@"上传订单数据失败" InView:self.view];
+    }
+    if ([manager isKindOfClass:[ISNetworkingUploadOrderPicAPIHandler class]]) {
+        [[ISProcessViewHelper sharedInstance] showProcessViewWithText:@"上传图片失败" InView:self.view];
+    }
 }
 
 #pragma mark - ISNetworkingAPIHandlerParamSourceDelegate
@@ -307,6 +314,7 @@ static float summaryHeight = 35;
     if ([self.mainPageViewModel shouldShootPhoto]) {
         if (!self.imageList.count) {
             [[ISProcessViewHelper sharedInstance] showProcessViewWithText:@"请选择图片并上传" InView:self.view];
+            return;
         }
     }
     

@@ -40,6 +40,11 @@
  */
 @property (nonatomic,strong) NSString * serviceUrl;
 
+/**
+ *  Device Id
+ */
+@property (nonatomic,strong) NSString * deviceId;
+
 
 + (instancetype)sharedInstance;
 
