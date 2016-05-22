@@ -41,11 +41,16 @@ static NSString* chargeUrl = @"http://www.linoon.com/MPay/PaySelect.aspx?hashID=
     [self.view setBackgroundColor:RGB(243, 244, 245)];
     [self.view addSubview:self.tableView];
     [self autolayoutSubView];
-    [self.registerInfoAPIHandler loadData];
 }
 
 - (void)autolayoutSubView{
     [self.tableView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [[ISProcessViewHelper sharedInstance] showProcessViewInView:self.view];
+    [self.registerInfoAPIHandler loadData];
 }
 
 #pragma mark - events
@@ -93,6 +98,7 @@ static NSString* chargeUrl = @"http://www.linoon.com/MPay/PaySelect.aspx?hashID=
                           @{@"过期日期:":[NSString stringWithFormat:@"%@天",data[kISRemainTimeExpirationDay]]},
                           @{@"上次登录:":[date dateStringWithFormat:@"yyyy-MM-dd HH:mm:ss"]}];
         [self.tableView reloadData];
+        [[ISProcessViewHelper sharedInstance] hideProcessViewInView:self.view];
     }
 }
 

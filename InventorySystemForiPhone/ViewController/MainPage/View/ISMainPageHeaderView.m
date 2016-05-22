@@ -27,6 +27,10 @@
     self.bgView.layer.borderColor = BorderColor;
     self.bgView.layer.borderWidth = 0.7;
     self.remainTimeBtn.backgroundColor = TheameColor;
+    self.statusLabel.font = LantingheiBoldD(14);
+    self.progressLabel.textColor = TheameColor;
+    self.progressLabel.font = LantingheiBoldD(14);
+    
     self.userNameLabel.text = [ISSettingManager sharedInstance].currentUser[@"userName"];
     self.lastSyncDate.hidden = YES;
     self.deviceId.text = [[ISSettingManager sharedInstance].deviceId uppercaseString];
@@ -52,7 +56,29 @@
     }
     
     if ([keyPath isEqualToString:@"status"]) {
-        self.statusLabel.text = [ISDataSyncModel sharedInstance].statusDescription;
+        [self updateStatusByStatus:[change[@"new"] integerValue]];
+    }
+}
+
+- (void)updateStatusByStatus:(ISDataSyncStatus)status{
+    
+    self.statusLabel.text = [ISDataSyncModel sharedInstance].statusDescription;
+    
+    switch (status) {
+        case ISDataSyncStatusDefault:
+            self.statusLabel.textColor = [UIColor darkGrayColor];
+            break;
+        case ISDataSyncStatusFinished:
+            self.statusLabel.textColor = TheameColor;
+            break;
+        case ISDataSyncStatusSyncing:
+            self.statusLabel.textColor = [UIColor redColor];
+            break;
+        case ISDataSyncStatusError:
+            self.statusLabel.textColor = [UIColor orangeColor];
+            break;
+        default:
+            break;
     }
 }
 

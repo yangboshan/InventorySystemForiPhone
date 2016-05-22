@@ -138,7 +138,7 @@ static NSString* IS_SQL_getPartnerById = @"select * from t_PartnerData where  Pa
         ISOrderDetailModel * detailModel = dataList[i];
         //数量为0
         if ([detailModel.ProQuantity isEqualToString:@"0"]) {
-            [paramList addObject:[NSString stringWithFormat:@"%@,%@,",detailModel.ProId,
+            [paramList addObject:[NSString stringWithFormat:@"%@,%@",detailModel.ProId,
                                   detailModel.ProUnite]];
         //数量不为0
         }else{

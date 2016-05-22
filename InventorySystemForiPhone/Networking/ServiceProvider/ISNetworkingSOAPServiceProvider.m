@@ -17,7 +17,8 @@
             return [ISSettingManager sharedInstance].serviceUrl;
         }
     }
-    return @"http://221.224.95.14:1897/linooninvservicesj/service1.asmx";
+    return @"http://szllrj.vicp.cc:1897/LinoonInvServiceSJ/Service1.asmx";
+//    return @"http://221.224.95.14:1897/linooninvservicesj/service1.asmx";
 }
 
 - (NSString*)onlineServiceVersion{

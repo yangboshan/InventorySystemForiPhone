@@ -182,6 +182,7 @@ static float summaryHeight = 35;
     [self.dataList removeObjectAtIndex:--index];
     [[ISDataBaseHelper sharedInstance] deleteDataBaseByModelList:@[model] block:nil];
     [self.saleOrderTableView reloadData];
+    [self updateBottomBar];
 }
 
 #pragma mark - ISNetworkingAPIHandlerCallBackDelegate

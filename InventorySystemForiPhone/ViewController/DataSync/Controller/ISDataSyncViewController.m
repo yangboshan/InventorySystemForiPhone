@@ -76,15 +76,19 @@
     switch (status) {
         case ISDataSyncStatusDefault:
             self.syncView.syncBtn.enabled = YES;
+            self.syncView.statusLabel.textColor = [UIColor darkGrayColor];
             break;
         case ISDataSyncStatusFinished:
             self.syncView.syncBtn.enabled = YES;
+            self.syncView.statusLabel.textColor = TheameColor;
             break;
         case ISDataSyncStatusSyncing:
             self.syncView.syncBtn.enabled = NO;
+            self.syncView.statusLabel.textColor = [UIColor redColor];
             break;
         case ISDataSyncStatusError:
             self.syncView.syncBtn.enabled = YES;
+            self.syncView.statusLabel.textColor = [UIColor orangeColor];
             break;
         default:
             break;

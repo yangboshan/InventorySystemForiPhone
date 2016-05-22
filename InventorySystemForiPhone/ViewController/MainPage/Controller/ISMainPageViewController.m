@@ -91,7 +91,7 @@ static float timeViewHeight = 104;
     if ([manager isKindOfClass:[ISNetworkingRemainTimeAPIHandler class]]) {
         NSDictionary* data = [self.remainTimeFormatter manager:manager reformData:manager.fetchedRawData];
         self.headerView.remainTimeLabel.text = [NSString stringWithFormat:@"%@天",[data[kISRemainTimeResut] IS_defaultValue:@"0"]];
-        if ([data[kISRemainTimeResut] IS_isEmptyObject]) {
+        if ([data[kISRemainTimeResut] IS_isEmptyObject] || [data[kISRemainTimeResut] integerValue] <= 0) {
             UINavigationController* nav = [self showChargeControllerByFlag:YES];
             [[ISProcessViewHelper sharedInstance] showProcessViewWithText:@"没有使用时间啦，去充值吧" InView:nav.view];
         }

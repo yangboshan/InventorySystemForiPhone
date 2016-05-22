@@ -27,6 +27,9 @@
     self.statusLabel.textColor = TheameColor;
     self.progressLabel.textColor = TheameColor;
     self.progressLabel.text = @"";
+    
+    self.statusLabel.font = LantingheiBoldD(15);
+    self.progressLabel.font = LantingheiBoldD(15);
 }
 
 - (void)setProgress:(float)progress{
