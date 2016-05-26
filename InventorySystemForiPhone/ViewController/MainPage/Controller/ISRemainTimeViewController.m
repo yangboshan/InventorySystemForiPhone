@@ -33,11 +33,8 @@ static NSString* chargeUrl = @"http://www.linoon.com/MPay/PaySelect.aspx?hashID=
 
 - (void)initialSetup{
     
-    if (!self.noTimeLeft) {
-        UIBarButtonItem* leftItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(backMain:)];
-        self.navigationItem.leftBarButtonItem = leftItem;
-    }
     
+    [self showLeftBarItem:self.noTimeLeft];
     [self.view setBackgroundColor:RGB(243, 244, 245)];
     [self.view addSubview:self.tableView];
     [self autolayoutSubView];
@@ -54,6 +51,15 @@ static NSString* chargeUrl = @"http://www.linoon.com/MPay/PaySelect.aspx?hashID=
 }
 
 #pragma mark - events
+
+- (void)showLeftBarItem:(BOOL)noTimeLeft{
+    if (!noTimeLeft) {
+        UIBarButtonItem* leftItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(backMain:)];
+        self.navigationItem.leftBarButtonItem = leftItem;
+    }else{
+        self.navigationItem.leftBarButtonItem = nil;
+    }
+}
 
 - (void)backMain:(id)sender{
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -92,12 +98,19 @@ static NSString* chargeUrl = @"http://www.linoon.com/MPay/PaySelect.aspx?hashID=
     if ([manager isKindOfClass:[ISNetworkingRegisterInfoAPIHandler class]]) {
         NSDictionary* data = [self.remainTimeFormatter manager:manager reformData:manager.fetchedRawData];
         NSDate * date =  [NSDate dateFromString:data[kISRemainTimeLastLoginDate] withFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
-        
         self.dataList = @[@{@"设备编号:":[data[kISRemainTimeDeviceId] uppercaseString]},
                           @{@"使用公司:":data[kISRemainTimeUser]},
                           @{@"过期日期:":[NSString stringWithFormat:@"%@天",data[kISRemainTimeExpirationDay]]},
                           @{@"上次登录:":[date dateStringWithFormat:@"yyyy-MM-dd HH:mm:ss"]}];
         [self.tableView reloadData];
+        
+        if ([data[kISRemainTimeExpirationDay] IS_isEmptyObject] || [data[kISRemainTimeExpirationDay] integerValue] <= 0){
+            [self showLeftBarItem:YES];
+        }else{
+            [self showLeftBarItem:NO];
+
+        }
+        
         [[ISProcessViewHelper sharedInstance] hideProcessViewInView:self.view];
     }
 }

@@ -122,6 +122,7 @@ static float timeViewHeight = 104;
     self.dataList = [self.mainPageViewModel fetchFormatDataSource];
     [self.collectionView reloadData];
     [self.remainTimeAPIHandler loadData];
+    [self.headerView refreshHeader];
     if ([self.mainPageViewModel hasPrivilegeForSyncData]) {
         [[ISDataSyncModel sharedInstance] startSync];
     }

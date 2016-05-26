@@ -30,14 +30,18 @@
     self.statusLabel.font = LantingheiBoldD(14);
     self.progressLabel.textColor = TheameColor;
     self.progressLabel.font = LantingheiBoldD(14);
-    
-    self.userNameLabel.text = [ISSettingManager sharedInstance].currentUser[@"userName"];
     self.lastSyncDate.hidden = YES;
-    self.deviceId.text = [[ISSettingManager sharedInstance].deviceId uppercaseString];
+    
+    [self refreshHeader];
     
     [[ISDataSyncModel sharedInstance] addObserver:self forKeyPath:@"progress" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew context:nil];
     [[ISDataSyncModel sharedInstance] addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew context:nil];
     [[ISSettingManager sharedInstance] addObserver:self forKeyPath:@"lastSyncDate" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew context:nil];
+}
+
+- (void)refreshHeader{
+    self.userNameLabel.text = [ISSettingManager sharedInstance].currentUser[@"userName"];
+    self.deviceId.text = [[ISSettingManager sharedInstance].deviceId uppercaseString];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
