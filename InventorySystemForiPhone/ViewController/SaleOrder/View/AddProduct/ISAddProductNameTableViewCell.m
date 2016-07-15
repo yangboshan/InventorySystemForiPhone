@@ -87,12 +87,12 @@
     if ([self.field isEqualToString:@"ProQuantity"]) {
         self.valueTextField.placeholder = @"数量";
         self.valueTextField.enabled = YES;
-        self.valueTextField.keyboardType = UIKeyboardTypeNumberPad;
+        self.valueTextField.keyboardType = UIKeyboardTypeDecimalPad;
     }
     if ([self.field isEqualToString:@"Amt"]) {
         self.valueTextField.placeholder = @"单价";
         self.valueTextField.enabled = self.mainModel.hasPrivilegeForModifyPrice ? YES : NO;
-        self.valueTextField.keyboardType = UIKeyboardTypeNumberPad;
+        self.valueTextField.keyboardType = UIKeyboardTypeDecimalPad;
     }
     if ([self.field isEqualToString:@"N_JinE"]) {
         self.valueTextField.placeholder = @"金额";
@@ -127,7 +127,7 @@
     if ([self.field isEqualToString:@"LargessQty"]) {
         self.valueTextField.placeholder = @"赠送数量";
         self.valueTextField.enabled = YES;
-        self.valueTextField.keyboardType = UIKeyboardTypeNumberPad;
+        self.valueTextField.keyboardType = UIKeyboardTypeDecimalPad;
     }
     if ([self.field isEqualToString:@"LargessUnite"]) {
         self.valueTextField.placeholder = @"赠送单位";
